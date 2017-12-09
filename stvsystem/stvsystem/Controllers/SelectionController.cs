@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace stvsystem.Controllers
 {
-    public class MonitoringController : Controller
+    public class SelectionController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Complete()
+        public IActionResult CandidateSelection()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult ConfirmComplete()
+        public IActionResult SelectionConfirmation()
         {
             return View();
         }

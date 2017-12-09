@@ -6,20 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace stvsystem.Controllers
 {
-    public class MonitoringController : Controller
+    public class ManagementController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Complete()
+        public IActionResult Template()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult ConfirmComplete()
+        public IActionResult Save()
+        {
+            return View();
+        }
+
+        public IActionResult DeleteConfirmation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Delete()
         {
             return View();
         }
