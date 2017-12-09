@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stvsystem.UnitTests", "stvs
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "stvsystem.Database", "stvsystem.Database\stvsystem.Database.sqlproj", "{5705AE9C-2E0B-428B-83F2-B31C1E111ED2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stvsystem.Data", "stvsystem.Data\stvsystem.Data.csproj", "{ACEA3C18-DCAB-403E-B222-EE85D33595CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{5705AE9C-2E0B-428B-83F2-B31C1E111ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5705AE9C-2E0B-428B-83F2-B31C1E111ED2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5705AE9C-2E0B-428B-83F2-B31C1E111ED2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{ACEA3C18-DCAB-403E-B222-EE85D33595CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACEA3C18-DCAB-403E-B222-EE85D33595CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACEA3C18-DCAB-403E-B222-EE85D33595CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACEA3C18-DCAB-403E-B222-EE85D33595CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
