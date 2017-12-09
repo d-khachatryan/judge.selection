@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <h1>
-                    @Html.ActionLink("Your .NET Core application", "Index", "Home")
+                    @Html.ActionLink("stv", "Index", "Home")
                 </h1>
             </div>
         </div>
@@ -43,15 +43,26 @@
                     .Items(items =>
                     {
                         items.Add()
-                            .Text("Home")
-                            .Action("Index", "Home");
+                            .Text("Կարգավորումներ")
+                            .Action("Index", "Setting");
                         items.Add()
-                            .Text("About")
-                            .Action("About", "Home");
+                            .Text("Թեկնածուներ")
+                            .Action("Index", "Candidate");
                         items.Add()
-                            .Text("Contact")
-                            .Action("Contact", "Home");
-                        items.Add().Text("Disabled item").Enabled(false);
+                            .Text("Դատական խորհուրդ")
+                            .Action("Index", "Judge");
+                        items.Add()
+                            .Text("Ծածկագրեր")
+                            .Action("Index", "Credential");
+                        items.Add()
+                            .Text("Մոնիտորինգ")
+                            .Action("Index", "Monitoring");
+                        items.Add()
+                            .Text("Տվյալների ամփոփում")
+                            .Action("Index", "Summary");
+                        items.Add()
+                            .Text("Կառավարում")
+                            .Action("Index", "Management");
                     })
                 )
             </div>
@@ -60,8 +71,8 @@
     <div class="container body-content">
         @RenderBody()
         <footer class="footer">
-            <span class="text-muted">Copyright © 2002-2017 Telerik.</span>
-            <span class="text-muted">All rights reserved.</span>
+            @*<span class="text-muted">Copyright © 2002-2017 Telerik.</span>
+            <span class="text-muted">All rights reserved.</span>*@
         </footer>
     </div>
 

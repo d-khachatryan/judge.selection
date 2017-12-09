@@ -12,5 +12,27 @@ namespace stvsystem.Controllers
         {
             return View();
         }
+
+        public IActionResult Template()
+        {
+            return View();
+        }
+
+        public IActionResult Initialize()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Save()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmInitialization()
+        {
+            return View();
+        }
     }
 }
