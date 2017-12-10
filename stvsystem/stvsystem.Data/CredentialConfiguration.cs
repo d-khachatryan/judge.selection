@@ -10,7 +10,7 @@ namespace stvsystem.Data
             builder.ToTable("Credential", schema: "dbo");
             builder.HasKey(p => p.CredentialID);
             builder.Property(p => p.CredentialID).ValueGeneratedOnAdd();
-            builder.Property(p => p.Password).HasMaxLength(50);
+            builder.Property(p => p.Password).HasMaxLength(6);
         }
     }
 }
