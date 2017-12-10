@@ -19,7 +19,7 @@ namespace stvsystem.UnitTests
                 FinishTime = TimeSpan.Parse("07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
-                SelectionStatus = 6
+                SelectionStatus = SelectionStatusType.InPreparation
             };
 
             item = this.InsertSetting(item);
@@ -40,7 +40,7 @@ namespace stvsystem.UnitTests
                 FinishTime = TimeSpan.Parse("07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
-                SelectionStatus = 6
+                SelectionStatus = SelectionStatusType.InPreparation
             };
 
             this.InsertSetting(item);
@@ -59,7 +59,7 @@ namespace stvsystem.UnitTests
                 FinishTime = TimeSpan.Parse("07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
-                SelectionStatus = 6
+                SelectionStatus = SelectionStatusType.InPreparation
             };
 
             item = this.InsertSetting(item);
@@ -83,7 +83,7 @@ namespace stvsystem.UnitTests
                 FinishTime = TimeSpan.Parse("07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
-                SelectionStatus = 6
+                SelectionStatus = SelectionStatusType.InPreparation
             };
 
             item = this.InsertSetting(item);
