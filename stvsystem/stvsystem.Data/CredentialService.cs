@@ -55,7 +55,7 @@ namespace stvsystem.Data
         }
         protected async Task<int> Count()
         {
-            var count = await db.Settings.CountAsync();
+            var count = await db.Credentials.CountAsync();
             return count;
         }
     }

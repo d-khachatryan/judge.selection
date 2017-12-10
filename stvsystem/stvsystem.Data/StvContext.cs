@@ -16,7 +16,7 @@ namespace stvsystem.Data
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new CandidateConfiguration());
             builder.ApplyConfiguration(new SettingConfiguration());
-            builder.ApplyConfiguration(new SettingConfiguration());
+            builder.ApplyConfiguration(new CredentialConfiguration());
         }
     }
 }

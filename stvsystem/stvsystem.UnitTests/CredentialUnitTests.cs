@@ -13,7 +13,7 @@ namespace stvsystem.UnitTests
         {
             CredentialItem item = new CredentialItem
             {
-                Password = "Password",
+                Password = "123456",
                 SettingID = 1,
                 CredentialStatus = 1,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
@@ -31,7 +31,7 @@ namespace stvsystem.UnitTests
         {
             CredentialItem item = new CredentialItem
             {
-                Password = "Password",
+                Password = "123456",
                 SettingID = 1,
                 CredentialStatus = 1,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
@@ -47,7 +47,7 @@ namespace stvsystem.UnitTests
         {
             CredentialItem item = new CredentialItem
             {
-                Password = "Password",
+                Password = "123456",
                 SettingID = 1,
                 CredentialStatus = 1,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
@@ -55,11 +55,11 @@ namespace stvsystem.UnitTests
 
             item = this.InsertCredential(item);
 
-            item.Password = "ChangedPassword";
+            item.Password = "456789";
 
             CredentialItem updatedItem = this.UpdateCredential(item);
 
-            Assert.AreEqual(updatedItem.Password, "ChangedPassword");
+            Assert.AreEqual(updatedItem.Password, "456789");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace stvsystem.UnitTests
 
             CredentialItem item = new CredentialItem
             {
-                Password = "Password",
+                Password = "123456",
                 SettingID = 1,
                 CredentialStatus = 1,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
