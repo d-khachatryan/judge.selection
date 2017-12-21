@@ -18,14 +18,6 @@ namespace stvsystem.Controllers
 
         public IActionResult Index()
         {
-            CandidateService service = new CandidateService(_context);
-            Candidate mock = new Candidate
-            {
-                FirstName = "FirstName",
-                LastName = "LastName",
-                MiddleName = "MiddleName"
-            };
-            service.InsertCandidate(mock);
             return View();
         }
 
