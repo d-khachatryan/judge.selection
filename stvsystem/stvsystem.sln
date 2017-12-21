@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stvsystem", "stvsystem\stvsystem.csproj", "{65629116-B7ED-410A-BC66-260F135A3EE1}"
 EndProject
@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stvsystem.UnitTests", "stvs
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "stvsystem.Database", "stvsystem.Database\stvsystem.Database.sqlproj", "{5705AE9C-2E0B-428B-83F2-B31C1E111ED2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stvsystem.Data", "stvsystem.Data\stvsystem.Data.csproj", "{ACEA3C18-DCAB-403E-B222-EE85D33595CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stvsystem.Data", "stvsystem.Data\stvsystem.Data.csproj", "{ACEA3C18-DCAB-403E-B222-EE85D33595CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

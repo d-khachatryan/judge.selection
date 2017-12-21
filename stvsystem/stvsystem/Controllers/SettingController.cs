@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using stvsystem.Data;
 
 namespace stvsystem.Controllers
 {
@@ -18,19 +19,30 @@ namespace stvsystem.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult SaveSetting()
+        {
+            return View();
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSetting()
+        {
+            return View();
+        }
+
         public IActionResult Initialize()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Save()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult ConfirmInitialization()
+        public IActionResult StartSelection()
         {
             return View();
         }

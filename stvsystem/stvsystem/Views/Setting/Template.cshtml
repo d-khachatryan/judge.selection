@@ -1,7 +1,38 @@
-﻿
-@{
-    ViewData["Title"] = "Template";
+﻿@using  stvsystem.Data
+@model SettingItem
+
+@Html.HiddenFor(model => model.SettingID)
+@Html.HiddenFor(model => model.SelectionStatus)
+
+@using (Html.BeginForm("SaveSetting", "Setting", FormMethod.Post, new { id = "frmTemplate" }))
+{
+    <div>
+        @Html.LabelFor(model => model.SelectionName)
+        @Html.Kendo().TextBoxFor(model => model.SelectionName)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.SelectionDate)
+        @Html.Kendo().DatePickerFor(model => model.SelectionDate)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.StartTime)
+        @Html.Kendo().TimePickerFor(model => model.StartTime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.FinishTime)
+        @Html.Kendo().TimePickerFor(model => model.FinishTime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.SelectionCount)
+        @Html.Kendo().NumericTextBoxFor(model => model.SelectionCount)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ParticipantCount)
+        @Html.Kendo().NumericTextBoxFor(model => model.ParticipantCount)
+    </div>
+
+    <div>
+        <button type="submit" id="SubmitButton"><i></i>&nbsp;Հիշել</button>
+        <button type="button" onclick="location.href='@Url.Action("Index", "Setting")'"><i></i>&nbsp;Չեղարկել</button>
+    </div>
 }
-
-<h2>Template</h2>
-
