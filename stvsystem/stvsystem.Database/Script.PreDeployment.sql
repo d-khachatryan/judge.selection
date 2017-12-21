@@ -19,5 +19,17 @@ DELETE FROM dbo.Credential
 IF EXISTS (SELECT * FROM sys.tables where name = 'Judge')
 DELETE FROM dbo.Judge 
 
+IF EXISTS (SELECT * FROM sys.tables where name = 'Court')
+DELETE FROM dbo.Court 
+
+IF EXISTS (SELECT * FROM sys.tables where name = 'CourtType')
+DELETE FROM dbo.CourtType 
+
+IF EXISTS (SELECT * FROM sys.tables where name = 'Specialization')
+DELETE FROM dbo.Specialization 
+
 IF EXISTS (SELECT * FROM sys.tables where name = 'Setting')
 DELETE FROM dbo.Setting 
+
+IF EXISTS (SELECT * FROM sys.tables where name = 'Gender')
+DELETE FROM dbo.Gender 
