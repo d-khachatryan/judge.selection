@@ -10,6 +10,7 @@ namespace stvsystem.Data
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Credential> Credentials { get; set; }
+        public DbSet<Judge> Judges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -17,6 +18,7 @@ namespace stvsystem.Data
             builder.ApplyConfiguration(new CandidateConfiguration());
             builder.ApplyConfiguration(new SettingConfiguration());
             builder.ApplyConfiguration(new CredentialConfiguration());
+            builder.ApplyConfiguration(new JudgeConfiguration());
         }
     }
 }
