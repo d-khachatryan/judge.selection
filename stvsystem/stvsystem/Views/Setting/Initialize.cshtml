@@ -1,7 +1,20 @@
-﻿
-@{
-    ViewData["Title"] = "Initialize";
-}
+﻿@using  stvsystem.Data
+@model SettingItem
 
-<h2>Initialize</h2>
+@Html.HiddenFor(model => model.SettingID)
+@Html.HiddenFor(model => model.SelectionStatus)
+
+@using (Html.BeginForm("StartSelection", "Setting", FormMethod.Post, new { id = "frmInitialize" }))
+{
+    <div>
+        <p>
+            Ցանկանում էք սկսել քվեարկությունը՞
+        </p>
+    </div>
+
+    <div>
+        <button type="submit" id="SubmitButton"><i></i>&nbsp;Սկսել</button>
+        <button type="button" onclick="location.href='@Url.Action("Index", "Setting")'"><i></i>&nbsp;Չեղարկել</button>
+    </div>
+}
 

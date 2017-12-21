@@ -1,7 +1,66 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@using  stvsystem.Data
+@model SettingItem
+
+<div><p>Ընտրության մանրամասներ</p></div>
+
+<div></div>
+
+@Html.HiddenFor(model => model.SettingID)
+@Html.HiddenFor(model => model.SelectionStatus)
+
+@if (Model.SettingID != -1)
+{
+    <div>
+        @Html.LabelFor(model => model.SelectionName)
+        @Html.Kendo().TextBoxFor(model => model.SelectionName)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.SelectionDate)
+        @Html.Kendo().DatePickerFor(model => model.SelectionDate)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.StartTime)
+        @Html.Kendo().TimePickerFor(model => model.StartTime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.FinishTime)
+        @Html.Kendo().TimePickerFor(model => model.FinishTime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.SelectionCount)
+        @Html.Kendo().NumericTextBoxFor(model => model.SelectionCount)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ParticipantCount)
+        @Html.Kendo().NumericTextBoxFor(model => model.ParticipantCount)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.SelectionStatus)
+        @Html.Kendo().TextBoxFor(model => model.SelectionStatus)
+    </div>
+
+    @if (Model.SelectionStatus == SelectionStatusType.InPreparation)
+    {
+    <div>
+        <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i>&nbsp;Խմբագրել</button>
+        <button type="button" onclick="location.href='@Url.Action("StartSelection", "Setting")'"><i></i>&nbsp;Սկսել քվեարկությունը</button>
+        <button type="button" onclick="location.href='@Url.Action("DeleteSetting", "Setting")'"><i></i>&nbsp;Հեռացնել</button>
+    </div>
+    }
+    else
+    {
+        <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
+    }
+}
+else
+{
+    <div>
+        <p>
+            Ներկայումս համակարգում չկան ակտիվ գրառումներ ընտրության վերաբերյալ
+        </p>
+    </div>
+    <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
 }
 
-<h2>Index</h2>
+
 
