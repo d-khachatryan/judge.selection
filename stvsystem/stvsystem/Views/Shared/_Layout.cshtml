@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - stvsystem</title>
     <environment include="Development">
-        @*Bootstrap 3.3.7*@
+        @*Bootstrap 4․0․0*@
         <link rel="stylesheet" href="~/css/Bootstrap/bootstrap-reboot.css" />
         <link rel="stylesheet" href="~/css/Bootstrap/bootstrap-grid.css" />
         <link rel="stylesheet" href="~/css/Bootstrap/bootstrap.css" />
@@ -16,9 +16,8 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
     </environment>
     <environment include="Staging,Production">
-        <link rel="stylesheet" href="~/css/bootstrap-ex.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-href="~/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous" asp-fallback-src="~/lib/jquery/dist/jquery.min.js"></script>
