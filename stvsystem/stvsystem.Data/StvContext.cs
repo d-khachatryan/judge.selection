@@ -12,6 +12,12 @@ namespace stvsystem.Data
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Judge> Judges { get; set; }
 
+
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<Court> Courts { get; set; }
+        public DbSet<CourtType> CourtTypes { get; set; }
+        public DbSet<Specialization> Specializations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -19,6 +25,10 @@ namespace stvsystem.Data
             builder.ApplyConfiguration(new SettingConfiguration());
             builder.ApplyConfiguration(new CredentialConfiguration());
             builder.ApplyConfiguration(new JudgeConfiguration());
+            builder.ApplyConfiguration(new GenderConfiguration());
+            builder.ApplyConfiguration(new CourtConfiguration());
+            builder.ApplyConfiguration(new CourtTypeConfiguration());
+            builder.ApplyConfiguration(new SpecializationConfiguration());
         }
     }
 }
