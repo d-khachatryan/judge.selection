@@ -30,6 +30,14 @@ namespace stvsystem.Data
         public string CourtName { get; set; }
         public string SpecializationName { get; set; }
         public string GenderName { get; set; }
+
+        public string CandidateName
+        {
+            get
+            {
+                return FirstName + " " + MiddleName + " " + LastName;
+            }
+        }
     }
 
     

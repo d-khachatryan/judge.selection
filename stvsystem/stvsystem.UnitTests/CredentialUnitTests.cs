@@ -15,7 +15,7 @@ namespace stvsystem.UnitTests
             {
                 Password = "123456",
                 SettingID = 1,
-                CredentialStatus = 1,
+                CredentialStatus = SelectionStatus.NoSelection,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
             };
 
@@ -33,7 +33,7 @@ namespace stvsystem.UnitTests
             {
                 Password = "123456",
                 SettingID = 1,
-                CredentialStatus = 1,
+                CredentialStatus = SelectionStatus.NoSelection,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
             };
 
@@ -49,7 +49,7 @@ namespace stvsystem.UnitTests
             {
                 Password = "123456",
                 SettingID = 1,
-                CredentialStatus = 1,
+                CredentialStatus = SelectionStatus.NoSelection,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
             };
 
@@ -70,7 +70,7 @@ namespace stvsystem.UnitTests
             {
                 Password = "123456",
                 SettingID = 1,
-                CredentialStatus = 1,
+                CredentialStatus = SelectionStatus.NoSelection,
                 UsageDateTime = Convert.ToDateTime("01/01/2018")
             };
 

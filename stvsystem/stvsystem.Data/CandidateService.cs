@@ -1,10 +1,37 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace stvsystem.Data
 {
     public class CandidateService : ServiceBase
     {
+        public List<SelectListItem> GetCandidateDropDownItems()
+        {
+            var candidateList = new List<CandidateItem>();
+            var dropDownList = new List<SelectListItem>();
+
+            foreach (var dbItem in db.Candidates)
+            {
+                CandidateItem item = new CandidateItem
+                {
+                    CandidateID = dbItem.CandidateID,
+                    CourtID = dbItem.CourtID,
+                    SpecializationID = dbItem.SpecializationID,
+                    FirstName = dbItem.FirstName,
+                    LastName = dbItem.LastName,
+                    MiddleName = dbItem.MiddleName,
+                    GenderID = dbItem.GenderID,
+                    BirthDate = dbItem.BirthDate
+                };
+                candidateList.Add(item);
+            }
+
+            dropDownList = candidateList.Select(x => new SelectListItem { Text = x.CandidateName, Value = x.CandidateID.ToString() }).ToList();
+            return dropDownList;
+        }
         public CandidateItem GetCandidate(int CandidateID)
         {
             Candidate dbItem = db.Candidates.Find(CandidateID);
@@ -62,7 +89,7 @@ namespace stvsystem.Data
             db.SaveChanges();
             return item;
         }
-        protected async Task<int> Count()
+        public async Task<int> Count()
         {
             var count = await db.Candidates.CountAsync();
             return count;
