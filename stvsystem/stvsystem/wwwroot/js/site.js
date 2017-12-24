@@ -2,8 +2,17 @@
 var winHeight = $(window).height();
 var headerHeight = $("header.navbar").height();
 var footerHeight = $("footer.app-footer").height();
+var containerFluid = $(".container-fluid");
 $(".container-fluid").height(winHeight - headerHeight - footerHeight - 23);
-$(".k-grid:not(.card-body .k-grid)").height($(".container-fluid").height() - 45);
+
+$(".k-grid:not(.card-body .k-grid)").height(containerFluid.height() - 45);
+//var gridHeight = containerFluid.height() - 45;
+//$("#grJudge").height(containerFluid.height() - 45);
+
+//$("#grJudge").kendoGrid({
+//    height: gridHeight
+//});
+
 $("#catalog .k-grid").height($(".container-fluid").height());
 
 
@@ -48,7 +57,7 @@ $(".right-slidePanel .slidePanel-btn, .right-slidePanel #btnSearch")
     .click(function () {
         console.log(next_move);
         var css = {};
-        if (next_move == "closed") {
+        if (next_move === "closed") {
             css = {
                 right: '0'
             };
@@ -64,3 +73,5 @@ $(".right-slidePanel .slidePanel-btn, .right-slidePanel #btnSearch")
         }
         $(this).closest(".right-slidePanel").animate(css, 200);
     });
+
+

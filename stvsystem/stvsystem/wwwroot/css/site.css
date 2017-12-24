@@ -101,8 +101,11 @@ div.k-loading-mask {
             color: #fff;
         }
 
+/* Delete Form */
+.delete-label {
+    color: #3c8dbc;
+}
 /*Login Form*/
-
 .loginForm a:hover {
     color: #3c8dbc;
     text-decoration: underline;
@@ -115,9 +118,15 @@ div.k-loading-mask {
 }
 
 /*Grid button*/
-.k-grid tbody .k-button {
+/*.k-grid tbody .k-button {
     min-width: 45px !important;
-}
+}*/
+
+    .k-grid tbody .k-button:not(.k-grid-excel) {
+        min-width: 45px !important;
+        width: 45px;
+        height: 30px;
+    }
 
 a.k-button:hover, a.k-button:focus {
     border-color: #dbdbdb;
