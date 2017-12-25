@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using stvsystem.Data;
+using System;
 using System.Threading.Tasks;
 
 namespace stvsystem.UnitTests
@@ -35,11 +36,11 @@ namespace stvsystem.UnitTests
             {
                 JudgeID = 0,
                 CourtID = 1,
-                SpecializationID=1,
+                SpecializationID = 1,
                 FirstName = "FirstName",
                 LastName = "LastName",
                 MiddleName = "MiddleName",
-                GenderID=1
+                GenderID = 1
 
             };
             JudgeService serviceMock = new JudgeService();
@@ -89,7 +90,8 @@ namespace stvsystem.UnitTests
 
             int count1 = await this.Count();
 
-            JudgeItem updatedItem = this.DeleteJudge(item);
+            int judgeID = Convert.ToInt32(item.JudgeID);
+            this.DeleteJudge(judgeID);
 
             int count2 = await this.Count();
 
