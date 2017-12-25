@@ -4,19 +4,11 @@ var headerHeight = $("header.navbar").height();
 var footerHeight = $("footer.app-footer").height();
 var containerFluid = $(".container-fluid");
 $(".container-fluid").height(winHeight - headerHeight - footerHeight - 23);
-
-$(".k-grid:not(.card-body .k-grid)").height(containerFluid.height() - 45);
-//var gridHeight = containerFluid.height() - 45;
-//$("#grJudge").height(containerFluid.height() - 45);
-
-//$("#grJudge").kendoGrid({
-//    height: gridHeight
-//});
-
-$("#catalog .k-grid").height($(".container-fluid").height());
-
-
-
+var containerFluidHeight = containerFluid.height();
+var gridHeight = containerFluidHeight - 45;
+$(document).ready(function () {
+    $(".k-grid:not(.card-body .k-grid)").height(gridHeight);
+})
 
 //For Grid Commands Icons
 function showCommandIcons() {
@@ -27,7 +19,6 @@ function showCommandIcons() {
     $(".Remove_Icon").append("<span class=\"icons icon-close\"></span>");
 }
 
-
 function dispatcherExtraStylingToGrid() {
     $(".k-grid > div.k-grid-content > table > tbody > tr.k-master-row").hover(function () {
         $(this).addClass('trHover');
@@ -35,7 +26,6 @@ function dispatcherExtraStylingToGrid() {
         $(this).removeClass('trHover');
     });
 }
-
 
 //For PopUp Grid Commands Icons
 function correctPopUpGrid(e) {

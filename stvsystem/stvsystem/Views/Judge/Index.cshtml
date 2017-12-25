@@ -117,9 +117,9 @@
               columns.Bound(c => c.FirstName).Width(120);
               columns.Bound(c => c.LastName);
               //columns.Bound(c => c.GenderName).MinScreenWidth(768).HtmlAttributes(new { style = "text-align:center" });
-              columns.Bound(c => c.GenderID);
-              columns.Bound(c => c.CourtID);
-              columns.Bound(c => c.SpecializationID);
+              columns.Bound(c => c.GenderName);
+              columns.Bound(c => c.CourtName);
+              columns.Bound(c => c.SpecializationName);
               columns.Command(commands =>
               {
                   commands.Custom("cmdUpdateJudge").Text(" ").Click("UpdateJudge").HtmlAttributes(new { @class = "Update_Icon" });
