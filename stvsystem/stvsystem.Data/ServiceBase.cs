@@ -8,6 +8,15 @@ namespace stvsystem.Data
     public class ServiceBase
     {
         protected StvContext db;
+        protected Exception exception;
+        public Exception ServiceException
+        {
+            get
+            {
+                return exception;
+            }
+
+        }
         public ServiceBase()
         {
             //Testing
