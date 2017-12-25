@@ -10,10 +10,12 @@ namespace stvsystem.Controllers
     public class SelectionController : Controller
     {
         CandidateService candidateService;
+        CredentialService credentialService;
         SelectionService selectionService;
         public SelectionController()
         {
             candidateService = new CandidateService();
+            credentialService = new CredentialService();
             selectionService = new SelectionService();
         }
 
@@ -29,15 +31,21 @@ namespace stvsystem.Controllers
 
         // this action runs in the Index page as a POST action
         [HttpPost]
-        public async Task<IActionResult> CandidateSelection(PasswordItem item)
+        public async Task<IActionResult> SelectCandidates(PasswordItem item)
         {
             SelectionService service = new SelectionService();
-
-            if (service.ValidatePassword(item) == PasswordStatus.Success)
+            var passwordStatus = service.ValidatePassword(item);
+            if (passwordStatus == PasswordStatus.Success)
             {
                 InitializeViewBugs();
                 SelectionItem selectionItem = new SelectionItem { Password = item.Password, CandidateCount = await candidateService.Count() };
-                return View("CandidateSelection", selectionItem);
+                return View("SelectCandidates", selectionItem);
+            }
+            else if (passwordStatus == PasswordStatus.DoubleLogin )
+            {
+                ModelState.AddModelError("doublepassword", "You can not use this password again");
+                item.Password = String.Empty;
+                return View("Index", item);
             }
             else
             {
@@ -48,24 +56,23 @@ namespace stvsystem.Controllers
 
         }
 
-        // this action runs in the CandidateSelection page as a POST action
+        // this action runs in the SelectCandidates page as a POST action
         [HttpPost]
-        public IActionResult SelectionConfirmation(SelectionItem selectionItem)
+        public IActionResult ConfirmSelection(SelectionItem selectionItem)
         {
-            selectionService.SaveSelection(selectionItem);
-            if (selectionItem != null)
+            return View("ConfirmSelection", selectionItem);
+        }
+
+        // this action runs in the ConfirmSeletion page as a POST action
+        [HttpPost]
+        public IActionResult SaveSelection(SelectionItem selectionItem)
+        {
+            var operationResult = selectionService.SaveSelection(selectionItem, credentialService);
+            PasswordItem passwordItem = new PasswordItem
             {
-                PasswordItem passwordItem = new PasswordItem
-                {
-                    Status = PasswordStatus.Initialization
-                };
-                return View("Index", passwordItem);
-            }
-            else
-            {
-                InitializeViewBugs();
-                return View("CandidateSelection", selectionItem);
-            }
+                Status = PasswordStatus.Initialization
+            };
+            return RedirectToAction("Index", "Selection");
         }
 
         private void InitializeViewBugs()

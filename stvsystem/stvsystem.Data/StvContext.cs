@@ -11,6 +11,7 @@ namespace stvsystem.Data
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Judge> Judges { get; set; }
+        public DbSet<Result> Results { get; set; }
 
 
         public DbSet<Gender> Genders { get; set; }
@@ -25,6 +26,7 @@ namespace stvsystem.Data
             builder.ApplyConfiguration(new SettingConfiguration());
             builder.ApplyConfiguration(new CredentialConfiguration());
             builder.ApplyConfiguration(new JudgeConfiguration());
+            builder.ApplyConfiguration(new ResultConfiguration());
             builder.ApplyConfiguration(new GenderConfiguration());
             builder.ApplyConfiguration(new CourtConfiguration());
             builder.ApplyConfiguration(new CourtTypeConfiguration());

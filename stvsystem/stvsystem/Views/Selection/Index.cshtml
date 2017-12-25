@@ -3,7 +3,7 @@
 
 @Html.HiddenFor(model => model.Status)
 
-@using (Html.BeginForm("CandidateSelection", "Selection", FormMethod.Post, new { id = "frmIndex" }))
+@using (Html.BeginForm("SelectCandidates", "Selection", FormMethod.Post, new { id = "frmIndex" }))
 {
     <div>
         @Html.LabelFor(model => model.Password)

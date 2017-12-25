@@ -1,0 +1,97 @@
+﻿@using  stvsystem.Data
+@model SelectionItem
+
+
+
+@using (Html.BeginForm("SaveSelection", "Selection", FormMethod.Post, new { id = "frmCandidateSelection" }))
+{
+    @Html.HiddenFor(model => model.Password)
+    @Html.HiddenFor(model => model.CandidateCount)
+    @Html.HiddenFor(model => model.Candidate1ID)
+    @Html.HiddenFor(model => model.Candidate2ID)
+    @Html.HiddenFor(model => model.Candidate3ID)
+    @Html.HiddenFor(model => model.Candidate4ID)
+    @Html.HiddenFor(model => model.Candidate5ID)
+    @Html.HiddenFor(model => model.Candidate6ID)
+    @Html.HiddenFor(model => model.Candidate7ID)
+    @Html.HiddenFor(model => model.Candidate8ID)
+    @Html.HiddenFor(model => model.Candidate9ID)
+    @Html.HiddenFor(model => model.Candidate10ID)
+
+    if (Model.CandidateCount > 0)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate1ID)
+            @Html.DisplayFor(model => model.Candidate1ID)
+        </div>
+    }
+    if (Model.CandidateCount > 1)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate2ID)
+            @Html.DisplayFor(model => model.Candidate2ID)
+        </div>
+    }
+    if (Model.CandidateCount > 2)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate3ID)
+            @Html.DisplayFor(model => model.Candidate3ID)
+        </div>
+    }
+    if (Model.CandidateCount > 3)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate4ID)
+            @Html.DisplayFor(model => model.Candidate4ID)
+        </div>
+    }
+    if (Model.CandidateCount > 4)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate5ID)
+            @Html.DisplayFor(model => model.Candidate5ID)
+        </div>
+    }
+    if (Model.CandidateCount > 5)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate6ID)
+            @Html.DisplayFor(model => model.Candidate6ID)
+        </div>
+    }
+    if (Model.CandidateCount > 6)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate7ID)
+            @Html.DisplayFor(model => model.Candidate7ID)
+        </div>
+    }
+    if (Model.CandidateCount > 7)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate8ID)
+            @Html.DisplayFor(model => model.Candidate8ID)
+        </div>
+    }
+    if (Model.CandidateCount > 8)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate9ID)
+            @Html.DisplayFor(model => model.Candidate9ID)
+        </div>
+    }
+    if (Model.CandidateCount > 9)
+    {
+        <div>
+            @Html.LabelFor(model => model.Candidate10ID)
+            @Html.DisplayFor(model => model.Candidate10ID)
+        </div>
+    }
+
+    <div>
+        <button type="submit" id="SubmitButton"><i></i>&nbsp;Ավարտել</button>
+        <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'"><i></i>&nbsp;Չեղարկել</button>
+    </div>
+
+}
