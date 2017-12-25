@@ -1,7 +1,17 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@using  stvsystem.Data
+@model PasswordItem
+
+@Html.HiddenFor(model => model.Status)
+
+@using (Html.BeginForm("SelectCandidates", "Selection", FormMethod.Post, new { id = "frmIndex" }))
+{
+    <div>
+        @Html.LabelFor(model => model.Password)
+        @Html.Kendo().TextBoxFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div>
+        <button type="submit" id="SubmitButton"><i></i>&nbsp;Մուտք</button>
+    </div>
 }
-
-<h2>Index</h2>
-

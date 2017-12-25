@@ -20,7 +20,7 @@ namespace stvsystem.Data
 
         public int? ParticipantCount { get; set; }
 
-        public SelectionStatusType SelectionStatus { get; set; }
+        public SettingStatus SelectionStatus { get; set; }
     }
 
     public class SettingItem
@@ -39,6 +39,6 @@ namespace stvsystem.Data
 
         public int? ParticipantCount { get; set; }
 
-        public SelectionStatusType SelectionStatus { get; set; }
+        public SettingStatus SelectionStatus { get; set; }
     }
 }

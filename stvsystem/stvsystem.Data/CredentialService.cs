@@ -1,10 +1,37 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace stvsystem.Data
 {
     public class CredentialService : ServiceBase
     {
+        public int? GetSettingIDByPassword(string password)
+        {
+            var result = db.Credentials.Where(p => p.Password == password);
+            if (result.Count() == 1)
+            {
+                return result.First().SettingID;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public int? GetCredentialIDByPassword(string password)
+        {
+            var result = db.Credentials.Where(p => p.Password == password);
+            if (result.Count() == 1)
+            {
+                return result.First().CredentialID;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public CredentialItem GetCredential(int credentialID)
         {
             Credential dbItem = db.Credentials.Find(credentialID);
@@ -13,19 +40,20 @@ namespace stvsystem.Data
                 CredentialID = dbItem.CredentialID,
                 Password = dbItem.Password,
                 SettingID = dbItem.SettingID,
-                CredentialStatus = dbItem.CredentialStatus,
+                CredentialStatus = dbItem.Status,
                 UsageDateTime = dbItem.UsageDateTime
 
             };
             return item;
         }
+
         public CredentialItem InsertCredential(CredentialItem item)
         {
             Credential dbItem = new Credential
             {
                 Password = item.Password,
                 SettingID = item.SettingID,
-                CredentialStatus = item.CredentialStatus,
+                Status = item.CredentialStatus,
                 UsageDateTime = item.UsageDateTime
             };
             db.Credentials.Add(dbItem);
@@ -33,13 +61,14 @@ namespace stvsystem.Data
             item.CredentialID = dbItem.CredentialID;
             return item;
         }
+
         public CredentialItem UpdateCredential(CredentialItem item)
         {
             Credential dbItem = db.Credentials.Find(item.CredentialID);
             dbItem.CredentialID = item.CredentialID;
             dbItem.Password = item.Password;
             dbItem.SettingID = item.SettingID;
-            dbItem.CredentialStatus = item.CredentialStatus;
+            dbItem.Status = item.CredentialStatus;
             dbItem.UsageDateTime = item.UsageDateTime;
             db.Credentials.Attach(dbItem);
             db.Entry(dbItem).State = EntityState.Modified;

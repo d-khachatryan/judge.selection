@@ -6,15 +6,15 @@
 
 @using (Html.BeginForm("DeleteSetting", "Setting", FormMethod.Post, new { id = "frmDelete" }))
 {
-<div>
-    <p>
-        Ցանկանում էք ջնջել կարգավորումները՞
-    </p>
-</div>
+    <div>
+        <p>
+            Ցանկանում էք ջնջել կարգավորումները՞
+        </p>
+    </div>
 
-<div>
-    <button type="submit" id="SubmitButton"><i></i>&nbsp;Ջնջել</button>
-    <button type="button" onclick="location.href='@Url.Action("Index", "Setting")'"><i></i>&nbsp;Չեղարկել</button>
-</div>
+    <div>
+        <button type="submit" id="SubmitButton"><i></i>&nbsp;Ջնջել</button>
+        <button type="button" onclick="location.href='@Url.Action("Index", "Setting")'"><i></i>&nbsp;Չեղարկել</button>
+    </div>
 }
 

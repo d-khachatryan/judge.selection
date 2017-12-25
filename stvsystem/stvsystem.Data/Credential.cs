@@ -12,9 +12,9 @@ namespace stvsystem.Data
 
         public int? SettingID { get; set; }
 
-        public int? CredentialStatus { get; set; }
+        public CredentialStatus  Status { get; set; }
 
-        public DateTime UsageDateTime { get; set; }
+        public DateTime? UsageDateTime { get; set; }
     }
 
     public class CredentialItem
@@ -25,8 +25,8 @@ namespace stvsystem.Data
 
         public int? SettingID { get; set; }
 
-        public int? CredentialStatus { get; set; }
+        public CredentialStatus CredentialStatus { get; set; }
 
-        public DateTime UsageDateTime { get; set; }
+        public DateTime? UsageDateTime { get; set; }
     }
 }

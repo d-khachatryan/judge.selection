@@ -31,7 +31,7 @@ namespace stvsystem.Data
                 FinishTime = item.FinishTime,
                 SelectionCount = item.SelectionCount,
                 ParticipantCount = item.ParticipantCount,
-                SelectionStatus = SelectionStatusType.InPreparation
+                SelectionStatus = SettingStatus.InPreparation
             };
             db.Settings.Add(dbItem);
             db.SaveChanges();
@@ -64,7 +64,7 @@ namespace stvsystem.Data
         public SettingItem StartSelection(SettingItem item)
         {
             Setting dbItem = db.Settings.Find(item.SettingID);
-            dbItem.SelectionStatus = SelectionStatusType.InProcess;
+            dbItem.SelectionStatus = SettingStatus.InProcess;
             db.Settings.Attach(dbItem);
             db.Entry(dbItem).State = EntityState.Modified;
             db.SaveChanges();
@@ -73,7 +73,7 @@ namespace stvsystem.Data
         public SettingItem FinishSelection(SettingItem item)
         {
             Setting dbItem = db.Settings.Find(item.SettingID);
-            dbItem.SelectionStatus = SelectionStatusType.Finished;
+            dbItem.SelectionStatus = SettingStatus.Finished;
             db.Settings.Attach(dbItem);
             db.Entry(dbItem).State = EntityState.Modified;
             db.SaveChanges();
