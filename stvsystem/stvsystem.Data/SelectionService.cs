@@ -25,6 +25,61 @@ namespace stvsystem.Data
             }
         }
 
+        public SelectionItem FillSelectionItemNames(SelectionItem item)
+        {
+            if (item.Candidate1ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate1ID);
+                item.Candidate1Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate2ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate2ID);
+                item.Candidate2Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate3ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate3ID);
+                item.Candidate3Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate4ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate4ID);
+                item.Candidate4Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate5ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate5ID);
+                item.Candidate5Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate6ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate6ID);
+                item.Candidate6Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate7ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate7ID);
+                item.Candidate7Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate8ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate8ID);
+                item.Candidate8Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate9ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate9ID);
+                item.Candidate9Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            if (item.Candidate10ID != null)
+            {
+                var candidate = db.Candidates.Find(item.Candidate10ID);
+                item.Candidate10Name = candidate.FirstName + " " + candidate.LastName + " " + candidate.MiddleName;
+            }
+            return item;
+        }
+
         public bool SaveSelection(SelectionItem item, CredentialService credentialService)
         {
             int settingID = (int)credentialService.GetSettingIDByPassword(item.Password);
