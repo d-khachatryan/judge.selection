@@ -43,13 +43,13 @@ namespace stvsystem.Controllers
             }
             else if (passwordStatus == PasswordStatus.DoubleLogin )
             {
-                ModelState.AddModelError("doublepassword", "You can not use this password again");
+                ModelState.AddModelError("doublepassword", "Այս ծածկագիրը արդեն կիրառվել է ընտրություն իրականացնելու համար:");
                 item.Password = String.Empty;
                 return View("Index", item);
             }
             else
             {
-                ModelState.AddModelError("wrongpassword", "Password is wrong");
+                ModelState.AddModelError("wrongpassword", "Ծածկագիրը սխալ է");
                 item.Password = String.Empty;
                 return View("Index", item);
             }
@@ -60,7 +60,8 @@ namespace stvsystem.Controllers
         [HttpPost]
         public IActionResult ConfirmSelection(SelectionItem selectionItem)
         {
-            return View("ConfirmSelection", selectionItem);
+            var item = selectionService.FillSelectionItemNames(selectionItem);
+            return View("ConfirmSelection", item);
         }
 
         // this action runs in the ConfirmSeletion page as a POST action

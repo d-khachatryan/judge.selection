@@ -39,7 +39,7 @@
         @Html.Kendo().TextBoxFor(model => model.SelectionStatus)
     </div>
 
-    @if (Model.SelectionStatus == SelectionStatusType.InPreparation)
+    @if (Model.SelectionStatus == SettingStatus.InPreparation)
     {
     <div>
         <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i>&nbsp;Խմբագրել</button>
