@@ -28,12 +28,12 @@ namespace stvsystem.Controllers
             return View();
         }
 
-        public ActionResult FilterJudge([DataSourceRequest]DataSourceRequest request/*, string firstName, string lastName*/)
+        public ActionResult FilterJudge([DataSourceRequest]DataSourceRequest request, string firstName, string lastName)
         {
             //ViewBag.ScreenWidth = Request.Browser.ScreenPixelsWidth;
             //var judgeSearch = new JudgeItem { FirstName = firstName, LastName = lastName };
             //Session["judgeSearch"] = judgeSearch;
-            DataSourceResult result = service.SearchJudges().ToDataSourceResult(request);
+            DataSourceResult result = service.SearchJudges(firstName, lastName).ToDataSourceResult(request);
             return Json(result);
         }
 

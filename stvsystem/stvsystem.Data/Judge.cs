@@ -54,7 +54,7 @@ namespace stvsystem.Data
         [Display(Name = "Սեռ")]
         public int? GenderID { get; set; }
 
-        [Display(Name = "Դտարան")]
+        [Display(Name = "Դատարան")]
         public string CourtName { get; set; }
 
         [Display(Name = "Մասնագիտություն")]
