@@ -33,7 +33,7 @@ namespace stvsystem.Controllers
             //ViewBag.ScreenWidth = Request.Browser.ScreenPixelsWidth;
             //var judgeSearch = new JudgeItem { FirstName = firstName, LastName = lastName };
             //Session["judgeSearch"] = judgeSearch;
-            DataSourceResult result = service.SearchJudgeSetItems().ToDataSourceResult(request);
+            DataSourceResult result = service.SearchJudges().ToDataSourceResult(request);
             return Json(result);
         }
 

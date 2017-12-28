@@ -30,6 +30,13 @@ namespace stvsystem.UnitTests
         }
 
         [TestMethod]
+        public void GetJudgesTest()
+        {
+            var list = this.SearchJudges();
+            Assert.AreNotEqual(list.Count, 0);
+        }
+
+        [TestMethod]
         public void InsertJudgeTest()
         {
             JudgeItem item = new JudgeItem
