@@ -14,7 +14,7 @@ namespace stvsystem.Data
         //    :base()
         //{
 
-        public IList<JudgeItem> SearchJudges()
+        public IList<JudgeItem> SearchJudges(string firstName, string lastName)
         {
             IList<JudgeItem> result = (from judge in db.Judges
                                        join t1 in db.Specializations on judge.SpecializationID equals t1.SpecializationID into r1
@@ -42,6 +42,15 @@ namespace stvsystem.Data
                                            SpecializationID = list.JudgeTable.SpecializationID,
                                            SpecializationName = list.SpecializationTable.SpecializationName
                                        }).ToList();
+
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                result = result.Where(p => p.FirstName.StartsWith(firstName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                result = result.Where(p => p.LastName.StartsWith(lastName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
 
             return result;
 
@@ -122,7 +131,31 @@ namespace stvsystem.Data
         public JudgeItem GetJudge(int? judgeID = null)
         {
             if(judgeID != null) {
-                Judge dbItem = db.Judges.Find(judgeID);
+                //Judge dbItem = db.Judges.Find(judgeID);
+                var dbItem = (from judge in db.Judges
+                             join t1 in db.Specializations on judge.SpecializationID equals t1.SpecializationID into r1
+                             from specialization in r1.DefaultIfEmpty()
+                             join t2 in db.Genders on judge.GenderID equals t2.GenderID into r2
+                             from gender in r2.DefaultIfEmpty()
+                             join t3 in db.Courts on judge.CourtID equals t3.CourtID into r3
+                             from court in r3.DefaultIfEmpty()
+                             where judge.JudgeID == judgeID
+                             select new { judgeTable = judge, specializationTable = specialization, genderTable = gender, courtTable = court })
+                             .Select(list => new JudgeItem
+                             {
+                                 JudgeID = list.judgeTable.JudgeID,
+                                 FirstName = list.judgeTable.FirstName,
+                                 LastName = list.judgeTable.LastName,
+                                 MiddleName = list.judgeTable.MiddleName,
+                                 CourtID = list.judgeTable.CourtID,
+                                 CourtName = list.courtTable.CourtName,
+                                 GenderID = list.judgeTable.GenderID,
+                                 GenderName = list.genderTable.GenderName,
+                                 SpecializationID = list.judgeTable.SpecializationID,
+                                 SpecializationName = list.specializationTable.SpecializationName
+                             }).First();
+
+
                 JudgeItem item = new JudgeItem
                 {
                     JudgeID = dbItem.JudgeID,
@@ -131,7 +164,10 @@ namespace stvsystem.Data
                     FirstName = dbItem.FirstName,
                     LastName = dbItem.LastName,
                     MiddleName = dbItem.MiddleName,
-                    GenderID= dbItem.GenderID
+                    GenderID = dbItem.GenderID,
+                    GenderName = dbItem.GenderName,
+                    SpecializationName = dbItem.SpecializationName,
+                    CourtName = dbItem.CourtName
                 };
                 return item;
             }
