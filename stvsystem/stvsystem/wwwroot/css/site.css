@@ -219,7 +219,7 @@ a.k-button:hover, a.k-button:focus {
 
 .validation-summary-errors {
     margin-top: 10px;
-    background: url(../img/icons/warning.png) no-repeat top 0 left 2px;
+    background: url(../images/icons/warning.png) no-repeat top 0 left 2px;
     min-height: 50px;
     padding: 3px 3px 3px 55px;
     color: #636363;

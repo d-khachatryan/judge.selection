@@ -1,17 +1,68 @@
 ﻿@using  stvsystem.Data
 @model PasswordItem
+@{
+    ViewData["Title"] = "Ընտրություն";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
 
-@Html.HiddenFor(model => model.Status)
+<div id="backButton">
+    <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Home")"><i class="icons icon-action-undo"></i></a>
+</div>
+@*@Html.HiddenFor(model => model.Status)*@
+
 
 @using (Html.BeginForm("SelectCandidates", "Selection", FormMethod.Post, new { id = "frmIndex" }))
 {
-    <div>
-        @Html.LabelFor(model => model.Password)
-        @Html.Kendo().TextBoxFor(model => model.Password)
-        @Html.ValidationMessageFor(model => model.Password)
-    </div>
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-    <div>
-        <button type="submit" id="SubmitButton"><i></i>&nbsp;Մուտք</button>
+    @Html.HiddenFor(model => model.Status)
+    @*<div>
+            @Html.LabelFor(model => model.Password)
+            @Html.Kendo().TextBoxFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div>
+            <button type="submit" id="SubmitButton"><i></i>&nbsp;Մուտք</button>
+        </div>*@
+
+
+    <div class="container-maxwidth500">
+        <div class="card">
+            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-body">
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.Password, new { @class = "control-label" })*@
+                    <label class="control-label">Մուտքագրեք Ձեր վեցանիշ գաղտնաբառը</label>
+                    @Html.Kendo().TextBoxFor(model => model.Password).HtmlAttributes(new { @class = "form-control", type = "password", maxlength = "6" })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" id="SubmitButton" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Մուտք</button>
+                @Html.ValidationSummary("Առկա են խնդիրներ")
+            </div>
+        </div>
     </div>
 }
+<div id="errors"> </div>
+
+<script>
+    $(".validation-summary-errors").addClass("bg-warning")
+    $("form").kendoValidator({
+        errorTemplate: '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em; padding:3px 5px;"><span class="fa fa-exclamation-triangle"></span> #=message#<div class="k-callout k-callout-n"></div></div>', // change the default message container to show only an *
+        validate: function (e) { // handle the validate event to build the error list
+            var html = "";
+            if (!e.valid) {
+
+
+                var errors = this.errors();
+                html += "<ul>";
+                for (var i = 0; i < errors.length; i++) {
+                    html += "<li>" + errors[i] + "</li>";
+                }
+
+                html += "</ul>";
+            }
+            $("#errors").empty().append($(html));
+        }
+    });
+</script>

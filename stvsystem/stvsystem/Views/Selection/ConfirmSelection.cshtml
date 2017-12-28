@@ -1,6 +1,9 @@
 ﻿@using  stvsystem.Data
 @model SelectionItem
-
+@{
+    ViewData["Title"] = "Ավարտել ընտրությունը";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
 
 
 @using (Html.BeginForm("SaveSelection", "Selection", FormMethod.Post, new { id = "frmCandidateSelection" }))
@@ -18,80 +21,127 @@
     @Html.HiddenFor(model => model.Candidate9ID)
     @Html.HiddenFor(model => model.Candidate10ID)
 
-    if (Model.CandidateCount > 0)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate1ID)
-            @Html.DisplayFor(model => model.Candidate1ID)
+    <div class="container-maxwidth500">
+        <div class="card">
+            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-body">
+                <h6 style="text-align:center; margin-bottom:20px">Դուք ընտրել եք հետևալ թեկնածուներին ըստ առաջնահերթության</h6>
+                @if (Model.CandidateCount > 0)
+                {
+                    if (Model.Candidate1ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate1ID)*@
+                            <label class="control-label">1-ին նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate1ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 1)
+                {
+                    if (Model.Candidate2ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate2ID)*@
+                            <label class="control-label">2-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate2ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 2)
+                {
+                    if (Model.Candidate3ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate3ID)*@
+                            <label class="control-label">3-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate3ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 3)
+                {
+                    if (Model.Candidate4ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate4ID)*@
+                            <label class="control-label">4-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate4ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 4)
+                {
+                    if (Model.Candidate5ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate5ID)*@
+                            <label class="control-label">5-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate5ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 5)
+                {
+                    if (Model.Candidate6ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate6ID)*@
+                            <label class="control-label">6-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate6ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 6)
+                {
+                    if (Model.Candidate7ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate7ID)*@
+                            <label class="control-label">7-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate7ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 7)
+                {
+                    if (Model.Candidate8ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate8ID)*@
+                            <label class="control-label">8-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate8ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 8)
+                {
+                    if (Model.Candidate9ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate9ID)*@
+                            <label class="control-label">3-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate9ID)
+                        </div>
+                    }
+                }
+                @if (Model.CandidateCount > 9)
+                {
+                    if (Model.Candidate10ID != null)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Candidate10ID)*@
+                            <label class="control-label">10-րդ նախընտրելի թեկնածու։ </label>
+                            @Html.DisplayFor(model => model.Candidate10ID)
+                        </div>
+                    }
+                }
+            </div>
+            <div class="card-footer">
+                <button type="submit" id="SubmitButton" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
+                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                @Html.ValidationSummary("Առկա են խնդիրներ")
+            </div>
         </div>
-    }
-    if (Model.CandidateCount > 1)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate2ID)
-            @Html.DisplayFor(model => model.Candidate2ID)
-        </div>
-    }
-    if (Model.CandidateCount > 2)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate3ID)
-            @Html.DisplayFor(model => model.Candidate3ID)
-        </div>
-    }
-    if (Model.CandidateCount > 3)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate4ID)
-            @Html.DisplayFor(model => model.Candidate4ID)
-        </div>
-    }
-    if (Model.CandidateCount > 4)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate5ID)
-            @Html.DisplayFor(model => model.Candidate5ID)
-        </div>
-    }
-    if (Model.CandidateCount > 5)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate6ID)
-            @Html.DisplayFor(model => model.Candidate6ID)
-        </div>
-    }
-    if (Model.CandidateCount > 6)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate7ID)
-            @Html.DisplayFor(model => model.Candidate7ID)
-        </div>
-    }
-    if (Model.CandidateCount > 7)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate8ID)
-            @Html.DisplayFor(model => model.Candidate8ID)
-        </div>
-    }
-    if (Model.CandidateCount > 8)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate9ID)
-            @Html.DisplayFor(model => model.Candidate9ID)
-        </div>
-    }
-    if (Model.CandidateCount > 9)
-    {
-        <div>
-            @Html.LabelFor(model => model.Candidate10ID)
-            @Html.DisplayFor(model => model.Candidate10ID)
-        </div>
-    }
-
-    <div>
-        <button type="submit" id="SubmitButton"><i></i>&nbsp;Ավարտել</button>
-        <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'"><i></i>&nbsp;Չեղարկել</button>
     </div>
-
 }
