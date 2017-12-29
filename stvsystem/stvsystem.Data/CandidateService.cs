@@ -1,13 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace stvsystem.Data
 {
     public class CandidateService : ServiceBase
     {
+        //public CandidateService()
+        //    :base()
+        //{
+
         public List<SelectListItem> GetCandidateDropDownItems()
         {
             var candidateList = new List<CandidateItem>();
@@ -32,34 +39,114 @@ namespace stvsystem.Data
             dropDownList = candidateList.Select(x => new SelectListItem { Text = x.CandidateName, Value = x.CandidateID.ToString() }).ToList();
             return dropDownList;
         }
-        public CandidateItem GetCandidate(int CandidateID)
+
+        public IList<CandidateItem> SearchCandidates(string firstName, string lastName)
         {
-            Candidate dbItem = db.Candidates.Find(CandidateID);
-            CandidateItem item = new CandidateItem
+            IList<CandidateItem> result = (from candidate in db.Candidates
+                                       join t1 in db.Specializations on candidate.SpecializationID equals t1.SpecializationID into r1
+                                       from specialization in r1.DefaultIfEmpty()
+                                       join t2 in db.Genders on candidate.GenderID equals t2.GenderID into r2
+                                       from gender in r2.DefaultIfEmpty()
+                                       join t3 in db.Courts on candidate.CourtID equals t3.CourtID into r3
+                                       from court in r3.DefaultIfEmpty()
+                                       select new
+                                       {
+                                           CandidateTable = candidate,
+                                           GenderTable = gender,
+                                           CourtTable = court,
+                                           SpecializationTable = specialization
+                                       }).Select(list => new CandidateItem
+                                       {
+                                           CandidateID = list.CandidateTable.CandidateID,
+                                           FirstName = list.CandidateTable.FirstName,
+                                           LastName = list.CandidateTable.LastName,
+                                           MiddleName = list.CandidateTable.MiddleName,
+                                           BirthDate = list.CandidateTable.BirthDate,
+                                           CourtID = list.CandidateTable.CourtID,
+                                           CourtName = list.CourtTable.CourtName,
+                                           GenderID = list.CandidateTable.GenderID,
+                                           GenderName = list.GenderTable.GenderName,
+                                           SpecializationID = list.CandidateTable.SpecializationID,
+                                           SpecializationName = list.SpecializationTable.SpecializationName
+                                       }).ToList();
+
+            if (!string.IsNullOrEmpty(firstName))
             {
-                CandidateID = dbItem.CandidateID,
-                CourtID = dbItem.CourtID,
-                SpecializationID = dbItem.SpecializationID,
-                FirstName = dbItem.FirstName,
-                LastName = dbItem.LastName,
-                MiddleName = dbItem.MiddleName,
-                GenderID = dbItem.GenderID,
-                BirthDate = dbItem.BirthDate
-            };
-            return item;
+                result = result.Where(p => p.FirstName.StartsWith(firstName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                result = result.Where(p => p.LastName.StartsWith(lastName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            return result;
+
         }
+
+       
+        public CandidateItem GetCandidate(int? candidateID = null)
+        {
+            if (candidateID != null)
+            {
+                var dbItem = (from candidate in db.Candidates
+                              join t1 in db.Specializations on candidate.SpecializationID equals t1.SpecializationID into r1
+                              from specialization in r1.DefaultIfEmpty()
+                              join t2 in db.Genders on candidate.GenderID equals t2.GenderID into r2
+                              from gender in r2.DefaultIfEmpty()
+                              join t3 in db.Courts on candidate.CourtID equals t3.CourtID into r3
+                              from court in r3.DefaultIfEmpty()
+                              where candidate.CandidateID == candidateID
+                              select new { candidateTable = candidate, specializationTable = specialization, genderTable = gender, courtTable = court })
+                             .Select(list => new CandidateItem
+                             {
+                                 CandidateID = list.candidateTable.CandidateID,
+                                 FirstName = list.candidateTable.FirstName,
+                                 LastName = list.candidateTable.LastName,
+                                 MiddleName = list.candidateTable.MiddleName,
+                                 BirthDate = list.candidateTable.BirthDate,
+                                 CourtID = list.candidateTable.CourtID,
+                                 CourtName = list.courtTable.CourtName,
+                                 GenderID = list.candidateTable.GenderID,
+                                 GenderName = list.genderTable.GenderName,
+                                 SpecializationID = list.candidateTable.SpecializationID,
+                                 SpecializationName = list.specializationTable.SpecializationName
+                             }).First();
+
+
+                CandidateItem item = new CandidateItem
+                {
+                    CandidateID = dbItem.CandidateID,
+                    CourtID = dbItem.CourtID,
+                    SpecializationID = dbItem.SpecializationID,
+                    FirstName = dbItem.FirstName,
+                    LastName = dbItem.LastName,
+                    MiddleName = dbItem.MiddleName,
+                    BirthDate = dbItem.BirthDate,
+                    GenderID = dbItem.GenderID,
+                    GenderName = dbItem.GenderName,
+                    SpecializationName = dbItem.SpecializationName,
+                    CourtName = dbItem.CourtName
+                };
+                return item;
+            }
+            else
+            {
+                var item = new CandidateItem();
+                return item;
+            }
+        }
+
         public CandidateItem InsertCandidate(CandidateItem item)
         {
             Candidate dbItem = new Candidate
             {
-                CandidateID = item.CandidateID,
                 CourtID = item.CourtID,
                 SpecializationID = item.SpecializationID,
                 FirstName = item.FirstName,
                 LastName = item.LastName,
                 MiddleName = item.MiddleName,
-                GenderID = item.GenderID,
-                BirthDate = item.BirthDate
+                BirthDate = item.BirthDate,
+                GenderID = item.GenderID
             };
             db.Candidates.Add(dbItem);
             db.SaveChanges();
@@ -69,25 +156,27 @@ namespace stvsystem.Data
         public CandidateItem UpdateCandidate(CandidateItem item)
         {
             Candidate dbItem = db.Candidates.Find(item.CandidateID);
-            dbItem.CandidateID = item.CandidateID;
+            dbItem.CandidateID = (int)item.CandidateID;
             dbItem.CourtID = item.CourtID;
             dbItem.SpecializationID = item.SpecializationID;
             dbItem.FirstName = item.FirstName;
             dbItem.LastName = item.LastName;
             dbItem.MiddleName = item.MiddleName;
-            dbItem.GenderID = item.GenderID;
             dbItem.BirthDate = item.BirthDate;
+            dbItem.GenderID = item.GenderID;
             db.Candidates.Attach(dbItem);
             db.Entry(dbItem).State = EntityState.Modified;
             db.SaveChanges();
             return item;
         }
-        public CandidateItem DeleteCandidate(CandidateItem item)
+
+
+        public void DeleteCandidate(int id)
         {
-            Candidate dbItem = db.Candidates.Find(item.CandidateID);
+            Candidate dbItem = db.Candidates.Find(id);
             db.Candidates.Remove(dbItem);
             db.SaveChanges();
-            return item;
+            //return item;
         }
         public async Task<int> Count()
         {
