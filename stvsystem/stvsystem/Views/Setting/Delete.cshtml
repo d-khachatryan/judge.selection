@@ -1,11 +1,12 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
 
-@Html.HiddenFor(model => model.SettingID)
-@Html.HiddenFor(model => model.SelectionStatus)
+
 
 @using (Html.BeginForm("DeleteSetting", "Setting", FormMethod.Post, new { id = "frmDelete" }))
 {
+    @Html.HiddenFor(model => model.SettingID)
+    @Html.HiddenFor(model => model.SelectionStatus)
     <div>
         <p>
             Ցանկանում էք ջնջել կարգավորումները՞

@@ -34,22 +34,28 @@
         @Html.LabelFor(model => model.ParticipantCount)
         @Html.Kendo().NumericTextBoxFor(model => model.ParticipantCount)
     </div>
-    <div>
-        @Html.LabelFor(model => model.SelectionStatus)
-        @Html.Kendo().TextBoxFor(model => model.SelectionStatus)
-    </div>
+    @*<div>
+            @Html.LabelFor(model => model.SelectionStatus)
+            @Html.Kendo().TextBoxFor(model => model.SelectionStatus)
+        </div>*@
 
     @if (Model.SelectionStatus == SettingStatus.InPreparation)
     {
-    <div>
-        <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i>&nbsp;Խմբագրել</button>
-        <button type="button" onclick="location.href='@Url.Action("StartSelection", "Setting")'"><i></i>&nbsp;Սկսել քվեարկությունը</button>
-        <button type="button" onclick="location.href='@Url.Action("DeleteSetting", "Setting")'"><i></i>&nbsp;Հեռացնել</button>
-    </div>
+        <div>
+            <button type="button" onclick="location.href='@Url.Action("InitUpdate", "Setting")'"><i></i>&nbsp;Խմբագրել</button>
+            <button type="button" onclick="location.href='@Url.Action("Initialize", "Setting")'"><i></i>&nbsp;Սկսել քվեարկությունը</button>
+            <button type="button" onclick="location.href='@Url.Action("Delete", "Setting")'"><i></i>&nbsp;Հեռացնել</button>
+        </div>
+    }
+    else if (Model.SelectionStatus == SettingStatus.Finished)
+    {
+        <button type="button" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
     }
     else
     {
-        <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
+        <p>
+            Ներկայումs սույն կարգավորումները խմբագրման ենթակա չեն, քանի որը ընտրությունը ընթացքի մեջ է
+        </p>
     }
 }
 else
@@ -59,7 +65,7 @@ else
             Ներկայումս համակարգում չկան ակտիվ գրառումներ ընտրության վերաբերյալ
         </p>
     </div>
-    <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
+    <button type="button" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
 }
 
 

@@ -1,11 +1,12 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
 
-@Html.HiddenFor(model => model.SettingID)
-@Html.HiddenFor(model => model.SelectionStatus)
 
 @using (Html.BeginForm("StartSelection", "Setting", FormMethod.Post, new { id = "frmInitialize" }))
 {
+    @Html.HiddenFor(model => model.SettingID)
+    @Html.HiddenFor(model => model.SelectionStatus)
+
     <div>
         <p>
             Ցանկանում էք սկսել քվեարկությունը՞
