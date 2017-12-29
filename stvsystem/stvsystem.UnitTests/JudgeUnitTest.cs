@@ -32,7 +32,20 @@ namespace stvsystem.UnitTests
         [TestMethod]
         public void GetJudgesTest()
         {
-            var list = this.SearchJudges();
+            JudgeItem item = new JudgeItem
+            {
+                JudgeID = 0,
+                CourtID = 1,
+                SpecializationID = 1,
+                FirstName = "FirstName",
+                LastName = "LastName",
+                MiddleName = "MiddleName",
+                GenderID = 1
+            };
+
+            item = this.InsertJudge(item);
+
+            var list = this.SearchJudges("FirstName", "LastName");
             Assert.AreNotEqual(list.Count, 0);
         }
 

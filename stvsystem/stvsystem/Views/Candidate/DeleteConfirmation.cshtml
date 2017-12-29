@@ -1,7 +1,42 @@
-﻿
+﻿@model stvsystem.Data.CandidateItem
 @{
-    ViewData["Title"] = "DeleteConfirmation";
+    ViewData["Title"] = "Հեռացնել";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
 }
+<div class="container-maxwidth500">
+    <div class="card">
+        <div class="card-header">Համոզված ե՞ք որ ցանկանում եք հեռացնել նշված գրառումը</div>
+        <div class="card-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label delete-label" })
+                <br />
+                @Html.DisplayFor(model => model.FirstName) 
+                @Html.DisplayFor(model => model.MiddleName) 
+                @Html.DisplayFor(model => model.LastName)
+            </div>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthDate, new { @class = "control-label delete-label" }):
+                @Html.DisplayFor(model => model.BirthDate)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GenderName, new { @class = "control-label delete-label" }):
+                @Html.DisplayFor(model => model.GenderName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourtName, new { @class = "control-label delete-label" }):
+                @Html.DisplayFor(model => model.CourtName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SpecializationName, new { @class = "control-label delete-label" }):
+                @Html.DisplayFor(model => model.SpecializationName)
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="@Url.Action("Delete", "Candidate", new {id = Model.CandidateID })" class="btn btn-sm btn-danger"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</a>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Candidate")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+        </div>
+    </div>
+</div>
 
-<h2>DeleteConfirmation</h2>
 
