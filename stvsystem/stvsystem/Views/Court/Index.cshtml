@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Դատարաններ";
+}
+
+<div id="catalog">
+    @(Html.Kendo().Grid<stvsystem.Data.CourtItem>()
+    .Name("grid")
+    .NoRecords(n => n.TemplateId("no-records-template-id"))
+    .Events(e => e.DataBound("correctPopUpGrid"))
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.CourtID).Visible(false);
+        columns.Bound(c => c.CourtName);
+        columns.Bound(p => p.CourtTypeName).Filterable(f => f.Extra(false)
+                                         .Operators(o => o.ForString(s => s.Clear()
+                                          .Contains("Պարունակում է")
+                                          .DoesNotContain("Չի պարունակում")
+                                          .StartsWith("Սկսվում է")
+                                          .EndsWith("Վերջանում է")
+                                          .IsEqualTo("Նույնն է")
+                                          .IsNotEqualTo("Նույնը չէ")
+                                        )).Messages(m => m
+                                        .Filter("Որոնել")
+                                        .Clear("Մաքրել")
+                                        .Info("Գրառում, որը")
+                                        .SelectValue("-- Ընտրել --")));
+
+        columns.Command(command =>
+        {
+            command.Edit().Text(" ").UpdateText("Պահպանել").CancelText("Չեղարկել");
+            command.Destroy().Text(" ");
+        }).Width(115);
+    })
+    .ToolBar(toolbar => toolbar.Create().Text("Նոր գրառում"))
+    .Editable(editable => editable.Mode(GridEditMode.PopUp)
+        .TemplateName("CourtPopUp")
+        .Window(w => w
+        .Title("Մուտքի պատուհան")
+        .Events(e => e
+            .Deactivate("correctPopUpGrid")
+            //.Close("correctPopUpGrid")
+            .Activate("correctPopUpGrid")
+            .Open("correctPopUpGrid")
+        )
+        ))
+    .Pageable()
+    .Filterable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model => model.Id(p => p.CourtID))
+        .Create(update => update.Action("CourtCreate", "Court"))
+        .Read(read => read.Action("CourtSelect", "Court"))
+        .Update(update => update.Action("CourtUpdate", "Court"))
+        .Destroy(update => update.Action("CourtDelete", "Court"))
+    )
+    )
+</div>
+
+<script id="no-records-template-id" type="text/x-kendo-template">
+    <div class="k-grid-norecords-template">Գրառումներ առկա չեն</div>
+</script>
+
+
