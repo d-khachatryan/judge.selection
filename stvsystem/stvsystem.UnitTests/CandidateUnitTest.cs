@@ -31,6 +31,26 @@ namespace stvsystem.UnitTests
         }
 
         [TestMethod]
+        public void GetCandidatesTest()
+        {
+            CandidateItem item = new CandidateItem
+            {
+                CandidateID = 0,
+                CourtID = 1,
+                SpecializationID = 1,
+                FirstName = "FirstName",
+                LastName = "LastName",
+                MiddleName = "MiddleName",
+                GenderID = 1
+            };
+
+            item = this.InsertCandidate(item);
+
+            var list = this.SearchCandidates("FirstName", "LastName");
+            Assert.AreNotEqual(list.Count, 0);
+        }
+
+        [TestMethod]
         public void InsertCandidateTest()
         {
             CandidateItem item = new CandidateItem
@@ -93,7 +113,9 @@ namespace stvsystem.UnitTests
 
             int count1 = await this.Count();
 
-            CandidateItem updatedItem = this.DeleteCandidate(item);
+            int candidateID = Convert.ToInt32(item.CandidateID );
+            this.DeleteCandidate(candidateID);
+
 
             int count2 = await this.Count();
 
