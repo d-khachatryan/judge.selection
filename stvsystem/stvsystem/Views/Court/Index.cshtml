@@ -1,67 +1,113 @@
-﻿@{
+﻿@model stvsystem.Data.CourtItem
+@{
     ViewData["Title"] = "Դատարաններ";
 }
 
-<div id="catalog">
-    @(Html.Kendo().Grid<stvsystem.Data.CourtItem>()
-    .Name("grid")
-    .NoRecords(n => n.TemplateId("no-records-template-id"))
-    .Events(e => e.DataBound("correctPopUpGrid"))
-    .Columns(columns =>
+<div class="for-Toolbar">
+    @(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .Items(items =>
     {
-        columns.Bound(p => p.CourtID).Visible(false);
-        columns.Bound(c => c.CourtName);
-        columns.Bound(p => p.CourtTypeName).Filterable(f => f.Extra(false)
-                                         .Operators(o => o.ForString(s => s.Clear()
-                                          .Contains("Պարունակում է")
-                                          .DoesNotContain("Չի պարունակում")
-                                          .StartsWith("Սկսվում է")
-                                          .EndsWith("Վերջանում է")
-                                          .IsEqualTo("Նույնն է")
-                                          .IsNotEqualTo("Նույնը չէ")
-                                        )).Messages(m => m
-                                        .Filter("Որոնել")
-                                        .Clear("Մաքրել")
-                                        .Info("Գրառում, որը")
-                                        .SelectValue("-- Ընտրել --")));
-
-        columns.Command(command =>
-        {
-            command.Edit().Text(" ").UpdateText("Պահպանել").CancelText("Չեղարկել");
-            command.Destroy().Text(" ");
-        }).Width(115);
+        items.Add().Template("<button type=\"button\" name=\"Insert\" onclick=\"InsertCourt()\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-plus\"></i>&nbsp; Ավելացնել</button>");
     })
-    .ToolBar(toolbar => toolbar.Create().Text("Նոր գրառում"))
-    .Editable(editable => editable.Mode(GridEditMode.PopUp)
-        .TemplateName("CourtPopUp")
-        .Window(w => w
-        .Title("Մուտքի պատուհան")
-        .Events(e => e
-            .Deactivate("correctPopUpGrid")
-            //.Close("correctPopUpGrid")
-            .Activate("correctPopUpGrid")
-            .Open("correctPopUpGrid")
-        )
-        ))
-    .Pageable()
-    .Filterable()
-    .Sortable()
-    .Scrollable()
-    .DataSource(dataSource => dataSource
-        .Ajax()
-        .PageSize(20)
-        .Events(events => events.Error("error_handler"))
-        .Model(model => model.Id(p => p.CourtID))
-        .Create(update => update.Action("CourtCreate", "Court"))
-        .Read(read => read.Action("CourtSelect", "Court"))
-        .Update(update => update.Action("CourtUpdate", "Court"))
-        .Destroy(update => update.Action("CourtDelete", "Court"))
     )
-    )
+    @* Search Panel - Right Slide *@
+    <div class="right-slidePanel">
+        <div class="slidePanel-Content">
+            <div class="slidePanel-btn">
+            </div>
+            <div class="slidePanel-Content-fields create-item">
+                <h4>Որոնման դաշտեր</h4>
+                <div class="form-group margin-10-0">
+                    @Html.Kendo().TextBoxFor(model => model.CourtName).HtmlAttributes(new { placeholder = "անվանումը" })
+                </div>
+                <div class="form-group margin-10-0">
+                    @(Html.Kendo().ComboBox()
+                      .Name("prm_CourtType_Id")
+                      .DataTextField("Text")
+                      .Placeholder("տեսակը")
+                      .DataValueField("Value")
+                      .Filter(FilterType.Contains)
+                      .BindTo(ViewBag.vbCourtTypes)
+                      .HtmlAttributes(new { data_value_primitive = true, @class = "width100" })
+                    )
+                </div>
+                <div class="form-group margin-10-0 align-right">
+                    <button type="submit" id="btnSearch" class="btn btn-primary btn-sm" onclick="return Search();"><i class="icons icon-magnifier"></i>&nbsp;Որոնել</button>
+                    <button type="submit" id="btnClear" class="btn btn-secondary btn-sm" onclick="return Clear();"><i class="icons icon-close"></i>&nbsp;Մաքրել</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    function Search() {
+        $("#grCourt").data("kendoGrid").dataSource.read();
+        return false;
+    }
+
+    function Clear() {
+        $("#CourtName").val("");
+        $("#prm_CourtType_Id").data("kendoComboBox").select(-1);
+        $("#grCourt").data("kendoGrid").dataSource.read();
+        return false;
+    }
+
+    function getParameters() {
+        return {
+            name: $("#CourtName").val(),
+            type: $("#prm_CourtType_Id").val()
+        };
+    }
+
+    function InsertCourt() {
+        window.location = '@Url.Action("Template", "Court")';
+    }
+
+    function UpdateCourt(e) {
+        var row = $(e.target).closest("tr");
+        var grid = $("#grCourt").data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        window.location = '@Url.Action("Template", "Court")/?courtID=' + dataItem.CourtID;
+    }
+
+    function DeleteCourt(e) {
+        var row = $(e.target).closest("tr");
+        var grid = $("#grCourt").data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        window.location = '@Url.Action("DeleteConfirmation", "Court")/?courtID=' + dataItem.CourtID;
+    }
+</script>
+
+@(Html.Kendo().Grid<stvsystem.Data.CourtItem>()
+          .Name("grCourt")
+          .NoRecords(n => n.TemplateId("no-records-template-id"))
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.CourtName);
+              columns.Bound(c => c.CourtTypeName).Width(300);
+              columns.Command(commands =>
+              {
+                  commands.Custom("cmdUpdateCourt").Text(" ").Click("UpdateCourt").HtmlAttributes(new { @class = "Update_Icon" });
+                  commands.Custom("cmdDeleteCourt").Text(" ").Click("DeleteCourt").HtmlAttributes(new { @class = "Delete_Icon" });
+              }).Title("Հրամաններ").Width(120);
+          })
+          .Events(e => e.DataBound("showCommandIcons"))
+          .Sortable()
+          .Resizable(resize => resize.Columns(true))
+          .Scrollable()
+          .Reorderable(reorder => reorder.Columns(true))
+          .Pageable(pager => pager.PageSizes(new[] { 10, 15, 25, 50, 100 }))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Events(events => events.Error("error_handler"))
+              .Read(read => read.Action("FilterCourt", "Court").Data("getParameters"))
+          )
+)
+
+
 
 <script id="no-records-template-id" type="text/x-kendo-template">
     <div class="k-grid-norecords-template">Գրառումներ առկա չեն</div>
 </script>
-
-

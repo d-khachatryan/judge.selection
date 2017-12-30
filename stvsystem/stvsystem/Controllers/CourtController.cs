@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using stvsystem.Data;
 using Kendo.Mvc.UI;
+using stvsystem.Data;
 using Kendo.Mvc.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace stvsystem.Controllers
 {
@@ -20,49 +22,84 @@ namespace stvsystem.Controllers
             service = new CourtService();
         }
 
-        public JsonResult CourtList()
-        {
-            return Json(service.GetCourts());
-        }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
+            OrganizeViewBugs(db);
             return View();
         }
 
-        public ActionResult CourtSelect([DataSourceRequest] DataSourceRequest request)
+        public ActionResult FilterCourt([DataSourceRequest]DataSourceRequest request, string name, string type)
         {
-            return Json(service.GetCourts().ToDataSourceResult(request));
+            DataSourceResult result = service.Search(name, type).ToDataSourceResult(request);
+            return Json(result);
         }
 
-        //[AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult CourtCreate([DataSourceRequest] DataSourceRequest request, CourtItem courtItem)
+        public IActionResult Template(int? courtID = null)
         {
-            if (courtItem != null && ModelState.IsValid)
+            OrganizeViewBugs(db);
+            try
             {
-                service.CreateCourt(courtItem);
+                var item = service.GetCourt(courtID);
+                if (item == null)
+                {
+                    //return this.ErrorHandler(service.ServiceException);
+                }
+                return View("Template", item);
             }
-            return Json(new[] { courtItem }.ToDataSourceResult(request, ModelState));
+            catch (Exception ex)
+            {
+                //return this.ErrorHandler(ex);
+                return Json(ex);
+            }
         }
 
-        //[AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult CourtUpdate([DataSourceRequest] DataSourceRequest request, CourtItem courtItem)
+        [HttpPost]
+        public IActionResult Save(CourtItem item)
         {
-            if (courtItem != null && ModelState.IsValid)
+            try
             {
-                service.UpdateCourt(courtItem);
+                if (ModelState.IsValid)
+                {
+                    if (item.CourtID == null)
+                    {
+                        item = service.InsertCourt(item);
+                    }
+                    else
+                    {
+                        item = service.UpdateCourt(item);
+                    }
+                    return RedirectToAction("Index", "Court");
+                }
+                else
+                {
+                    return View("Template", item);
+                }
             }
-            return Json(new[] { courtItem }.ToDataSourceResult(request, ModelState));
+            catch (Exception ex)
+            {
+                //return this.ErrorHandler(ex);
+                return Json(ex);
+            }
         }
 
-        //[AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult CourtDelete([DataSourceRequest] DataSourceRequest request, CourtItem courtItem)
+        public IActionResult DeleteConfirmation(int courtID)
         {
-            if (courtItem != null)
-            {
-                service.DeleteCourt(courtItem);
-            }
-            return Json(new[] { courtItem }.ToDataSourceResult(request, ModelState));
+            var item = service.GetCourt(courtID);
+            return View("DeleteConfirmation", item);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            service.DeleteCourt(id);
+            return RedirectToAction("Index", "Court");
+        }
+
+        private void OrganizeViewBugs(StvContext db)
+        {
+            var lCourtTypes = new List<SelectListItem>();
+            lCourtTypes = db.CourtTypes.Select(x => new SelectListItem { Text = x.CourtTypeName, Value = x.CourtTypeID.ToString() }).ToList();
+            ViewBag.vbCourtTypes = lCourtTypes;
         }
     }
 }
