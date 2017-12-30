@@ -1,0 +1,27 @@
+﻿@model stvsystem.Data.CourtItem
+@{
+    ViewData["Title"] = "Հեռացնել";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
+<div class="container-maxwidth500">
+    <div class="card">
+        <div class="card-header">Համոզված ե՞ք որ ցանկանում եք հեռացնել նշված գրառումը</div>
+        <div class="card-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourtName, new { @class = "control-label delete-label" }):
+                @Html.DisplayFor(model => model.CourtName) 
+            </div>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourtTypeName, new { @class = "control-label delete-label" }):
+                @Html.DisplayFor(model => model.CourtTypeName)
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="@Url.Action("Delete", "Court", new {id = Model.CourtID })" class="btn btn-sm btn-danger"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</a>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Court")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+        </div>
+    </div>
+</div>
+
+
