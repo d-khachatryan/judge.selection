@@ -7,15 +7,42 @@
     @Html.HiddenFor(model => model.SettingID)
     @Html.HiddenFor(model => model.SelectionStatus)
 
-    <div>
-        <p>
-            Ցանկանում էք սկսել քվեարկությունը՞
-        </p>
-    </div>
-
-    <div>
-        <button type="submit" id="SubmitButton"><i></i>&nbsp;Սկսել</button>
-        <button type="button" onclick="location.href='@Url.Action("Index", "Setting")'"><i></i>&nbsp;Չեղարկել</button>
+    <div class="container-maxwidth500">
+        <div class="card">
+            <div class="card-header">
+                Ցանկանում եք սկսե՞լ քվեարկությունը
+            </div>
+            <div class="card-body">
+                <div>
+                    @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionName)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionDate)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.StartTime, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.StartTime)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FinishTime, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.FinishTime)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionCount)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.ParticipantCount)
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" id="SubmitButton" class="btn btn-sm btn-success"><i class="icons icon-arrow-right"></i>&nbsp;Սկսել</button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Setting")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+            </div>
+        </div>
     </div>
 }
 
