@@ -1,66 +1,80 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
 
-<div><p>Ընտրության մանրամասներ</p></div>
-
-<div></div>
-
 @Html.HiddenFor(model => model.SettingID)
 @Html.HiddenFor(model => model.SelectionStatus)
 
-@if (Model.SettingID != -1)
-{
-    <div>
-        @Html.LabelFor(model => model.SelectionName)
-        @Html.Kendo().TextBoxFor(model => model.SelectionName)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.SelectionDate)
-        @Html.Kendo().DatePickerFor(model => model.SelectionDate)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.StartTime)
-        @Html.Kendo().TimePickerFor(model => model.StartTime)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.FinishTime)
-        @Html.Kendo().TimePickerFor(model => model.FinishTime)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.SelectionCount)
-        @Html.Kendo().NumericTextBoxFor(model => model.SelectionCount)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.ParticipantCount)
-        @Html.Kendo().NumericTextBoxFor(model => model.ParticipantCount)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.SelectionStatus)
-        @Html.Kendo().TextBoxFor(model => model.SelectionStatus)
-    </div>
+<div class="container-maxwidth500">
+    <div class="card">
+        <div class="card-header">Ընտրության մանրամասներ</div>
+        @if (Model.SettingID != -1)
+        {
+            <div class="card-body">
+                <div>
+                    @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionName)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionDate)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.StartTime, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.StartTime)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FinishTime, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.FinishTime)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionCount)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.ParticipantCount)
+                </div>
+            </div>
+            <div class="card-footer">
+                @if (Model.SelectionStatus == SettingStatus.InPreparation)
+                {
+                    <button type="button" class="btn btn-sm btn-success" onclick="location.href='@Url.Action("Initialize", "Setting")'"><i class="icons icon-arrow-right"></i>&nbsp;Սկսել քվեարկությունը</button>
+                    <button type="button" style="float:right;" class="btn btn-sm btn-danger" onclick="location.href='@Url.Action("Delete", "Setting")'"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</button>
+                    <button type="button" style="float:right;margin-right:5px;" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitUpdate", "Setting")'"><i class="icons icon-pencil"></i>&nbsp;Խմբագրել</button>
+                    
+                }
+                else if (Model.SelectionStatus == SettingStatus.Finished)
+                {
+                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Ավելացնել</button>
+                }
+                else
+                {
+                    <span>Ներկայումս սույն կարգավորումները խմբագրման ենթակա չեն, քանի որը քվեարկությունը ընթացքի մեջ է</span>
+                }
+            </div>
+        }
 
-    @if (Model.SelectionStatus == SettingStatus.InPreparation)
-    {
-    <div>
-        <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i>&nbsp;Խմբագրել</button>
-        <button type="button" onclick="location.href='@Url.Action("StartSelection", "Setting")'"><i></i>&nbsp;Սկսել քվեարկությունը</button>
-        <button type="button" onclick="location.href='@Url.Action("DeleteSetting", "Setting")'"><i></i>&nbsp;Հեռացնել</button>
+
+        else
+        {
+            <div class="card-body">
+                <p>
+                    Ներկայումս համակարգում չկան ակտիվ գրառումներ ընտրության վերաբերյալ
+                </p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Ավելացնել</button>
+            </div>
+        }
     </div>
-    }
-    else
-    {
-        <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
-    }
-}
-else
-{
-    <div>
-        <p>
-            Ներկայումս համակարգում չկան ակտիվ գրառումներ ընտրության վերաբերյալ
-        </p>
-    </div>
-    <button type="button" onclick="location.href='@Url.Action("Template", "Setting")'"><i></i> &nbsp; Ավելացնել </button>
-}
+</div>
+<div id="errors"> </div>
+
+
+
+
+
+
 
 
 

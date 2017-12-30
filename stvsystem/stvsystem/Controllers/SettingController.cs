@@ -9,42 +9,75 @@ namespace stvsystem.Controllers
 {
     public class SettingController : Controller
     {
-        public IActionResult Index()
+        SettingService settingService;
+        public SettingController()
         {
-            return View();
+            settingService = new SettingService();
         }
 
-        public IActionResult Template()
+        public IActionResult Index()
         {
-            return View();
+            Task<SettingItem> item = settingService.GetLatestSetting();
+            return View(item.Result);
+        }
+
+        public IActionResult InitInsert()
+        {
+            SettingItem item = new SettingItem
+            {
+                SettingID = -1,
+                SelectionStatus = SettingStatus.InPreparation
+            };
+            return View("Template", item);
+        }
+
+        public IActionResult InitUpdate()
+        {
+            Task<SettingItem> item = settingService.GetLatestSetting();
+            return View("Template", item.Result);
         }
 
         [HttpPost]
-        public IActionResult SaveSetting()
+        public IActionResult SaveSetting(SettingItem item)
         {
-            return View();
+            if (item.SettingID == -1)
+            {
+                item = settingService.InsertSetting(item);
+            }
+            else
+            {
+                item = settingService.UpdateSetting(item);
+            }
+            return View("Index", item);
         }
 
         public IActionResult Delete()
         {
-            return View();
+            Task<SettingItem> newItem = settingService.GetLatestSetting();
+            return View(newItem.Result);
         }
 
         [HttpPost]
-        public IActionResult DeleteSetting()
+        public IActionResult DeleteSetting(SettingItem item)
         {
-            return View();
+            settingService.DeleteSetting(item);
+            Task<SettingItem> newItem = settingService.GetLatestSetting();
+            return View("Index",newItem.Result);
         }
 
         public IActionResult Initialize()
         {
-            return View();
+            Task<SettingItem> item = settingService.GetLatestSetting();
+            return View("Initialize",item.Result);
         }
 
         [HttpPost]
         public IActionResult StartSelection()
         {
-            return View();
+            Task<SettingItem> item = settingService.GetLatestSetting();
+            item.Result.SelectionStatus = SettingStatus.InProcess;
+            settingService.UpdateSetting(item.Result);
+            return View("Index", item.Result);
         }
     }
 }

@@ -1,20 +1,49 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
 
-@Html.HiddenFor(model => model.SettingID)
-@Html.HiddenFor(model => model.SelectionStatus)
+
 
 @using (Html.BeginForm("DeleteSetting", "Setting", FormMethod.Post, new { id = "frmDelete" }))
 {
-    <div>
-        <p>
-            Ցանկանում էք ջնջել կարգավորումները՞
-        </p>
+    @Html.HiddenFor(model => model.SettingID)
+    @Html.HiddenFor(model => model.SelectionStatus)
+    <div class="container-maxwidth500">
+        <div class="card">
+            <div class="card-header">
+                Ցանկանում եք հեռացնե՞լ կարգավորումնը
+            </div>
+            <div class="card-body">
+                <div>
+                    @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionName)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionDate)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.StartTime, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.StartTime)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FinishTime, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.FinishTime)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.SelectionCount)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label delete-label" }):
+                    @Html.DisplayFor(model => model.ParticipantCount)
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" id="SubmitButton" class="btn btn-sm btn-danger"><i class="icons icon-check"></i>&nbsp;Հեռացնել</button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Setting")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <button type="submit" id="SubmitButton"><i></i>&nbsp;Ջնջել</button>
-        <button type="button" onclick="location.href='@Url.Action("Index", "Setting")'"><i></i>&nbsp;Չեղարկել</button>
-    </div>
 }
 
