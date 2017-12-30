@@ -9,6 +9,25 @@ namespace stvsystem.Data
 {
     public class CourtService : ServiceBase
     {
+        public List<SelectListItem> GetCourtDropDownItems()
+        {
+            var list = new List<SelectListItem>();
+            list = this.GetCourts().Select(x => new SelectListItem { Text = x.CourtName, Value = x.CourtID.ToString() }).ToList();
+            return list;
+        }
+
+        public IList<Court> GetCourts()
+        {
+            IList<Court> result = new List<Court>();
+
+            result = db.Courts.Select(p => new Court
+            {
+                CourtID = p.CourtID,
+                CourtName = p.CourtName
+            }).ToList();
+            return result;
+        }
+
         public IList<CourtItem> Search(string name, string type)
         {
             IList<CourtItem> result = (from court in db.Courts
