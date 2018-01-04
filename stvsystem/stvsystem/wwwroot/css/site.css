@@ -312,6 +312,7 @@ a.k-button:hover, a.k-button:focus {
 .size-a4 {
     width: 8.3in;
     height: 11.7in;
+    margin-bottom: 10px;
 }
 
 .size-letter {
@@ -354,15 +355,21 @@ a.k-button:hover, a.k-button:focus {
         font-size: 15px;
     }
 
-.from p, .for p {
-    color: #787878;
+.passworBlock p span {
+    font-size:12px;
+    color: #808080;
 }
 
-.signature {
-    padding-top: .5in;
+.passworBlock {
+    float: left;
+    width: 50%;
+    padding: 60px 15px;
+    border-bottom: 1px solid rgba(136, 136, 136, 0.8);
 }
 
-
+.pdf-page .passworBlock:nth-child(odd){
+    border-right: 1px solid rgba(136, 136, 136, 0.8);
+}
 
 #backButton a {
     position: fixed;
@@ -559,5 +566,3 @@ margin: 5px;
             margin-bottom: 5px;
         }
 }
-
-
