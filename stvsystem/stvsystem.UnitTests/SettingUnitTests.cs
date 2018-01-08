@@ -96,5 +96,11 @@ namespace stvsystem.UnitTests
 
             Assert.AreNotEqual(count1, count2);
         }
+
+        [TestMethod]
+        public async Task FinishSelectionTest()
+        {
+             bool result = await FinishSelection();
+        }
     }
 }
