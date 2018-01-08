@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using stvsystem.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace stvsystem.UnitTests
@@ -40,6 +41,16 @@ namespace stvsystem.UnitTests
             this.InsertCredential(item);
 
             Assert.AreNotEqual(item.CredentialID, 0);
+        }
+
+        [TestMethod]
+        public void GetCredentialStatisticsTest()
+        {
+            var credentialStatisticsItem = new List<CredentialStatisticItem>();
+
+            credentialStatisticsItem = GetCredentialStatistics();
+
+            Assert.AreNotEqual(credentialStatisticsItem.Count, 0);
         }
 
         [TestMethod]

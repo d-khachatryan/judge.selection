@@ -108,6 +108,21 @@ namespace stvsystem.Data
             return item;
         }
 
+        public List<CredentialStatisticItem> GetCredentialStatistics()
+        {
+            var credentialStatisticsItem = new List<CredentialStatisticItem>();
+
+            credentialStatisticsItem = (from c in db.Credentials
+                                        group c by c.Status into g
+                                        select new CredentialStatisticItem
+                                        {
+                                            Status = g.Key,                                            
+                                            StatusCount = g.Count(),
+                                        }).ToList();
+
+            return credentialStatisticsItem;
+        }
+
         public CredentialItem InsertCredential(CredentialItem item)
         {
             Credential dbItem = new Credential

@@ -31,7 +31,7 @@ namespace stvsystem.Data
                     SelectionStatus = SettingStatus.InPreparation
                 };
                 return item;
-            }            
+            }
         }
         public SettingItem GetSetting(int settingID)
         {
@@ -99,16 +99,23 @@ namespace stvsystem.Data
             db.SaveChanges();
             return item;
         }
-        public SettingItem FinishSelection(SettingItem item)
+        public async Task<bool> FinishSelection()
         {
-            Setting dbItem = db.Settings.Find(item.SettingID);
-            dbItem.SelectionStatus = SettingStatus.Finished;
-            db.Settings.Attach(dbItem);
-            db.Entry(dbItem).State = EntityState.Modified;
-            db.SaveChanges();
-            return item;
+            try
+            {
+                Setting dbItem = await db.Settings.LastAsync();
+                dbItem.SelectionStatus = SettingStatus.Finished;
+                db.Settings.Attach(dbItem);
+                db.Entry(dbItem).State = EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
-                
+
         protected async Task<int> Count()
         {
             var count = await db.Settings.CountAsync();
