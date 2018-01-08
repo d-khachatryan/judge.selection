@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace stvsystem.Data
@@ -19,8 +20,10 @@ namespace stvsystem.Data
 
     public class CredentialItem
     {
+        [Display(Name = "Հ/Հ")]
         public int CredentialID { get; set; }
 
+        [Display(Name = "Գաղտնաբառ")]
         public string Password { get; set; }
 
         public int? SettingID { get; set; }
