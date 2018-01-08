@@ -10,8 +10,9 @@
         @if (Model.SettingID != -1)
         {
             <div class="card-body">
-                <div>
+                <div style="padding-bottom:20px;">
                     @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
+                    <br />
                     @Html.DisplayFor(model => model.SelectionName)
                 </div>
                 <div>
