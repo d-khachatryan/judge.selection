@@ -1,6 +1,8 @@
 ﻿@(Html.Kendo().Chart<stvsystem.Data.CredentialStatisticItem>()
     .Name("internetUsersChart")
     .Title("Քվեարկության արդյունքները")
+    .Theme("BlueOpal")
+    .HtmlAttributes(new { style = "height: 450px" })
     .DataSource(dataSource => dataSource
     .Read(read => read.Action("GetCredentialStatistics", "Monitoring")))
     .Legend(legend => legend
@@ -14,9 +16,6 @@
     {
         series.Column(d => d.StatusCount)
         .Labels(labels => labels.Visible(true).Position(ChartBarLabelsPosition.OutsideEnd))
-        //.Aggregate(ChartSeriesAggregate.Count);
-        //.Name("Կարգավիճակ")
-        //.Color("green")
         ;
     })
     .ChartArea(chartArea => chartArea
@@ -24,7 +23,6 @@
         )
     .CategoryAxis(axis => axis
     .Categories(model => model.StatusName)
-
     )
 )
 
