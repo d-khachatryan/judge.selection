@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using stvsystem.Data;
 
 namespace stvsystem.Controllers
@@ -12,11 +13,25 @@ namespace stvsystem.Controllers
         CandidateService candidateService;
         CredentialService credentialService;
         SelectionService selectionService;
+        CourtService courtService;
         public SelectionController()
         {
             candidateService = new CandidateService();
             credentialService = new CredentialService();
             selectionService = new SelectionService();
+            courtService = new CourtService();
+        }
+
+        public JsonResult GetCourts()
+        {
+            var result = courtService.GetCourtDropDownItems();
+            return Json(result);
+        }
+
+        public JsonResult GetCandidates(int? courtID, string candidateName)
+        {
+            var result = candidateService.GetFilteredCandidateDropDownItems(courtID, candidateName);
+            return Json(result);
         }
 
         public IActionResult Index()
@@ -29,19 +44,18 @@ namespace stvsystem.Controllers
 
         }
 
-        // this action runs in the Index page as a POST action
         [HttpPost]
-        public async Task<IActionResult> SelectCandidates(PasswordItem item)
+        public IActionResult VerifyPassword(PasswordItem item)
         {
-            SelectionService service = new SelectionService();
-            var passwordStatus = service.ValidatePassword(item);
+            var passwordStatus = selectionService.ValidatePassword(item);
+
             if (passwordStatus == PasswordStatus.Success)
             {
                 InitializeViewBugs();
-                SelectionItem selectionItem = new SelectionItem { Password = item.Password, CandidateCount = await candidateService.Count() };
-                return View("SelectCandidates", selectionItem);
+                int? credentialID = credentialService.GetCredentialIDByPassword(item.Password);
+                return RedirectToAction("SelectCandidate", "Selection", new { credentialID, candidateIndex = 1 });
             }
-            else if (passwordStatus == PasswordStatus.DoubleLogin )
+            else if (passwordStatus == PasswordStatus.DoubleLogin)
             {
                 ModelState.AddModelError("doublepassword", "Այս ծածկագիրը արդեն կիրառվել է ընտրություն իրականացնելու համար:");
                 item.Password = String.Empty;
@@ -52,29 +66,54 @@ namespace stvsystem.Controllers
                 ModelState.AddModelError("wrongpassword", "Ծածկագիրը սխալ է");
                 item.Password = String.Empty;
                 return View("Index", item);
+
             }
-
         }
 
-        // this action runs in the SelectCandidates page as a POST action
-        [HttpPost]
-        public IActionResult ConfirmSelection(SelectionItem selectionItem)
+
+        public IActionResult SelectCandidate(int? credentialID, int candidateIndex)
         {
-            var item = selectionService.FillSelectionItemNames(selectionItem);
-            return View("ConfirmSelection", item);
+            SelectionItem selectionItem = new SelectionItem
+            {
+                CredentialID = credentialID,
+                CandidateIndex = candidateIndex
+            };
+            return View("SelectCandidate", selectionItem);
         }
 
-        // this action runs in the ConfirmSeletion page as a POST action
+        // this action runs in the Index page as a POST action
         [HttpPost]
-        public IActionResult SaveSelection(SelectionItem selectionItem)
+        public IActionResult SaveSelectionItem(SelectionItem selectionItem)
         {
             var operationResult = selectionService.SaveSelection(selectionItem, credentialService);
-            PasswordItem passwordItem = new PasswordItem
-            {
-                Status = PasswordStatus.Initialization
-            };
-            return RedirectToAction("Index", "Selection");
+            return RedirectToAction("SelectCandidate", "Selection", new { credentialID= selectionItem.CredentialID, candidateIndex = selectionItem.CandidateIndex +1 });
         }
+
+        public IActionResult ConfirmSelection(int credentialID)
+        {
+            List<SelectionConfirmationItem> selectionConfirmationItems = selectionService.GetSelectionConfirmationItems(credentialID);
+            return View("ConfirmSelection", selectionConfirmationItems);
+        }
+
+        
+
+        
+
+
+
+
+
+        //// this action runs in the ConfirmSeletion page as a POST action
+        //[HttpPost]
+        //public IActionResult SaveSelection(SelectionItem selectionItem)
+        //{
+        //    var operationResult = selectionService.SaveSelection(selectionItem, credentialService);
+        //    PasswordItem passwordItem = new PasswordItem
+        //    {
+        //        Status = PasswordStatus.Initialization
+        //    };
+        //    return RedirectToAction("Index", "Selection");
+        //}
 
         private void InitializeViewBugs()
         {
