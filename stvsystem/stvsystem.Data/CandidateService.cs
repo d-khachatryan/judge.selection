@@ -40,6 +40,42 @@ namespace stvsystem.Data
             return dropDownList;
         }
 
+        public List<SelectListItem> GetFilteredCandidateDropDownItems(int? courtID, string candidateName)
+        {
+            var candidateList = new List<CandidateItem>();
+            var dropDownList = new List<SelectListItem>();
+
+            var q = from p in db.Candidates select p;
+            if (courtID!= null)
+            {
+                q = from p in q where p.CourtID == courtID select p;
+            }
+            if (!string.IsNullOrEmpty(candidateName))
+            {
+                q = from p in q where p.LastName.Contains(candidateName) select p;
+            }
+
+            foreach (var dbItem in q)
+            {
+                CandidateItem item = new CandidateItem
+                {
+                    CandidateID = dbItem.CandidateID,
+                    CourtID = dbItem.CourtID,
+                    SpecializationID = dbItem.SpecializationID,
+                    FirstName = dbItem.FirstName,
+                    LastName = dbItem.LastName,
+                    MiddleName = dbItem.MiddleName,
+                    GenderID = dbItem.GenderID,
+                    BirthDate = dbItem.BirthDate
+                };
+                candidateList.Add(item);
+            }
+
+            dropDownList = candidateList.Select(x => new SelectListItem { Text = x.CandidateName, Value = x.CandidateID.ToString() }).ToList();
+            return dropDownList;
+        }
+
+
         public IList<CandidateItem> SearchCandidates(string firstName, string lastName)
         {
             IList<CandidateItem> result = (from candidate in db.Candidates

@@ -8,29 +8,16 @@
 <div id="backButton">
     <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Home")"><i class="icons icon-action-undo"></i></a>
 </div>
-@*@Html.HiddenFor(model => model.Status)*@
 
-
-@using (Html.BeginForm("SelectCandidates", "Selection", FormMethod.Post, new { id = "frmIndex" }))
+@using (Html.BeginForm("SelectCandidate", "Selection", FormMethod.Post, new { id = "frmIndex" }))
 {
-    @Html.HiddenFor(model => model.Status)
-    @*<div>
-            @Html.LabelFor(model => model.Password)
-            @Html.Kendo().TextBoxFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-        <div>
-            <button type="submit" id="SubmitButton"><i></i>&nbsp;Մուտք</button>
-        </div>*@
-
+     @Html.HiddenFor(model => model.Status)
 
     <div class="container-maxwidth500">
         <div class="card">
             <div class="card-header">@ViewData["Title"]</div>
             <div class="card-body">
                 <div class="form-group">
-                    @*@Html.LabelFor(model => model.Password, new { @class = "control-label" })*@
                     <label class="control-label">Մուտքագրեք Ձեր վեցանիշ գաղտնաբառը</label>
                     @Html.Kendo().TextBoxFor(model => model.Password).HtmlAttributes(new { @class = "form-control", type = "password", maxlength = "6" })
                     @Html.ValidationMessageFor(model => model.Password)

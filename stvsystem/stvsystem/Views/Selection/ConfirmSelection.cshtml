@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm("SaveSelection", "Selection", FormMethod.Post, new { id = "frmCandidateSelection" }))
 {
-    @Html.HiddenFor(model => model.Password)
+     @Html.HiddenFor(model => model.Password)
     @Html.HiddenFor(model => model.CandidateCount)
     @Html.HiddenFor(model => model.Candidate1ID)
     @Html.HiddenFor(model => model.Candidate2ID)

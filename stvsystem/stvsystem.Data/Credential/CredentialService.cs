@@ -64,9 +64,7 @@ namespace stvsystem.Data
             }
             return result;
         }
-
-
-
+        
         public int? GetSettingIDByPassword(string password)
         {
             var result = db.Credentials.Where(p => p.Password == password);
