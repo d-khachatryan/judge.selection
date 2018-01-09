@@ -7,7 +7,7 @@
 <div class="container-maxwidth500">
     <div class="card">
         <div class="card-header">Ընտրության մանրամասներ</div>
-        @if (Model.SettingID != -1)
+        @if (Model.SettingID != -1 && Model.SelectionStatus != SettingStatus.Finished)
         {
             <div class="card-body">
                 <div style="padding-bottom:20px;">

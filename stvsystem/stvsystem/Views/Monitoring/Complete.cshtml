@@ -11,7 +11,7 @@
                     Ցանկանում եք ավարտել քվեարկությունը
                 </div>
                 <div class="card-footer">
-                    <button type="submit" id="SubmitButton" class="btn btn-sm btn-success"><i class="icons icon-arrow-right"></i>&nbsp;Ավարտել</button>
+                    <button type="submit" id="SubmitButton" class="btn btn-sm btn-warning"><i class="icons icon-flag"></i>&nbsp;Ավարտել</button>
                     <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Monitoring")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
                 </div>
             </div>
@@ -20,10 +20,29 @@
     else if (Model.SelectionStatus == SettingStatus.Finished)
     {
         <p>Քվեարկությունը ավարտված է</p>
+        <div class="container-maxwidth500">
+            <div class="card card-accent-success">
+                <div class="card-header">
+                    Ուշադրություն
+                </div>
+                <div class="card-body">
+                    Քվեարկությունն ավարտված է
+                </div>
+            </div>
+        </div>
     }
     else
     {
-        <p>Քվեարկությունը դեռ չի սկսվել</p>
+        <div class="container-maxwidth500">
+            <div class="card card-accent-warning">
+                <div class="card-header">
+                    Ուշադրություն
+                </div>
+                <div class="card-body">
+                    Քվեարկությունը դեռ չի սկսվել
+                </div>
+            </div>
+        </div>
     }
 
 

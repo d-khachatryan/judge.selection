@@ -1,0 +1,36 @@
+﻿@(Html.Kendo().Chart<stvsystem.Data.CredentialStatisticItem>()
+    .Name("internetUsersChart")
+    .Title("Քվեարկության արդյունքները")
+    .DataSource(dataSource => dataSource
+    .Read(read => read.Action("GetCredentialStatistics", "Monitoring")))
+    .Legend(legend => legend
+            .Visible(false)
+        )
+   .Tooltip(tooltip => tooltip
+            .Visible(true)
+            .Template("#= dataItem.StatusName #: #= value #")
+        )
+    .Series(series =>
+    {
+        series.Column(d => d.StatusCount)
+        .Labels(labels => labels.Visible(true).Position(ChartBarLabelsPosition.OutsideEnd))
+        //.Aggregate(ChartSeriesAggregate.Count);
+        //.Name("Կարգավիճակ")
+        //.Color("green")
+        ;
+    })
+    .ChartArea(chartArea => chartArea
+            .Background("transparent")
+        )
+    .CategoryAxis(axis => axis
+    .Categories(model => model.StatusName)
+
+    )
+)
+
+<script type="text/javascript">
+    function Search() {
+        $("#internetUsersChart").data("kendoChart").dataSource.read();
+        return false;
+    }
+</script>

@@ -1,38 +1,49 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
 
-@(Html.Kendo().Chart<stvsystem.Data.CredentialStatisticItem>()
-                                              .Name("internetUsersChart")
-                                              .DataSource(dataSource => dataSource
-                                                  .Read(read => read.Action("GetCredentialStatistics", "Monitoring"))
-                                              )
-                                              .Series(series =>
-                                              {
-                                                  series.Column(d => d.StatusCount)
-                                                        .Name("Կարգավիճակ");
-                                              })
-                                              .CategoryAxis(axis => axis
-                                                  .Categories(model => model.StatusName)
-                                              )
-)
-
-<script type="text/javascript">
-    function Search() {
-        $("#internetUsersChart").data("kendoChart").dataSource.read();
-        return false;
-    }
-</script>
-
 @if (Model.SelectionStatus == SettingStatus.InProcess)
 {
-    <input type="button" value="Refresh Page" onClick="Search()">
-    <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Complete", "Monitoring")'"><i class="icons icon-close"></i>&nbsp;Ավարտել</button>
+    <div class="container-maxwidth500">
+        <div class="card card-accent-info">
+            <div class="card-header">
+                Քվեարկությունն ընթացքում է
+            </div>
+            <div class="card-body">
+                @Html.Partial("Chart")
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-sm btn-success" onClick="Search()"><i class="icons icon-refresh"></i>&nbsp;Թարմացնել</button>
+                <button type="button" class="btn btn-sm btn-warning" onclick="location.href='@Url.Action("Complete", "Monitoring")'"><i class="icons icon-flag"></i>&nbsp;Ավարտել</button>
+            </div>
+        </div>
+    </div>
 }
 else if (Model.SelectionStatus == SettingStatus.Finished)
 {
-    <p>Քվեարկությունը ավարտված է</p>
+    
+    <div class="container-maxwidth500">
+        <div class="card card-accent-success">
+            <div class="card-header">
+                Քվեարկությունն ավարտված է
+            </div>
+            <div class="card-body">
+                @Html.Partial("Chart")
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <p>Քվեարկությունը դեռ չի սկսվել</p>
+    <div class="container-maxwidth500">
+        <div class="card card-accent-warning">
+            <div class="card-header">
+                Ուշադրություն
+            </div>
+            <div class="card-body">
+                Քվեարկությունը դեռ չի սկսվել
+            </div>
+        </div>
+    </div>
 }
+
+
