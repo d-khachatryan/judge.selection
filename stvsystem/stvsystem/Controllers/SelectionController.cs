@@ -83,7 +83,7 @@ namespace stvsystem.Controllers
 
         // this action runs in the Index page as a POST action
         [HttpPost]
-        public IActionResult SaveSelectionItem(SelectionItem selectionItem)
+        public IActionResult SaveSelectionItem(SelectionItem selectionItem, string submitButton)
         {
             var operationResult = selectionService.SaveSelection(selectionItem, credentialService);
             return RedirectToAction("SelectCandidate", "Selection", new { credentialID= selectionItem.CredentialID, candidateIndex = selectionItem.CandidateIndex +1 });

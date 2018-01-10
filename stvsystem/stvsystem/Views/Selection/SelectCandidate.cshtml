@@ -70,7 +70,10 @@
 
             </div>
             <div class="card-footer">
-                <button type="submit" id="SubmitButton" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Հաստատել</button>
+                <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Շարունակել</button>
+                <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
+
+
                 <button type="button" onclick="return Clear();" class="btn btn-sm btn-secondary"><i class="icons icon-trash"></i>&nbsp;Մաքրել</button>
                 <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
                 @Html.ValidationSummary("Առկա են խնդիրներ")

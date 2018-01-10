@@ -13,5 +13,7 @@ namespace stvsystem.Data
         public int? CandidateID { get; set; }
 
         public int? CandidateIndex { get; set; }
+
+        //public bool? IsLastChoice
     }
 }
