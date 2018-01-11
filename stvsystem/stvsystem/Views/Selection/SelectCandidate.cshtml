@@ -24,41 +24,41 @@
                     @Html.DisplayFor(model => model.CandidateIndex)
                     @Html.LabelFor(model => model.CourtID, new { @class = "control-label" })
                     @(Html.Kendo().ComboBoxFor(model => model.CourtID)
-                        .DataTextField("Text")
-                        .DataValueField("Value")
-                        .Placeholder("-- Ընտրել --")
-                        .Filter(FilterType.StartsWith)
-                        .HtmlAttributes(new { @class = "form-control" })
-                        .DataSource(source =>
-                        {
-                            source.Read(read =>
-                            {
-                                read.Action("GetCourts", "Selection");
-                            });
-                        })
+                                        .DataTextField("Text")
+                                        .DataValueField("Value")
+                                        .Placeholder("-- Ընտրել --")
+                                        .Filter(FilterType.StartsWith)
+                                        .HtmlAttributes(new { @class = "form-control" })
+                                        .DataSource(source =>
+                                        {
+                                            source.Read(read =>
+                                            {
+                                                read.Action("GetCourts", "Selection");
+                                            });
+                                        })
                     )
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.CandidateID, new { @class = "control-label" })
                     @(Html.Kendo().ComboBoxFor(model => model.CandidateID)
-                        .DataTextField("Text")
-                        .DataValueField("Value")
-                        .Placeholder("-- Ընտրել --")
-                        .Filter(FilterType.StartsWith)
-                        .HtmlAttributes(new { @class = "form-control" })
-                        .DataSource(source =>
-                        {
-                            source.Read(read =>
-                            {
-                                read.Action("GetCandidates", "Selection")
-                                .Data("filterCandidates");
-                            })
-                            .ServerFiltering(true);
-                        })
-                        .Enable(false)
-                          .AutoBind(false)
-                          .CascadeFrom("CourtID")
+                                        .DataTextField("Text")
+                                        .DataValueField("Value")
+                                        .Placeholder("-- Ընտրել --")
+                                        .Filter(FilterType.StartsWith)
+                                        .HtmlAttributes(new { @class = "form-control" })
+                                        .DataSource(source =>
+                                        {
+                                            source.Read(read =>
+                                            {
+                                                read.Action("GetCandidates", "Selection")
+                                                .Data("filterCandidates");
+                                            })
+                                            .ServerFiltering(true);
+                                        })
+                                        .Enable(false)
+                                          .AutoBind(false)
+                                          .CascadeFrom("CourtID")
                     )
                     <script>
                         function filterCandidates() {
@@ -72,10 +72,17 @@
 
             </div>
             <div class="card-footer">
-                <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Շարունակել</button>
 
-                <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
-                
+                @if (Model.CandidateIndex < Model.MaxSelectionCount)
+                {
+                    <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Շարունակել</button>
+                }
+
+                @if (Model.CandidateIndex > Model.SelectionCount)
+                {
+                    <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
+                }
+
                 <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
 
                 @Html.ValidationSummary("Առկա են խնդիրներ")
@@ -92,16 +99,12 @@
         validate: function (e) { // handle the validate event to build the error list
             var html = "";
             if (!e.valid) {
-
-
                 var errors = this.errors();
                 html += "<ul>";
                 for (var i = 0; i < errors.length; i++) {
                     html += "<li>" + errors[i] + "</li>";
                 }
-
-                html += "</ul>";
-            }
+                html += "</ul>";            }
             $("#errors").empty().append($(html));
         }
     });

@@ -56,7 +56,7 @@ namespace stvsystem.Controllers
             {
                 InitializeViewBugs();
                 int? credentialID = credentialService.GetCredentialIDByPassword(item.Password);
-                return RedirectToAction("SelectCandidate", "Selection", new { credentialID, candidateIndex = 1 });
+                return RedirectToAction("SelectCandidate", "Selection", new { credentialID = credentialID, candidateIndex = 1 });
             }
             else if (passwordStatus == PasswordStatus.DoubleLogin)
             {
@@ -74,9 +74,10 @@ namespace stvsystem.Controllers
         }
 
 
-        public async Task<IActionResult> SelectCandidate(int? credentialID, int candidateIndex)
+        public async Task<IActionResult> SelectCandidate(int? credentialID, int candidateIndex, string submitButton)
         {
-            SettingItem settingItem =  await settingService.GetLatestSetting();
+
+            SettingItem settingItem = await settingService.GetLatestSetting();
 
             SelectionItem selectionItem = new SelectionItem
             {
@@ -91,35 +92,34 @@ namespace stvsystem.Controllers
         [HttpPost]
         public IActionResult SaveSelectionItem(SelectionItem selectionItem, string submitButton)
         {
-            var operationResult = selectionService.SaveSelection(selectionItem, credentialService);
-            return RedirectToAction("SelectCandidate", "Selection", new { credentialID= selectionItem.CredentialID, candidateIndex = selectionItem.CandidateIndex +1 });
+            var operationResult = selectionService.SaveSelectionItem(selectionItem);
+
+            if (submitButton == "Continue")
+            {
+                return RedirectToAction("SelectCandidate", "Selection", new { credentialID = selectionItem.CredentialID, candidateIndex = selectionItem.CandidateIndex + 1 });
+            }
+            else
+            {
+                return RedirectToAction("ConfirmSelection", "Selection", new { credentialID = selectionItem.CredentialID });
+            }
         }
 
         public IActionResult ConfirmSelection(int credentialID)
         {
             List<SelectionConfirmationItem> selectionConfirmationItems = selectionService.GetSelectionConfirmationItems(credentialID);
-            return View("ConfirmSelection", selectionConfirmationItems);
+            ViewBag.CandidateSelections = selectionConfirmationItems;
+
+            CredentialItem credentialItem = credentialService.GetCredential(credentialID);
+            return View("ConfirmSelection", credentialItem);
         }
 
-        
-
-        
-
-
-
-
-
-        //// this action runs in the ConfirmSeletion page as a POST action
-        //[HttpPost]
-        //public IActionResult SaveSelection(SelectionItem selectionItem)
-        //{
-        //    var operationResult = selectionService.SaveSelection(selectionItem, credentialService);
-        //    PasswordItem passwordItem = new PasswordItem
-        //    {
-        //        Status = PasswordStatus.Initialization
-        //    };
-        //    return RedirectToAction("Index", "Selection");
-        //}
+        // this action runs in the Index page as a POST action
+        [HttpPost]
+        public IActionResult SaveSelections(int credentialID)
+        {
+            var operationResult = selectionService.SaveSelections(credentialID);
+            return RedirectToAction("Index", "Selection");
+        }
 
         private void InitializeViewBugs()
         {

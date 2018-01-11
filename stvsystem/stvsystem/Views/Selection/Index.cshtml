@@ -9,9 +9,9 @@
     <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Home")"><i class="icons icon-action-undo"></i></a>
 </div>
 
-@using (Html.BeginForm("SelectCandidate", "Selection", FormMethod.Post, new { id = "frmIndex" }))
+@using (Html.BeginForm("VerifyPassword", "Selection", FormMethod.Post, new { id = "frmIndex" }))
 {
-     @Html.HiddenFor(model => model.Status)
+    @Html.HiddenFor(model => model.Status)
 
     <div class="container-maxwidth500">
         <div class="card">
