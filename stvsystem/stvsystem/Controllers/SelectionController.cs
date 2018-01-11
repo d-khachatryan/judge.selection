@@ -13,12 +13,15 @@ namespace stvsystem.Controllers
         CandidateService candidateService;
         CredentialService credentialService;
         SelectionService selectionService;
+        SettingService settingService;
         CourtService courtService;
+
         public SelectionController()
         {
             candidateService = new CandidateService();
             credentialService = new CredentialService();
             selectionService = new SelectionService();
+            settingService = new SettingService();
             courtService = new CourtService();
         }
 
@@ -71,12 +74,15 @@ namespace stvsystem.Controllers
         }
 
 
-        public IActionResult SelectCandidate(int? credentialID, int candidateIndex)
+        public async Task<IActionResult> SelectCandidate(int? credentialID, int candidateIndex)
         {
+            SettingItem settingItem =  await settingService.GetLatestSetting();
+
             SelectionItem selectionItem = new SelectionItem
             {
                 CredentialID = credentialID,
-                CandidateIndex = candidateIndex
+                CandidateIndex = candidateIndex,
+                SelectionCount = settingItem.SelectionCount
             };
             return View("SelectCandidate", selectionItem);
         }

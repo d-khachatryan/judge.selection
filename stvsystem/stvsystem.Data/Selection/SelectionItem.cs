@@ -14,6 +14,13 @@ namespace stvsystem.Data
 
         public int? CandidateIndex { get; set; }
 
-        //public bool? IsLastChoice
+        public int? SelectionCount { get; set; }
+
+        public int? MaxSelectionCount { get;}
+
+        public SelectionItem()
+        {
+            MaxSelectionCount = 15;
+        }
     }
 }

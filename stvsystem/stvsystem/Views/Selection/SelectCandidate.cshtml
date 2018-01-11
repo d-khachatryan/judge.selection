@@ -13,6 +13,8 @@
 {
     @Html.HiddenFor(model => model.CredentialID)
     @Html.HiddenFor(model => model.CandidateIndex)
+    @Html.HiddenFor(model => model.SelectionCount)
+    @Html.HiddenFor(model => model.MaxSelectionCount)
 
     <div class="container-maxwidth500">
         <div class="card">
@@ -22,18 +24,18 @@
                     @Html.DisplayFor(model => model.CandidateIndex)
                     @Html.LabelFor(model => model.CourtID, new { @class = "control-label" })
                     @(Html.Kendo().ComboBoxFor(model => model.CourtID)
-             .DataTextField("Text")
-    .DataValueField("Value")
-    .Placeholder("-- Ընտրել --")
-    .Filter(FilterType.StartsWith)
-    .HtmlAttributes(new { @class = "form-control" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("GetCourts", "Selection");
-        });
-    })
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .Placeholder("-- Ընտրել --")
+                        .Filter(FilterType.StartsWith)
+                        .HtmlAttributes(new { @class = "form-control" })
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetCourts", "Selection");
+                            });
+                        })
                     )
                 </div>
 
@@ -71,36 +73,18 @@
             </div>
             <div class="card-footer">
                 <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Շարունակել</button>
+
                 <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
-
-
-                <button type="button" onclick="return Clear();" class="btn btn-sm btn-secondary"><i class="icons icon-trash"></i>&nbsp;Մաքրել</button>
+                
                 <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+
                 @Html.ValidationSummary("Առկա են խնդիրներ")
             </div>
         </div>
     </div>
 
-
-
-
-
 }
-<script>
-    function Clear() {
-        $("#Candidate1ID").data("kendoComboBox").select(-1);
-        $("#Candidate2ID").data("kendoComboBox").select(-1);
-        $("#Candidate3ID").data("kendoComboBox").select(-1);
-        $("#Candidate4ID").data("kendoComboBox").select(-1);
-        $("#Candidate5ID").data("kendoComboBox").select(-1);
-        $("#Candidate6ID").data("kendoComboBox").select(-1);
-        $("#Candidate7ID").data("kendoComboBox").select(-1);
-        $("#Candidate8ID").data("kendoComboBox").select(-1);
-        $("#Candidate9ID").data("kendoComboBox").select(-1);
-        $("#Candidate10ID").data("kendoComboBox").select(-1);
-        return false;
-    }
-</script>
+
 <script>
     $(".validation-summary-errors").addClass("bg-warning")
     $("form").kendoValidator({
