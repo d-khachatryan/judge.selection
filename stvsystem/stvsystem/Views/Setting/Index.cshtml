@@ -12,37 +12,38 @@
             <div class="card-body">
                 <div style="padding-bottom:20px;">
                     @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
-                    <br />
-                    @Html.DisplayFor(model => model.SelectionName)
+                    @Html.TextBoxFor(model => model.SelectionName, new { @readonly = "readonly" })
                 </div>
                 <div>
                     @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.SelectionDate)
+                    @Html.TextBoxFor(model => model.SelectionDate, "{0:dd/MM/yyyy}", new { @readonly = "readonly" })
                 </div>
                 <div>
                     @Html.LabelFor(model => model.StartTime, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.StartTime)
+                    @Html.TextBoxFor(model => model.StartTime, "{0:hh:mm}", new { @readonly = "readonly" })
                 </div>
                 <div>
                     @Html.LabelFor(model => model.FinishTime, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.FinishTime)
+                    @Html.TextBoxFor(model => model.FinishTime, "{0:hh:mm}", new { @readonly = "readonly" })
                 </div>
                 <div>
                     @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.SelectionCount)
+                    @Html.TextBoxFor(model => model.SelectionCount, new { @readonly = "readonly" })
                 </div>
                 <div>
                     @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.ParticipantCount)
+                    @Html.TextBoxFor(model => model.ParticipantCount, new { @readonly = "readonly" })
                 </div>
             </div>
+
+
             <div class="card-footer">
                 @if (Model.SelectionStatus == SettingStatus.InPreparation)
                 {
                     <button type="button" class="btn btn-sm btn-success" onclick="location.href='@Url.Action("Initialize", "Setting")'"><i class="icons icon-arrow-right"></i>&nbsp;Սկսել քվեարկությունը</button>
                     <button type="button" style="float:right;" class="btn btn-sm btn-danger" onclick="location.href='@Url.Action("Delete", "Setting")'"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</button>
                     <button type="button" style="float:right;margin-right:5px;" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitUpdate", "Setting")'"><i class="icons icon-pencil"></i>&nbsp;Խմբագրել</button>
-                    
+
                 }
                 else if (Model.SelectionStatus == SettingStatus.Finished)
                 {
@@ -50,21 +51,34 @@
                 }
                 else
                 {
-                    <span>Ներկայումս սույն կարգավորումները խմբագրման ենթակա չեն, քանի որը քվեարկությունը ընթացքի մեջ է</span>
+                    <span>Քվեարկությունը ընթացքի մեջ է: Ներկայումս քվերակության կարգավորումները խմբագրման ենթակա չեն</span>
                 }
             </div>
         }
 
 
-        else
+        else if (Model.SelectionStatus == SettingStatus.Finished)
         {
             <div class="card-body">
                 <p>
-                    Ներկայումս համակարգում չկան ակտիվ գրառումներ ընտրության վերաբերյալ
+                    Քվեարկությունը ավարտված է
                 </p>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Ավելացնել</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Գրանցել նոր քվեարկություն</button>
+            </div>
+        }
+        else
+
+        {
+
+            <div class="card-body">
+                <p>
+                    Համակարգում ներկայումս չկան գրանցված տվյալներ
+                </p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Գրանցել նոր քվեարկություն</button>
             </div>
         }
     </div>

@@ -13,14 +13,16 @@ namespace stvsystem.Data
         public string SelectionName { get; set; }
 
         [Display(Name = "Ընտրության ա/թ")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? SelectionDate { get; set; }
 
         [Display(Name = "Մեկնարկի ժամը")]
-        public TimeSpan? StartTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public DateTime? StartTime { get; set; }
 
         [Display(Name = "Ավարտի ժամը")]
-        public TimeSpan? FinishTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public DateTime? FinishTime { get; set; }
 
         [Display(Name = "Թեկնածուների թիվը")]
         public int? SelectionCount { get; set; }
@@ -29,6 +31,8 @@ namespace stvsystem.Data
         public int? ParticipantCount { get; set; }
 
         public SettingStatus SelectionStatus { get; set; }
+
+        public virtual ICollection<Credential> Credentials { get; private set; }
     }
 
     public class SettingItem
@@ -41,16 +45,18 @@ namespace stvsystem.Data
 
         [Display(Name = "Ընտրության ա/թ")]
         [Required(ErrorMessage = "Ընտրության ամսաթիվը պարտադիր է")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? SelectionDate { get; set; }
 
         [Display(Name = "Մեկնարկի ժամը")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Մեկնարկի ժամը պարտադիր է")]
-        public TimeSpan? StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         [Display(Name = "Ավարտի ժամը")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ավարտի ժամը պարտադիր է")]
-        public TimeSpan? FinishTime { get; set; }
+        public DateTime? FinishTime { get; set; }
 
         [Display(Name = "Թեկնածուների թիվը")]
         [Required(ErrorMessage = "Թեկնածուների թիվը պարտադիր է")]

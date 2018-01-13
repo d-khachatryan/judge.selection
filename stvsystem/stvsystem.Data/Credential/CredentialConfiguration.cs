@@ -11,6 +11,11 @@ namespace stvsystem.Data
             builder.HasKey(p => p.CredentialID);
             builder.Property(p => p.CredentialID).ValueGeneratedOnAdd();
             builder.Property(p => p.Password).HasMaxLength(6);
+
+            builder.HasOne(c => c.Setting)
+            .WithMany(o => o.Credentials)
+            .HasForeignKey(o => o.SettingID)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
