@@ -9,6 +9,12 @@ INSERT [dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], 
 GO
 SET IDENTITY_INSERT [dbo].[Candidate] OFF
 GO
+SET IDENTITY_INSERT [dbo].[Setting] ON 
+GO
+INSERT [dbo].[Setting] ([SettingID], [SelectionName], [SelectionDate], [StartTime], [FinishTime], [SelectionCount], [ParticipantCount], [SelectionStatus]) VALUES (1, N'Թեսթային ընտրություն', '2018-01-01', '08:00', '20:00', 3, 10, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Setting] OFF
+GO
 SET IDENTITY_INSERT [dbo].[Credential] ON 
 GO
 INSERT [dbo].[Credential] ([CredentialID], [Password], [SettingID], [Status], [UsageDateTime]) VALUES (1, N'111111', 1, 1, CAST(N'2018-01-01T00:00:00.000' AS DateTime))
@@ -33,9 +39,4 @@ INSERT [dbo].[Credential] ([CredentialID], [Password], [SettingID], [Status], [U
 GO
 SET IDENTITY_INSERT [dbo].[Credential] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Setting] ON 
-GO
-INSERT [dbo].[Setting] ([SettingID], [SelectionName], [SelectionDate], [StartTime], [FinishTime], [SelectionCount], [ParticipantCount], [SelectionStatus]) VALUES (1, N'Թեսթային ընտրություն', '2018-01-01', '08:00', '20:00', 3, 10, 1)
-GO
-SET IDENTITY_INSERT [dbo].[Setting] OFF
-GO
+
