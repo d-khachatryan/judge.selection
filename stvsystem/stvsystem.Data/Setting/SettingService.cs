@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace stvsystem.Data
@@ -51,22 +53,45 @@ namespace stvsystem.Data
         }
         public SettingItem InsertSetting(SettingItem item)
         {
-            Setting dbItem = new Setting
+            bool deleteResult = DeleteSettings();
+            if (deleteResult)
             {
-                SelectionName = item.SelectionName,
-                SelectionDate = item.SelectionDate,
-                StartTime = item.StartTime,
-                FinishTime = item.FinishTime,
-                SelectionCount = item.SelectionCount,
-                ParticipantCount = item.ParticipantCount,
-                SelectionStatus = SettingStatus.InPreparation
-            };
-            db.Settings.RemoveRange(db.Settings);
-            db.Settings.Add(dbItem);
-            db.SaveChanges();
-            item.SettingID = dbItem.SettingID;
-            return item;
+                Setting dbItem = new Setting
+                {
+                    SelectionName = item.SelectionName,
+                    SelectionDate = item.SelectionDate,
+                    StartTime = item.StartTime,
+                    FinishTime = item.FinishTime,
+                    SelectionCount = item.SelectionCount,
+                    ParticipantCount = item.ParticipantCount,
+                    SelectionStatus = SettingStatus.InPreparation
+                };
+                db.Settings.RemoveRange(db.Settings);
+                db.Settings.Add(dbItem);
+
+                CredentialService credentialService = new CredentialService();
+                var dictionary = credentialService.GenerateCredentials((int)item.ParticipantCount);
+                for (var i = 0; i < item.ParticipantCount; i++)
+                {
+                    Credential credential = new Credential
+                    {
+                        SettingID = item.SettingID,
+                        Password = dictionary.ElementAt(i).Key,
+                        Status = CredentialStatus.NoSelection,
+                        Setting = dbItem
+                    };
+                    db.Credentials.Add(credential);
+                }
+                db.SaveChanges();
+                item.SettingID = dbItem.SettingID;
+                return item;
+            }
+            else
+            {
+                return null;
+            }
         }
+
         public SettingItem UpdateSetting(SettingItem item)
         {
             Setting dbItem = db.Settings.Find(item.SettingID);
@@ -83,12 +108,39 @@ namespace stvsystem.Data
             db.SaveChanges();
             return item;
         }
-        public SettingItem DeleteSetting(SettingItem item)
+
+        public bool DeleteSettings()
         {
-            Setting dbItem = db.Settings.Find(item.SettingID);
-            db.Settings.Remove(dbItem);
+            var settingSet = db.Settings;
+            foreach (Setting setting in settingSet.ToList())
+            {
+
+                IQueryable<Credential> credentailSet = db.Credentials.Where(p => p.SettingID == setting.SettingID);
+                foreach (Credential credentialItem in credentailSet.ToList())
+                {
+                    IQueryable<Result> resultSet = db.Results.Where(p => p.CredentialID == credentialItem.CredentialID);
+                    db.Results.RemoveRange(resultSet);
+                }
+                db.Credentials.RemoveRange(credentailSet);
+                db.Settings.Remove(setting);
+                db.SaveChanges();
+            }
+            return true;
+        }
+
+        public SettingItem DeleteSetting(SettingItem settingItem)
+        {
+            IQueryable<Credential> credentailSet = db.Credentials.Where(p => p.SettingID == settingItem.SettingID);
+            foreach (Credential credentialItem in credentailSet.ToList())
+            {
+                IQueryable<Result> resultSet = db.Results.Where(p => p.CredentialID == credentialItem.CredentialID);
+                db.Results.RemoveRange(resultSet);
+            }
+            db.Credentials.RemoveRange(credentailSet);
+            Setting setting = db.Settings.Find(settingItem.SettingID);
+            db.Settings.Remove(setting);
             db.SaveChanges();
-            return item;
+            return settingItem;
         }
         public SettingItem StartSelection(SettingItem item)
         {

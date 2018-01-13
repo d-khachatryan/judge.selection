@@ -18,15 +18,15 @@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label" })
-                    @Html.Kendo().DatePickerFor(model => model.SelectionDate).HtmlAttributes(new { @class = "form-control" })
+                    @Html.Kendo().DatePickerFor(model => model.SelectionDate).Format("MM-dd-yyyy").HtmlAttributes(new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.StartTime, new { @class = "control-label" })
-                    @Html.Kendo().TimePickerFor(model => model.StartTime).HtmlAttributes(new { @class = "form-control" })
+                    @Html.Kendo().DateTimePickerFor(model => model.StartTime).Format("hh:mm").HtmlAttributes(new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.FinishTime, new { @class = "control-label" })
-                    @Html.Kendo().TimePickerFor(model => model.FinishTime).HtmlAttributes(new { @class = "form-control" })
+                    @Html.Kendo().DateTimePickerFor(model => model.FinishTime).Format("hh:mm").HtmlAttributes(new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label" })

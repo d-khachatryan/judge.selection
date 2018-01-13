@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace stvsystem.Data
@@ -11,18 +12,18 @@ namespace stvsystem.Data
         public IList<CredentialItem> Search(string password, string idStr)
         {
             IList<CredentialItem> result = (from credential in db.Credentials
-                                       
-                                       select new
-                                       {
-                                           CredentialTable = credential
-                                       }).Select(list => new CredentialItem
-                                       {
-                                           CredentialID = list.CredentialTable.CredentialID,
-                                           Password = list.CredentialTable.Password,
-                                           SettingID = list.CredentialTable.SettingID,
-                                           CredentialStatus = list.CredentialTable.Status,
-                                           UsageDateTime = list.CredentialTable.UsageDateTime
-                                       }).ToList();
+
+                                            select new
+                                            {
+                                                CredentialTable = credential
+                                            }).Select(list => new CredentialItem
+                                            {
+                                                CredentialID = list.CredentialTable.CredentialID,
+                                                Password = list.CredentialTable.Password,
+                                                SettingID = list.CredentialTable.SettingID,
+                                                CredentialStatus = list.CredentialTable.Status,
+                                                UsageDateTime = list.CredentialTable.UsageDateTime
+                                            }).ToList();
 
             if (!string.IsNullOrEmpty(password))
             {
@@ -65,7 +66,35 @@ namespace stvsystem.Data
             return result;
         }
 
+        public Dictionary<string, string> GenerateCredentials(int participantCount)
+        {
+            Dictionary<string, string> dictionaryList = new Dictionary<string, string>();
+            const string pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            var builder = new StringBuilder();
 
+            for (var i = 0; i < participantCount; i++)
+            {
+                string password = "";
+                builder.Clear();
+                for (var ii = 0; ii < 6; ii++)
+                {
+                    var c = pool[random.Next(0, pool.Length)];
+                    builder.Append(c);
+                }
+                password = builder.ToString();
+                try
+                {
+                    dictionaryList.Add(password, password);
+                }
+                catch
+                {
+                    i--;
+                }
+            }
+
+            return dictionaryList;
+        }
 
         public int? GetSettingIDByPassword(string password)
         {
@@ -116,7 +145,7 @@ namespace stvsystem.Data
                                         group c by c.Status into g
                                         select new CredentialStatisticItem
                                         {
-                                            Status = g.Key,                                            
+                                            Status = g.Key,
                                             StatusCount = g.Count(),
                                         }).ToList();
 
@@ -125,12 +154,15 @@ namespace stvsystem.Data
 
         public CredentialItem InsertCredential(CredentialItem item)
         {
+            Setting setting = db.Settings.Find(item.SettingID);
             Credential dbItem = new Credential
             {
                 Password = item.Password,
                 SettingID = item.SettingID,
                 Status = item.CredentialStatus,
-                UsageDateTime = item.UsageDateTime
+                UsageDateTime = item.UsageDateTime,
+                Setting = setting
+
             };
             db.Credentials.Add(dbItem);
             db.SaveChanges();
@@ -140,12 +172,14 @@ namespace stvsystem.Data
 
         public CredentialItem UpdateCredential(CredentialItem item)
         {
+            Setting setting = db.Settings.Find(item.SettingID);
             Credential dbItem = db.Credentials.Find(item.CredentialID);
             dbItem.CredentialID = item.CredentialID;
             dbItem.Password = item.Password;
             dbItem.SettingID = item.SettingID;
             dbItem.Status = item.CredentialStatus;
             dbItem.UsageDateTime = item.UsageDateTime;
+            dbItem.Setting = setting;
             db.Credentials.Attach(dbItem);
             db.Entry(dbItem).State = EntityState.Modified;
             db.SaveChanges();
@@ -158,6 +192,7 @@ namespace stvsystem.Data
             db.SaveChanges();
             return item;
         }
+
         protected async Task<int> Count()
         {
             var count = await db.Credentials.CountAsync();

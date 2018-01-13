@@ -10,5 +10,6 @@ namespace stvsystem.Data
         public int CredentialID { get; set; }
         public int CandidateID { get; set; }
         public int CandidateIndex { get; set; }
+        public ResultStatus Status { get; set; }
     }
 }

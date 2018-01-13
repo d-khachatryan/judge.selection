@@ -15,8 +15,8 @@ namespace stvsystem.UnitTests
             {
                 SelectionName = "SettingName",
                 SelectionDate = Convert.ToDateTime("01/01/2018"),
-                StartTime = TimeSpan.Parse("07:35"),
-                FinishTime = TimeSpan.Parse("07:35"),
+                StartTime = DateTime.Parse("01-01-2011 07:35"),
+                FinishTime = DateTime.Parse("01-01-2011 07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
                 SelectionStatus = SettingStatus.InPreparation
@@ -36,8 +36,8 @@ namespace stvsystem.UnitTests
             {
                 SelectionName = "SettingName",
                 SelectionDate = Convert.ToDateTime("01/01/2018"),
-                StartTime = TimeSpan.Parse("07:35"),
-                FinishTime = TimeSpan.Parse("07:35"),
+                StartTime = DateTime.Parse("01-01-2011 07:35"),
+                FinishTime = DateTime.Parse("01-01-2011 07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
                 SelectionStatus = SettingStatus.InPreparation
@@ -55,8 +55,8 @@ namespace stvsystem.UnitTests
             {
                 SelectionName = "SettingName",
                 SelectionDate = Convert.ToDateTime("01/01/2018"),
-                StartTime = TimeSpan.Parse("07:35"),
-                FinishTime = TimeSpan.Parse("07:35"),
+                StartTime = DateTime.Parse("01-01-2011 07:35"),
+                FinishTime = DateTime.Parse("01-01-2011 07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
                 SelectionStatus = SettingStatus.InPreparation
@@ -79,8 +79,8 @@ namespace stvsystem.UnitTests
             {
                 SelectionName = "SettingName",
                 SelectionDate = Convert.ToDateTime("01/01/2018"),
-                StartTime = TimeSpan.Parse("07:35"),
-                FinishTime = TimeSpan.Parse("07:35"),
+                StartTime = DateTime.Parse("01-01-2011 07:35"),
+                FinishTime = DateTime.Parse("01-01-2011 07:35"),
                 SelectionCount = 5,
                 ParticipantCount = 100,
                 SelectionStatus = SettingStatus.InPreparation

@@ -1,0 +1,115 @@
+﻿@using  stvsystem.Data
+@model SelectionItem
+@{
+    ViewData["Title"] = "Նախընտրելի թեկնածուներ";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
+
+<div id="backButton">
+    <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Home")"><i class="icons icon-action-undo"></i></a>
+</div>
+
+@using (Html.BeginForm("SaveSelectionItem", "Selection", FormMethod.Post, new { id = "frmCandidateSelection" }))
+{
+    @Html.HiddenFor(model => model.CredentialID)
+    @Html.HiddenFor(model => model.CandidateIndex)
+    @Html.HiddenFor(model => model.SelectionCount)
+    @Html.HiddenFor(model => model.MaxSelectionCount)
+
+    <div class="container-maxwidth500">
+        <div class="card">
+            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CandidateIndex, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.CandidateIndex, new { @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CourtID, new { @class = "control-label" })
+                    @(Html.Kendo().ComboBoxFor(model => model.CourtID)
+                                            .DataTextField("Text")
+                                            .DataValueField("Value")
+                                            .Placeholder("-- Ընտրել --")
+                                            .Filter(FilterType.StartsWith)
+                                            .HtmlAttributes(new { @class = "form-control" })
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("GetCourts", "Selection");
+                                                });
+                                            })
+                    )
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CandidateID, new { @class = "control-label" })
+                    @(Html.Kendo().ComboBoxFor(model => model.CandidateID)
+                                            .DataTextField("Text")
+                                            .DataValueField("Value")
+                                            .Placeholder("-- Ընտրել --")
+                                            .Filter(FilterType.StartsWith)
+                                            .HtmlAttributes(new { @class = "form-control" })
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("GetCandidates", "Selection")
+                                                    .Data("filterCandidates");
+                                                })
+                                                .ServerFiltering(true);
+                                            })
+                                            .Enable(false)
+                                              .AutoBind(false)
+                                              .CascadeFrom("CourtID")
+                    )
+                    <script>
+                        function filterCandidates() {
+                            return {
+                                courtID: $("#CourtID").val(),
+                                candidateName: $("#CandidateID").data("kendoComboBox").input.val()
+                            }
+                        }
+                    </script>
+                </div>
+
+            </div>
+            <div class="card-footer">
+
+                @if (Model.CandidateIndex < Model.MaxSelectionCount)
+                {
+                    <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Շարունակել</button>
+                }
+
+                @if (Model.CandidateIndex > Model.SelectionCount)
+                {
+                    <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
+                }
+
+                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+
+                @Html.ValidationSummary("Առկա են խնդիրներ")
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(".validation-summary-errors").addClass("bg-warning")
+    $("form").kendoValidator({
+        errorTemplate: '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em; padding:3px 5px;"><span class="fa fa-exclamation-triangle"></span> #=message#<div class="k-callout k-callout-n"></div></div>', // change the default message container to show only an *
+        validate: function (e) { // handle the validate event to build the error list
+            var html = "";
+            if (!e.valid) {
+                var errors = this.errors();
+                html += "<ul>";
+                for (var i = 0; i < errors.length; i++) {
+                    html += "<li>" + errors[i] + "</li>";
+                }
+                html += "</ul>";
+            }
+            $("#errors").empty().append($(html));
+        }
+    });
+</script>

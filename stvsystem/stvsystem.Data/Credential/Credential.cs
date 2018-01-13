@@ -16,6 +16,8 @@ namespace stvsystem.Data
         public CredentialStatus  Status { get; set; }
 
         public DateTime? UsageDateTime { get; set; }
+
+        public Setting Setting { get; set; }
     }
 
     public class CredentialItem
