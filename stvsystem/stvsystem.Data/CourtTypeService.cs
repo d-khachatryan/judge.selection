@@ -8,6 +8,12 @@ namespace stvsystem.Data
 {
     public class CourtTypeService : ServiceBase
     {
+        public CourtTypeService(StvContext db)
+            : base(db)
+        {
+
+        }
+
         public List<SelectListItem> GetCourtTypeDropDownItems()
         {
             var list = new List<SelectListItem>();

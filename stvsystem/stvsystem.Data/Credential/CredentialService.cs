@@ -9,6 +9,11 @@ namespace stvsystem.Data
 {
     public class CredentialService : ServiceBase
     {
+        public CredentialService(StvContext db)
+            : base(db)
+        {
+
+        }
         public IList<CredentialItem> Search(string password, string idStr)
         {
             IList<CredentialItem> result = (from credential in db.Credentials

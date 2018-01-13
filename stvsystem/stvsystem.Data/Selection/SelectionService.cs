@@ -6,6 +6,12 @@ namespace stvsystem.Data
 {
     public class SelectionService : ServiceBase
     {
+        public SelectionService(StvContext db)
+            : base(db)
+        {
+
+        }
+
         public PasswordStatus ValidatePassword(PasswordItem item)
         {
             var result = db.Credentials.Where(p => p.Password == item.Password);

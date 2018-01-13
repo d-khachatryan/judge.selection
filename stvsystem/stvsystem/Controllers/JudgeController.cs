@@ -13,13 +13,13 @@ namespace stvsystem.Controllers
 {
     public class JudgeController : Controller
     {
+        StvContext _db;
         JudgeService service;
-        StvContext db;
 
-        public JudgeController(StvContext context)
+        public JudgeController(StvContext db)
         {
-            db = context;
-            service = new JudgeService();
+            _db = db;
+            service = new JudgeService(_db);
         }
 
 
@@ -39,7 +39,7 @@ namespace stvsystem.Controllers
 
         public IActionResult Template(int? judgeID = null)
         {
-            OrganizeViewBugs(db);
+            OrganizeViewBugs(_db);
             try
             {
                 var item = service.GetJudge(judgeID);

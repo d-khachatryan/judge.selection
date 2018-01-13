@@ -9,12 +9,14 @@ namespace stvsystem.Controllers
 {
     public class MonitoringController : Controller
     {
+        StvContext _db;
         CredentialService credentialService;
         SettingService settingService;
-        public MonitoringController()
+        public MonitoringController(StvContext db)
         {
-            credentialService = new CredentialService();
-            settingService = new SettingService();
+            _db = db;
+            credentialService = new CredentialService(_db);
+            settingService = new SettingService(_db);
         }
         public IActionResult Index()
         {

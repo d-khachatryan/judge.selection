@@ -9,10 +9,12 @@ namespace stvsystem.Controllers
 {
     public class SettingController : Controller
     {
+        StvContext _db;
         SettingService settingService;
-        public SettingController()
+        public SettingController(StvContext db)
         {
-            settingService = new SettingService();
+            _db = db;
+            settingService = new SettingService(db);
         }
 
         public IActionResult Index()

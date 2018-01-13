@@ -8,6 +8,11 @@ namespace stvsystem.Data
 {
     public class GenderService : ServiceBase
     {
+        public GenderService(StvContext db)
+            : base(db)
+        {
+
+        }
         public List<SelectListItem> GetGenderDropDownItems()
         {
             var list = new List<SelectListItem>();

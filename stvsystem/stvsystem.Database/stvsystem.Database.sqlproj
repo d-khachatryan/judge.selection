@@ -77,8 +77,9 @@
     <RefactorLog Include="stvsystem.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="stvsystem.Database.publish.xml" />
+    <None Include="local.publish.xml" />
     <None Include="SelectionTest.sql" />
+    <None Include="azure.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Script.PreDeployment.sql" />

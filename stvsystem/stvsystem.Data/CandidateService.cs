@@ -11,9 +11,11 @@ namespace stvsystem.Data
 {
     public class CandidateService : ServiceBase
     {
-        //public CandidateService()
-        //    :base()
-        //{
+        public CandidateService(StvContext db)
+            : base(db)
+        {
+
+        }
 
         public List<SelectListItem> GetCandidateDropDownItems()
         {

@@ -10,9 +10,11 @@ namespace stvsystem.Data
 {
     public class JudgeService : ServiceBase
     {
-        //public JudgeService()
-        //    :base()
-        //{
+        public JudgeService(StvContext db)
+            : base(db)
+        {
+
+        }
 
         public IList<JudgeItem> SearchJudges(string firstName, string lastName)
         {

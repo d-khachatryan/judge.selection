@@ -5,121 +5,121 @@ using System.Threading.Tasks;
 
 namespace stvsystem.UnitTests
 {
-    [TestClass]
-    public class CandidateUnitTest : CandidateService
-    {
-        [TestMethod]
-        public void GetCandidateTest()
-        {
-            CandidateItem item = new CandidateItem
-            {
-                CandidateID = 0,
-                CourtID = 1,
-                SpecializationID = 1,
-                FirstName = "FirstName",
-                LastName = "LastName",
-                MiddleName = "MiddleName",
-                GenderID = 1,
-                BirthDate = Convert.ToDateTime("01/01/2015")
-            };
+    //[TestClass]
+    //public class CandidateUnitTest : CandidateService
+    //{
+    //    [TestMethod]
+    //    public void GetCandidateTest()
+    //    {
+    //        CandidateItem item = new CandidateItem
+    //        {
+    //            CandidateID = 0,
+    //            CourtID = 1,
+    //            SpecializationID = 1,
+    //            FirstName = "FirstName",
+    //            LastName = "LastName",
+    //            MiddleName = "MiddleName",
+    //            GenderID = 1,
+    //            BirthDate = Convert.ToDateTime("01/01/2015")
+    //        };
 
-            item = this.InsertCandidate(item);
+    //        item = this.InsertCandidate(item);
 
-            CandidateItem result = this.GetCandidate(item.CandidateID);
+    //        CandidateItem result = this.GetCandidate(item.CandidateID);
 
-            Assert.AreEqual(result.FirstName, item.FirstName);
-        }
+    //        Assert.AreEqual(result.FirstName, item.FirstName);
+    //    }
 
-        [TestMethod]
-        public void GetCandidatesTest()
-        {
-            CandidateItem item = new CandidateItem
-            {
-                CandidateID = 0,
-                CourtID = 1,
-                SpecializationID = 1,
-                FirstName = "FirstName",
-                LastName = "LastName",
-                MiddleName = "MiddleName",
-                GenderID = 1
-            };
+    //    [TestMethod]
+    //    public void GetCandidatesTest()
+    //    {
+    //        CandidateItem item = new CandidateItem
+    //        {
+    //            CandidateID = 0,
+    //            CourtID = 1,
+    //            SpecializationID = 1,
+    //            FirstName = "FirstName",
+    //            LastName = "LastName",
+    //            MiddleName = "MiddleName",
+    //            GenderID = 1
+    //        };
 
-            item = this.InsertCandidate(item);
+    //        item = this.InsertCandidate(item);
 
-            var list = this.SearchCandidates("FirstName", "LastName");
-            Assert.AreNotEqual(list.Count, 0);
-        }
+    //        var list = this.SearchCandidates("FirstName", "LastName");
+    //        Assert.AreNotEqual(list.Count, 0);
+    //    }
 
-        [TestMethod]
-        public void InsertCandidateTest()
-        {
-            CandidateItem item = new CandidateItem
-            {
-                CandidateID = 0,
-                CourtID = 1,
-                SpecializationID = 1,
-                FirstName = "FirstName",
-                LastName = "LastName",
-                MiddleName = "MiddleName",
-                GenderID = 1,
-                BirthDate = Convert.ToDateTime("01/01/2015")
-            };
-            CandidateService serviceMock = new CandidateService();
-            serviceMock.InsertCandidate(item);
-            Assert.AreNotEqual(item.CandidateID, 0);
-        }
+    //    [TestMethod]
+    //    public void InsertCandidateTest()
+    //    {
+    //        CandidateItem item = new CandidateItem
+    //        {
+    //            CandidateID = 0,
+    //            CourtID = 1,
+    //            SpecializationID = 1,
+    //            FirstName = "FirstName",
+    //            LastName = "LastName",
+    //            MiddleName = "MiddleName",
+    //            GenderID = 1,
+    //            BirthDate = Convert.ToDateTime("01/01/2015")
+    //        };
+    //        CandidateService serviceMock = new CandidateService();
+    //        serviceMock.InsertCandidate(item);
+    //        Assert.AreNotEqual(item.CandidateID, 0);
+    //    }
 
-        [TestMethod]
-        public void UpdateCandidateTest()
-        {
-            CandidateItem item = new CandidateItem
-            {
-                CandidateID = 0,
-                CourtID = 1,
-                SpecializationID = 1,
-                FirstName = "FirstName",
-                LastName = "LastName",
-                MiddleName = "MiddleName",
-                GenderID = 1,
-                BirthDate = Convert.ToDateTime("01/01/2015")
-            };
+    //    [TestMethod]
+    //    public void UpdateCandidateTest()
+    //    {
+    //        CandidateItem item = new CandidateItem
+    //        {
+    //            CandidateID = 0,
+    //            CourtID = 1,
+    //            SpecializationID = 1,
+    //            FirstName = "FirstName",
+    //            LastName = "LastName",
+    //            MiddleName = "MiddleName",
+    //            GenderID = 1,
+    //            BirthDate = Convert.ToDateTime("01/01/2015")
+    //        };
 
-            item = this.InsertCandidate(item);
+    //        item = this.InsertCandidate(item);
 
-            item.FirstName = "OtherFirstName";
+    //        item.FirstName = "OtherFirstName";
 
-            CandidateItem updatedItem = this.UpdateCandidate(item);
+    //        CandidateItem updatedItem = this.UpdateCandidate(item);
 
-            Assert.AreEqual(updatedItem.FirstName, "OtherFirstName");
-        }
+    //        Assert.AreEqual(updatedItem.FirstName, "OtherFirstName");
+    //    }
 
-        [TestMethod]
-        public async Task DeleteCandidateTest()
-        {
+    //    [TestMethod]
+    //    public async Task DeleteCandidateTest()
+    //    {
 
-            CandidateItem item = new CandidateItem
-            {
-                CandidateID = 0,
-                CourtID = 1,
-                SpecializationID = 1,
-                FirstName = "FirstName",
-                LastName = "LastName",
-                MiddleName = "MiddleName",
-                GenderID = 1,
-                BirthDate = Convert.ToDateTime("01/01/2015")
-            };
+    //        CandidateItem item = new CandidateItem
+    //        {
+    //            CandidateID = 0,
+    //            CourtID = 1,
+    //            SpecializationID = 1,
+    //            FirstName = "FirstName",
+    //            LastName = "LastName",
+    //            MiddleName = "MiddleName",
+    //            GenderID = 1,
+    //            BirthDate = Convert.ToDateTime("01/01/2015")
+    //        };
 
-            item = this.InsertCandidate(item);
+    //        item = this.InsertCandidate(item);
 
-            int count1 = await this.Count();
+    //        int count1 = await this.Count();
 
-            int candidateID = Convert.ToInt32(item.CandidateID );
-            this.DeleteCandidate(candidateID);
+    //        int candidateID = Convert.ToInt32(item.CandidateID );
+    //        this.DeleteCandidate(candidateID);
 
 
-            int count2 = await this.Count();
+    //        int count2 = await this.Count();
 
-            Assert.AreNotEqual(count1, count2);
-        }
-    }
+    //        Assert.AreNotEqual(count1, count2);
+    //    }
+    //}
 }

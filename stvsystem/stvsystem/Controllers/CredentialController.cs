@@ -11,21 +11,21 @@ namespace stvsystem.Controllers
 {
     public class CredentialController : Controller
     {
+        StvContext _db;
         CredentialService service;
         SettingService settingService;
-        StvContext db;
 
-        public CredentialController(StvContext context)
+        public CredentialController(StvContext db)
         {
-            db = context;
-            service = new CredentialService();
-            settingService = new SettingService();
+            _db = db;
+            service = new CredentialService(_db);
+            settingService = new SettingService(_db);
         }
 
         public IActionResult Index()
         {
-            if(db.Settings.Count() != 0) {
-                var setting = db.Settings.First();
+            if(_db.Settings.Count() != 0) {
+                var setting = _db.Settings.First();
                 return View(setting);
             }
             else

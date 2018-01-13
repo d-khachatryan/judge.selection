@@ -8,6 +8,12 @@ namespace stvsystem.Data
 {
     public class SpecializationService : ServiceBase
     {
+        public SpecializationService(StvContext db)
+            : base(db)
+        {
+
+        }
+
         public List<SelectListItem> GetSpecializationDropDownItems()
         {
             var list = new List<SelectListItem>();

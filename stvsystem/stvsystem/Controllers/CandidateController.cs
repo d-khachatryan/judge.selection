@@ -13,13 +13,13 @@ namespace stvsystem.Controllers
 {
     public class CandidateController : Controller
     {
-        CandidateService service;
-        StvContext db;
+        StvContext _db;
+        CandidateService service;        
 
-        public CandidateController(StvContext context)
+        public CandidateController(StvContext db)
         {
-            db = context;
-            service = new CandidateService();
+            _db = db;
+            service = new CandidateService(_db);
         }
 
 
@@ -39,7 +39,7 @@ namespace stvsystem.Controllers
 
         public IActionResult Template(int? candidateID = null)
         {
-            OrganizeViewBugs(db);
+            OrganizeViewBugs(_db);
             try
             {
                 var item = service.GetCandidate(candidateID);

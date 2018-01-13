@@ -13,19 +13,18 @@ namespace stvsystem.Controllers
 {
     public class CourtController : Controller
     {
-        CourtService service;
-        StvContext db;
+        StvContext _db;
+        CourtService service;        
 
-        public CourtController(StvContext context)
+        public CourtController(StvContext db)
         {
-            db = context;
-            service = new CourtService();
+            _db = db;
+            service = new CourtService(_db);
         }
-
 
         public IActionResult Index()
         {
-            OrganizeViewBugs(db);
+            OrganizeViewBugs(_db);
             return View();
         }
 
@@ -37,7 +36,7 @@ namespace stvsystem.Controllers
 
         public IActionResult Template(int? courtID = null)
         {
-            OrganizeViewBugs(db);
+            OrganizeViewBugs(_db);
             try
             {
                 var item = service.GetCourt(courtID);

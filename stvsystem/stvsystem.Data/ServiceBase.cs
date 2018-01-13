@@ -17,6 +17,7 @@ namespace stvsystem.Data
             }
 
         }
+
         public ServiceBase()
         {
             //Testing
@@ -24,6 +25,7 @@ namespace stvsystem.Data
             optionsBuilder.UseSqlServer(@"Data Source=.\SQL2014;Database=stvsystemDB;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True", null);
             db = new StvContext(optionsBuilder.Options);
         }
+
         public ServiceBase(StvContext context)
         {
             db = context;

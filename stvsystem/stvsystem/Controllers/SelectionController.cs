@@ -10,19 +10,21 @@ namespace stvsystem.Controllers
 {
     public class SelectionController : Controller
     {
+        StvContext _db;
         CandidateService candidateService;
         CredentialService credentialService;
         SelectionService selectionService;
         SettingService settingService;
         CourtService courtService;
 
-        public SelectionController()
+        public SelectionController(StvContext db)
         {
-            candidateService = new CandidateService();
-            credentialService = new CredentialService();
-            selectionService = new SelectionService();
-            settingService = new SettingService();
-            courtService = new CourtService();
+            _db = db;
+            candidateService = new CandidateService(db);
+            credentialService = new CredentialService(db);
+            selectionService = new SelectionService(db);
+            settingService = new SettingService(db);
+            courtService = new CourtService(db);
         }
 
         public JsonResult GetCourts()

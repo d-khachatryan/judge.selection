@@ -7,6 +7,12 @@ namespace stvsystem.Data
 {
     public class SettingService : ServiceBase
     {
+        public SettingService(StvContext db)
+            : base(db)
+        {
+
+        }
+
         public async Task<SettingItem> GetLatestSetting()
         {
             if (await Count() > 0)
@@ -69,7 +75,7 @@ namespace stvsystem.Data
                 db.Settings.RemoveRange(db.Settings);
                 db.Settings.Add(dbItem);
 
-                CredentialService credentialService = new CredentialService();
+                CredentialService credentialService = new CredentialService(db);
                 var dictionary = credentialService.GenerateCredentials((int)item.ParticipantCount);
                 for (var i = 0; i < item.ParticipantCount; i++)
                 {

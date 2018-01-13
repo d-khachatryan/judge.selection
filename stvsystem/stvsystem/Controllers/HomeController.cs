@@ -9,11 +9,11 @@ namespace stvsystem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly StvContext _context;
+        private readonly StvContext _db;
 
-        public HomeController(StvContext context)
+        public HomeController(StvContext db)
         {
-            _context = context;
+            _db = db;
         }
 
         public IActionResult Index()
