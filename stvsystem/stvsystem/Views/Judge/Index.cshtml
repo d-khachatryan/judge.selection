@@ -72,41 +72,7 @@
     }
 
 
-    @*function DeleteJudge(e) {
-        var row = $(e.target).closest("tr");
-        var grid = $("#grResident").data("kendoGrid");
-        var dataItem = grid.dataItem(row);
-        var r = confirm("Համոզված ե՞ք, որ ցանկանում եք հեռացնել քաղաքացու գրառումը");
-        if (r == false) {
-            return false;
-        }
-        var rt = false;
-        var dt;
-        var q = $.ajax({
-            url: '@Url.Action("DeleteResident", "Resident")',
-            dataType: "json",
-            type: "GET",
-            data: { ResidentID: dataItem.ResidentID },
-            async: false,
-            success: function (data) { dt = data; rt = true; },
-            error: function (xhr) { dt = xhr; rt = false; }
-        });
-        if (rt == true) {
-            if (dt != "DELETE_SUCCESS") {
-                alert(JSON.stringify(dt));
-            }
-            else {
-                $("#grResident").data("kendoGrid").dataSource.read();
-            }
-        }
-        else {
-            alert(dt);
-            return false;
-        }
-        return false;
-    }*@
-
-
+   
 </script>
 
 @(Html.Kendo().Grid<stvsystem.Data.JudgeItem>()
@@ -131,7 +97,7 @@
           .Resizable(resize => resize.Columns(true))
           .Scrollable()
           .Reorderable(reorder => reorder.Columns(true))
-          .Pageable(pager => pager.PageSizes(new[] { 10, 15, 25, 50, 100 }))
+          //.Pageable(pager => pager.PageSizes(new[] { 10, 15, 25, 50, 100 }))
           .DataSource(dataSource => dataSource
               .Ajax()
               .Events(events => events.Error("error_handler"))

@@ -21,6 +21,10 @@
     width:100%;
 }
 
+.height100 {
+    height: 100%;
+}
+
 
 #status {
     width: 200px;
@@ -191,6 +195,10 @@ a.k-button:hover, a.k-button:focus {
     margin: 10px 0;
 }
 
+.margin-15 {
+    margin: 15px;
+}
+
 .padding-0 {
     padding: 0;
 }
@@ -202,6 +210,11 @@ a.k-button:hover, a.k-button:focus {
 .align-center {
     text-align: center;
 }
+
+.maxwidth500 {
+    max-width: 500px;
+}
+
 
 .container-maxwidth500 {
     max-width: 500px;
@@ -355,21 +368,24 @@ a.k-button:hover, a.k-button:focus {
         font-size: 15px;
     }
 
-.passworBlock p span {
-    font-size:12px;
-    color: #808080;
-}
-
 .passworBlock {
-    float: left;
-    width: 50%;
-    padding: 60px 15px;
-    border-bottom: 1px solid rgba(136, 136, 136, 0.8);
+    padding: 10px 15px;
 }
 
-.pdf-page .passworBlock:nth-child(odd){
-    border-right: 1px solid rgba(136, 136, 136, 0.8);
-}
+   .passworBlock .card {
+        margin-bottom: -1px !important;
+    }
+/*
+    .passworBlock .card .card-body div.pt-3 {
+        padding-top: 5px !important;
+        font-size:16px !important;
+    }
+
+    .passworBlock .card-group .card .card-body div.pt-3 {
+        padding-top: 5px !important;
+        font-size: 16px !important;
+    }*/
+
 
 #backButton a {
     position: fixed;

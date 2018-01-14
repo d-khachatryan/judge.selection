@@ -1,36 +1,67 @@
 ﻿@model stvsystem.Data.JudgeItem
 @{
-    ViewData["Title"] = "Հեռացնել";
+    ViewData["Title"] = "Հեռացնել դատավորի գրառումը";
     Layout = "~/Views/Shared/_LayoutNull.cshtml";
 }
 <div class="container-maxwidth500">
     <div class="card">
-        <div class="card-header">Համոզված ե՞ք որ ցանկանում եք հեռացնել նշված գրառումը</div>
-        <div class="card-body">
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, new { @class = "control-label delete-label" })
-                <br />
-                @Html.DisplayFor(model => model.FirstName) 
-                @Html.DisplayFor(model => model.MiddleName) 
-                @Html.DisplayFor(model => model.LastName)
+        <div class="card-header">
+            <i class="icons icon-trash"></i>
+        Համոզված ե՞ք որ ցանկանում եք հեռացնել նշված գրառումը</div>
+        <div class="card-body row">
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h1 text-muted text-left mb-4">
+                            <i class="icon icon-user-following"></i>
+                        </div>
+                        <div class="h4 mb-0">
+                            @Html.DisplayFor(model => model.FirstName)
+                            @Html.DisplayFor(model => model.MiddleName)
+                            @Html.DisplayFor(model => model.LastName)
+                        </div>
+                        <small class="text-muted text-uppercase font-weight-bold">Թեկնածու</small>
+                    </div>
+                </div>
             </div>
-            <hr />
-            <div class="form-group">
-                @Html.LabelFor(model => model.GenderName, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.GenderName)
+            <div class="col-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h1 text-muted text-left mb-4">
+                            <i class="fa fa-intersex"></i>
+                        </div>
+                        <div class="h4 mb-0">@Html.DisplayFor(model => model.GenderName)</div>
+                        <small class="text-muted text-uppercase font-weight-bold">@Html.LabelFor(model => model.GenderName)</small>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CourtName, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.CourtName)
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h1 text-muted text-left mb-4">
+                            <i class="fa fa-legal"></i>
+                        </div>
+                        <div class="h4 mb-0">@Html.DisplayFor(model => model.CourtName)</div>
+                        <small class="text-muted text-uppercase font-weight-bold">@Html.LabelFor(model => model.CourtName)</small>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.SpecializationName, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.SpecializationName)
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h1 text-muted text-left mb-4">
+                            <i class="fa fa-mortar-board"></i>
+                        </div>
+                        <div class="h4 mb-0">@Html.DisplayFor(model => model.SpecializationName)</div>
+                        <small class="text-muted text-uppercase font-weight-bold">@Html.LabelFor(model => model.SpecializationName)</small>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="card-footer">
-            <a href="@Url.Action("Delete", "Judge", new {id = Model.JudgeID })" class="btn btn-sm btn-danger"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</a>
-            <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Judge")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+            <div class="col-12 col-md-12 align-right">
+                <hr />
+                <a href="@Url.Action("Delete", "Judge", new {id = Model.JudgeID })" class="btn btn-danger"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</a>
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Judge")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+            </div>
         </div>
     </div>
 </div>

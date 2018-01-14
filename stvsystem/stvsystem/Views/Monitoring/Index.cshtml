@@ -1,46 +1,70 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
+@{
+    ViewData["Title"] = "Մոնիթորինգ";
+}
 
 @if (Model.SelectionStatus == SettingStatus.InProcess)
 {
-    <div class="container-maxwidth500">
-        <div class="card card-accent-info">
+    <div class="margin-15 full-height">
+        <div class="card card-accent-info height100">
             <div class="card-header">
+                <i class="fa fa-check-square-o"></i>
                 Քվեարկությունն ընթացքում է
             </div>
             <div class="card-body">
-                @Html.Partial("Chart")
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-sm btn-success" onClick="Search()"><i class="icons icon-refresh"></i>&nbsp;Թարմացնել</button>
-                <button type="button" class="btn btn-sm btn-warning" onclick="location.href='@Url.Action("Complete", "Monitoring")'"><i class="icons icon-flag"></i>&nbsp;Ավարտել</button>
+                <div class="maxwidth500 row">
+                    @Html.Partial("Chart")
+                </div>
+                <hr />
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12 align-right">
+                        <button type="button" class="btn btn-success" onClick="Search()"><i class="icons icon-refresh"></i>&nbsp;Թարմացնել</button>
+                        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Complete", "Monitoring")'"><i class="fa fa-flag-checkered"></i>&nbsp;Ավարտել</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 }
 else if (Model.SelectionStatus == SettingStatus.Finished)
 {
-    
-    <div class="container-maxwidth500">
-        <div class="card card-accent-success">
+    <div class="margin-15 full-height">
+        <div class="card card-accent-success height100">
             <div class="card-header">
+                <i class="fa fa-check-square-o"></i>
                 Քվեարկությունն ավարտված է
             </div>
             <div class="card-body">
-                @Html.Partial("Chart")
+                <div class="maxwidth500 row">
+                    @Html.Partial("Chart")
+                </div>
             </div>
         </div>
     </div>
 }
 else
 {
-    <div class="container-maxwidth500">
-        <div class="card card-accent-warning">
+    <div class="margin-15 full-height">
+        <div class="card height100">
             <div class="card-header">
-                Ուշադրություն
+                <i class="icon icon-info"></i> Ուշադրություն
             </div>
             <div class="card-body">
-                Քվեարկությունը դեռ չի սկսվել
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-warning text-left mb-4">
+                                    <i class="icon icon-info"></i>
+                                </div>
+                                <div class="h4 mb-0 text-warning">Քվեարկությունը դեռ չի սկսվել</div>
+                                <br />
+                                <small class="text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

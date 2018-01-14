@@ -6,9 +6,13 @@ var containerFluid = $(".container-fluid");
 $(".container-fluid").height(winHeight - headerHeight - footerHeight - 23);
 var containerFluidHeight = containerFluid.height();
 var gridHeight = containerFluidHeight - 45;
-$(document).ready(function () {
+$(window).ready(function () {
     $(".k-grid:not(.card-body .k-grid)").height(gridHeight);
+    if ($(".full-height").height() < gridHeight) {
+        $(".full-height").height(gridHeight)
+    }
 })
+
 
 //For Grid Commands Icons
 function showCommandIcons() {

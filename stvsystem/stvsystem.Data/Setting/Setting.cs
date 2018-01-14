@@ -39,11 +39,11 @@ namespace stvsystem.Data
     {
         public int SettingID { get; set; }
 
-        [Display(Name = "Ընտրության անվանում")]
+        [Display(Name = "Քվեարկության անվանում")]
         [Required(ErrorMessage = "Ընտրության անվանումը պարտադիր է")]
         public string SelectionName { get; set; }
 
-        [Display(Name = "Ընտրության ա/թ")]
+        [Display(Name = "Քվեարկության ա/թ")]
         [Required(ErrorMessage = "Ընտրության ամսաթիվը պարտադիր է")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? SelectionDate { get; set; }

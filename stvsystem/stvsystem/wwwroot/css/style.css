@@ -477,6 +477,7 @@ h6, .h6 {
     margin-top: 20px;
 }
 
+
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -5044,10 +5045,10 @@ a.bg-dark:focus, a.bg-dark:hover {
 }
 
 .rounded {
-    border-radius: 0.25rem !important;
+    /*border-radius: 0.25rem !important;*/
 }
 
-.rounded-top {
+/*.rounded-top {
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
 }
@@ -5065,7 +5066,7 @@ a.bg-dark:focus, a.bg-dark:hover {
 .rounded-left {
     border-top-left-radius: 0.25rem !important;
     border-bottom-left-radius: 0.25rem !important;
-}
+}*/
 
 .rounded-circle {
     border-radius: 50%;
@@ -10675,7 +10676,7 @@ base-chart.chart {
 
                 .sidebar .nav .nav-item .nav-link [class^="icon-"], .sidebar .nav .nav-item .navbar .dropdown-toggle [class^="icon-"], .navbar .sidebar .nav .nav-item .dropdown-toggle [class^="icon-"], .sidebar .nav .nav-item .nav-link [class*=" icon-"], .sidebar .nav .nav-item .navbar .dropdown-toggle [class*=" icon-"], .navbar .sidebar .nav .nav-item .dropdown-toggle [class*=" icon-"] {
                     display: inline-block;
-                    margin-top: -4px;
+                    margin-top: 3px;
                     vertical-align: middle;
                 }
 
@@ -12603,4 +12604,14 @@ hr.transparent {
 h5.title {
     font-size: 18px;
     margin-top: 5px;
+}
+
+.k-ff input.k-textbox, .k-dropdown-wrap .k-input, .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+    height: 35px;
+}
+.k-autocomplete .k-input, .k-numeric-wrap .k-input, .k-picker-wrap .k-input, .k-selectbox .k-input, .k-textbox > input {
+    height: 30px;
+}
+.k-numeric-wrap .k-select {
+    padding: 4px;
 }

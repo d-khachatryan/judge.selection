@@ -12,18 +12,31 @@
 
     <div class="container-maxwidth500">
         <div class="card">
-            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-header">
+                <i class="fa fa-check-square-o"></i>
+                @ViewData["Title"]
+            </div>
 
-            @foreach (SelectionConfirmationItem item in ViewBag.CandidateSelections)
-            {
-               <p>@item.CandidateName </p>
-            }
+            <div class="card-body">
+                <div class="h2 text-muted text-left mb-4">
+                    <i class="icon icon-user-following text-primary"></i>
+                </div>
+                @{int i = 0;}
+                @foreach (SelectionConfirmationItem item in ViewBag.CandidateSelections)
+                {
+                    i++;
+                    <div class="h5 mb-3">
+                        @i.   @item.CandidateName
+                    </div>
+                    <hr />
+                }
+            </div>
 
-            <div class="card-footer">
-                <button type="submit" id="SubmitButton" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
-                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+            <div class="col-lg-12 align-right">
+                <button type="submit" id="SubmitButton" class="btn btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
+                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
                 @Html.ValidationSummary("Առկա են խնդիրներ")
             </div>
         </div>
     </div>
-}
+                    }

@@ -16,7 +16,7 @@ namespace stvsystem.Data
             {
                 if (Status == CredentialStatus.NoSelection)
                 {
-                    return "Չեն քվեարկել";
+                    return "Չի քվեարկել";
                 }
                 else
                 {

@@ -61,11 +61,11 @@
     <div id="preloader">
         <div id="status"></div>
     </div>
-    <header class="app-header navbar">
+    <header class="app-header navbar" style="justify-content:flex-start">
         @*<button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">☰</button>*@
         <a class="navbar-brand" href="@Url.Action("", "")">STV</a>
-        @*<button class="navbar-toggler sidebar-minimizer d-md-down-none" type="button">☰</button>
-        <span class="nav-link">@ViewData["Title"]</span>*@
+        @*<button class="navbar-toggler sidebar-minimizer d-md-down-none" type="button">☰</button>*@
+        <span class="nav-link">@ViewData["Title"]</span>
     </header>
     <main style="padding-top: 70px;">
         @RenderBody()
