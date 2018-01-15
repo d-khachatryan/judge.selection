@@ -77,11 +77,11 @@
           .NoRecords(n => n.TemplateId("no-records-template-id"))
           .Columns(columns =>
           {
-              columns.Bound(c => c.CandidateName);
+              columns.Bound(c => c.CandidateName).Width(360);
               columns.Bound(c => c.BirthDate).Width(120).HtmlAttributes(new { style = "text-align: center"});
-              columns.Bound(c => c.GenderName).Width(100).HtmlAttributes(new { style = "text-align: center" }); ;
+              columns.Bound(c => c.GenderName).Width(100).HtmlAttributes(new { style = "text-align: center" });
               columns.Bound(c => c.CourtName);
-              columns.Bound(c => c.SpecializationName);
+              columns.Bound(c => c.SpecializationName).Width(250);
               columns.Command(commands =>
               {
                   commands.Custom("cmdUpdateCandidate").Text(" ").Click("UpdateCandidate").HtmlAttributes(new { @class = "Update_Icon" });
@@ -100,9 +100,6 @@
               .Read(read => read.Action("FilterCandidate", "Candidate").Data("getParameters"))
           )
 )
-
-
-
 <script id="no-records-template-id" type="text/x-kendo-template">
     <div class="k-grid-norecords-template">Գրառումներ առկա չեն</div>
 </script>

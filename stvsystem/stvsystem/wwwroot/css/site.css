@@ -582,3 +582,16 @@ margin: 5px;
             margin-bottom: 5px;
         }
 }
+
+/*Changing styles*/
+.app-header.navbar .navbar-brand {
+    width: 205px;
+}
+
+.sidebar-fixed .sidebar, .sidebar .sidebar-nav, .sidebar .nav {
+    width: 250px;
+}
+
+.sidebar-fixed .main, .sidebar-fixed .app-footer {
+    margin-left: 250px;
+}
