@@ -1,11 +1,14 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
-
+@{
+    ViewData["Title"] = "Ավարտել քվեարկությունը";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
 @using (Html.BeginForm("FinishSelection", "Monitoring", FormMethod.Post, new { id = "frmComplete" }))
 {
     @if (Model.SelectionStatus == SettingStatus.InProcess)
     {
-        <div class="container-maxwidth500">
+        @*<div class="container-maxwidth500">
             <div class="card">
                 <div class="card-header">
                     Ցանկանում եք ավարտել քվեարկությունը
@@ -15,9 +18,27 @@
                     <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Monitoring")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
                 </div>
             </div>
+        </div>*@
+
+        <div class="container-maxwidth500 full-height">
+            <div class="card height100">
+                <div class="card-header">
+                    <i class="fa fa-check-square-o"></i>
+                    Ցանկանում եք ավարտե՞լ քվեարկությունը
+                </div>
+                <div class="card-body">
+                    <div class="maxwidth500">
+                        <button type="submit" id="SubmitButton" class="btn btn-warning"><i class="fa fa-flag-checkered"></i>&nbsp;Ավարտել</button>
+                        <hr />
+                        <div class="align-right">
+                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Monitoring")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     }
-    else if (Model.SelectionStatus == SettingStatus.Finished)
+    @*else if (Model.SelectionStatus == SettingStatus.Finished)
     {
         <p>Քվեարկությունը ավարտված է</p>
         <div class="container-maxwidth500">
@@ -30,8 +51,8 @@
                 </div>
             </div>
         </div>
-    }
-    else
+    }*@
+    @*else
     {
         <div class="container-maxwidth500">
             <div class="card card-accent-warning">
@@ -43,7 +64,7 @@
                 </div>
             </div>
         </div>
-    }
+    }*@
 
 
 

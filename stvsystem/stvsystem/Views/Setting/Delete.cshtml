@@ -1,46 +1,93 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
-
+@{
+    ViewData["Title"] = "Հեռացնել կարգավորումները";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
 
 
 @using (Html.BeginForm("DeleteSetting", "Setting", FormMethod.Post, new { id = "frmDelete" }))
 {
     @Html.HiddenFor(model => model.SettingID)
     @Html.HiddenFor(model => model.SelectionStatus)
-    <div class="container-maxwidth500">
-        <div class="card">
+    <div class="container-maxwidth500 full-height">
+        <div class="card height100">
             <div class="card-header">
-                Ցանկանում եք հեռացնե՞լ կարգավորումնը
+                <i class="icons icon-trash"></i> Ցանկանում եք հեռացնե՞լ կարգավորումները
             </div>
             <div class="card-body">
-                <div>
-                    @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.SelectionName)
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body p-0 clearfix">
+                                <i class="icon icon-check bg-primary p-4 font-2xl mr-3 float-left"></i>
+                                <div class="h5 text-info mb-0 pt-3">@Html.DisplayFor(model => model.SelectionName)</div>
+                                <div class="text-muted font-xs">@Html.LabelFor(model => model.SelectionName)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body p-0 clearfix">
+                                <i class="icon icon-calendar bg-primary p-4 font-2xl mr-3 float-left"></i>
+                                <div class="h5 text-info mb-0 pt-3">@Html.DisplayFor(model => model.SelectionDate)</div>
+                                <div class="text-muted font-xs">@Html.LabelFor(model => model.SelectionDate)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon-clock"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.StartTime)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.StartTime)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon-clock"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.FinishTime)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.FinishTime)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon icon-user-following"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.SelectionCount)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.SelectionCount)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon icon-people"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.ParticipantCount)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.ParticipantCount)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div>
-                    @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.SelectionDate)
+                <hr />
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12 align-right">
+                        <button type="submit" id="SubmitButton" class="btn btn-danger"><i class="icons icon-check"></i>&nbsp;Հեռացնել</button>
+                        <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Setting")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                    </div>
                 </div>
-                <div>
-                    @Html.LabelFor(model => model.StartTime, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.StartTime)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.FinishTime, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.FinishTime)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.SelectionCount)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label delete-label" }):
-                    @Html.DisplayFor(model => model.ParticipantCount)
-                </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" id="SubmitButton" class="btn btn-sm btn-danger"><i class="icons icon-check"></i>&nbsp;Հեռացնել</button>
-                <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Setting")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
             </div>
         </div>
     </div>

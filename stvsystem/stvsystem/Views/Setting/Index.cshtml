@@ -1,90 +1,165 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
-
+@{
+    ViewData["Title"] = "Կարգավորումներ";
+}
 @Html.HiddenFor(model => model.SettingID)
 @Html.HiddenFor(model => model.SelectionStatus)
 
-<div class="container-maxwidth500">
-    <div class="card">
-        <div class="card-header">Ընտրության մանրամասներ</div>
-        @if (Model.SettingID != -1 && Model.SelectionStatus != SettingStatus.Finished)
-        {
-            <div class="card-body">
-                <div style="padding-bottom:20px;">
-                    @Html.LabelFor(model => model.SelectionName, new { @class = "control-label delete-label" }):
-                    @Html.TextBoxFor(model => model.SelectionName, new { @readonly = "readonly" })
+<div class="margin-15 full-height">
+    <div class="card height100">
+    <div class="card-header">
+        <i class="fa fa-check-square-o"></i> Քվեարկության մանրամասներ
+    </div>
+        <div class="card-body">
+            @if (Model.SettingID != -1 && Model.SelectionStatus != SettingStatus.Finished)
+            {
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body p-0 clearfix">
+                                <i class="icon icon-check bg-primary p-4 font-2xl mr-3 float-left"></i>
+                                <div class="h5 text-info mb-0 pt-3">@Html.DisplayFor(model => model.SelectionName)</div>
+                                <div class="text-muted font-xs">@Html.LabelFor(model => model.SelectionName)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body p-0 clearfix">
+                                <i class="icon icon-calendar bg-primary p-4 font-2xl mr-3 float-left"></i>
+                                <div class="h5 text-info mb-0 pt-3">@Html.DisplayFor(model => model.SelectionDate)</div>
+                                <div class="text-muted font-xs">@Html.LabelFor(model => model.SelectionDate)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon-clock"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.StartTime)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.StartTime)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon-clock"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.FinishTime)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.FinishTime)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon icon-user-following"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.SelectionCount)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.SelectionCount)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-muted text-right mb-1">
+                                    <i class="icon icon-people"></i>
+                                </div>
+                                <div class="h4 text-info mb-0">@Html.DisplayFor(model => model.ParticipantCount)</div>
+                                <small class="text-muted">@Html.LabelFor(model => model.ParticipantCount)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div>
-                    @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label delete-label" }):
-                    @Html.TextBoxFor(model => model.SelectionDate, "{0:dd/MM/yyyy}", new { @readonly = "readonly" })
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.StartTime, new { @class = "control-label delete-label" }):
-                    @Html.TextBoxFor(model => model.StartTime, "{0:hh:mm}", new { @readonly = "readonly" })
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.FinishTime, new { @class = "control-label delete-label" }):
-                    @Html.TextBoxFor(model => model.FinishTime, "{0:hh:mm}", new { @readonly = "readonly" })
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label delete-label" }):
-                    @Html.TextBoxFor(model => model.SelectionCount, new { @readonly = "readonly" })
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label delete-label" }):
-                    @Html.TextBoxFor(model => model.ParticipantCount, new { @readonly = "readonly" })
-                </div>
-            </div>
+                <hr />
 
-
-            <div class="card-footer">
                 @if (Model.SelectionStatus == SettingStatus.InPreparation)
                 {
-                    <button type="button" class="btn btn-sm btn-success" onclick="location.href='@Url.Action("Initialize", "Setting")'"><i class="icons icon-arrow-right"></i>&nbsp;Սկսել քվեարկությունը</button>
-                    <button type="button" style="float:right;" class="btn btn-sm btn-danger" onclick="location.href='@Url.Action("Delete", "Setting")'"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</button>
-                    <button type="button" style="float:right;margin-right:5px;" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitUpdate", "Setting")'"><i class="icons icon-pencil"></i>&nbsp;Խմբագրել</button>
-
+                    <div class="maxwidth500 row">
+                        <div class="col-12 col-md-12">
+                            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Initialize", "Setting")'"><i class="icons icon-arrow-right"></i>&nbsp;Սկսել քվեարկությունը</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="maxwidth500 row">
+                        <div class="col-12 col-md-12 align-right">
+                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InitUpdate", "Setting")'"><i class="icons icon-pencil"></i>&nbsp;Խմբագրել</button>
+                            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Setting")'"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</button>
+                        </div>
+                    </div>
                 }
-                else if (Model.SelectionStatus == SettingStatus.Finished)
+                @*else if (Model.SelectionStatus == SettingStatus.Finished)
                 {
-                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Ավելացնել</button>
-                }
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Ավելացնել</button>
+                }*@
                 else
                 {
-                    <span>Քվեարկությունը ընթացքի մեջ է: Ներկայումս քվերակության կարգավորումները խմբագրման ենթակա չեն</span>
+                    <div class="maxwidth500 row">
+                        <div class="col-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="h1 text-warning text-left mb-4">
+                                        <i class="icon icon-info"></i>
+                                    </div>
+                                    <div class="h4 mb-0 text-warning"></div>
+                                    <small class="text-muted h6">Քվեարկությունն ընթացքի մեջ է: Ներկայումս քվերակության կարգավորումները խմբագրման ենթակա չեն:</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
-            </div>
-        }
 
 
-        else if (Model.SelectionStatus == SettingStatus.Finished)
-        {
-            <div class="card-body">
-                <p>
-                    Քվեարկությունը ավարտված է
-                </p>
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Գրանցել նոր քվեարկություն</button>
-            </div>
-        }
-        else
-
-        {
-
-            <div class="card-body">
-                <p>
-                    Համակարգում ներկայումս չկան գրանցված տվյալներ
-                </p>
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Գրանցել նոր քվեարկություն</button>
-            </div>
-        }
+            }
+            else if (Model.SelectionStatus == SettingStatus.Finished)
+            {
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-success text-left mb-4">
+                                    <i class="icon icon-check"></i>
+                                </div>
+                                <div class="h4 mb-0 text-success">Քվեարկությունն ավարտված է</div>
+                                <br />
+                                <small class="text-muted">Կարող եք գրանցել նոր քվեարկություն</small>
+                            </div>
+                        </div>
+                        <hr />
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Գրանցել նոր քվեարկություն</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-warning text-left mb-4">
+                                    <i class="icon icon-info"></i>
+                                </div>
+                                <div class="h4 mb-0 text-warning">Համակարգում ներկայումս չկան գրանցված տվյալներ</div>
+                                <br />
+                                <small class="text-muted">Կարող եք գրանցել նոր քվեարկություն</small>
+                            </div>
+                        </div>
+                        <hr />
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InitInsert", "Setting")'"><i class="icons icon-plus"></i>&nbsp;Գրանցել նոր քվեարկություն</button>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
-<div id="errors"> </div>
-
 
 
 

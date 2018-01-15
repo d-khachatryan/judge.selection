@@ -1,42 +1,82 @@
 ﻿@model stvsystem.Data.CandidateItem
 @{
-    ViewData["Title"] = "Հեռացնել";
+    ViewData["Title"] = "Հեռացնել թեկնածուի գրառումը";
     Layout = "~/Views/Shared/_LayoutNull.cshtml";
 }
 <div class="container-maxwidth500">
     <div class="card">
-        <div class="card-header">Համոզված ե՞ք որ ցանկանում եք հեռացնել նշված գրառումը</div>
-        <div class="card-body">
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, new { @class = "control-label delete-label" })
-                <br />
-                @Html.DisplayFor(model => model.FirstName) 
-                @Html.DisplayFor(model => model.MiddleName) 
-                @Html.DisplayFor(model => model.LastName)
-            </div>
-            <hr />
-            <div class="form-group">
-                @Html.LabelFor(model => model.BirthDate, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.BirthDate)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.GenderName, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.GenderName)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CourtName, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.CourtName)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.SpecializationName, new { @class = "control-label delete-label" }):
-                @Html.DisplayFor(model => model.SpecializationName)
-            </div>
+        <div class="card-header">
+            <i class="icons icon-trash"></i>
+            Համոզված ե՞ք որ ցանկանում եք հեռացնել նշված գրառումը
         </div>
-        <div class="card-footer">
-            <a href="@Url.Action("Delete", "Candidate", new {id = Model.CandidateID })" class="btn btn-sm btn-danger"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</a>
-            <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Candidate")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+        <div class="card-body row">
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h2 text-muted text-left mb-1">
+                            <i class="icon icon-user-following"></i>
+                        </div>
+                        <div class="h4 mb-0 text-primary">
+                            @Html.DisplayFor(model => model.FirstName)
+                            @Html.DisplayFor(model => model.MiddleName)
+                            @Html.DisplayFor(model => model.LastName)
+                        </div>
+                        <small class="text-muted">Թեկնածու</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h2 text-muted text-left mb-1">
+                            <i class="icon-calendar"></i>
+                        </div>
+                        <div class="h5 text-primary mb-0">@Html.DisplayFor(model => model.BirthDate)</div>
+                        <small class="text-muted">@Html.LabelFor(model => model.BirthDate)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h2 text-muted text-left mb-1">
+                            <i class="fa fa-intersex"></i>
+                        </div>
+                        <div class="h5 text-primary mb-0">@Html.DisplayFor(model => model.GenderName)</div>
+                        <small class="text-muted">@Html.LabelFor(model => model.GenderName)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h2 text-muted text-left mb-1">
+                            <i class="fa fa-legal"></i>
+                        </div>
+                        <div class="h5  text-primary mb-0">@Html.DisplayFor(model => model.CourtName)</div>
+                        <small class="text-muted">@Html.LabelFor(model => model.CourtName)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h2 text-muted text-left mb-1">
+                            <i class="fa fa-mortar-board"></i>
+                        </div>
+                        <div class="h5 text-primary mb-0">@Html.DisplayFor(model => model.SpecializationName)</div>
+                        <small class="text-muted">@Html.LabelFor(model => model.SpecializationName)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 align-right">
+                <hr />
+                <a href="@Url.Action("Delete", "Candidate", new {id = Model.CandidateID })" class="btn btn-danger"><i class="icons icon-trash"></i>&nbsp;Հեռացնել</a>
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Candidate")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+            </div>
         </div>
     </div>
 </div>
+
 
 

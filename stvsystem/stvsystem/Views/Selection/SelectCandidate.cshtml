@@ -18,11 +18,17 @@
 
     <div class="container-maxwidth500">
         <div class="card">
-            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-header">
+                <i class="icon icon-user-following"></i>
+            @ViewData["Title"]
+            </div>
             <div class="card-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CandidateIndex, new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.CandidateIndex, new { @readonly = "readonly" })
+                <div class="card">
+                    <div class="card-body p-0 clearfix">
+                        <i class="fa fa-check-square-o bg-primary p-4 font-2xl mr-3 float-left"></i>
+                        <div class="h4 text-primary text-center pt-2">@Html.DisplayFor(model => model.CandidateIndex)</div>
+                        <div class="text-muted text-center font-xs">@Html.LabelFor(model => model.CandidateIndex)</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.CourtID, new { @class = "control-label" })
@@ -74,19 +80,22 @@
                 </div>
 
             </div>
-            <div class="card-footer">
+            
+            <div class="col-lg-12 align-right">
 
                 @if (Model.CandidateIndex < Model.MaxSelectionCount)
                 {
-                    <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Շարունակել</button>
+                    <hr />
+                    <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-primary"><i class="icons icon-arrow-right"></i>&nbsp;Շարունակել</button>
                 }
 
                 @if (Model.CandidateIndex > Model.SelectionCount)
                 {
-                    <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
+                    <hr />
+                    <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-success"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
                 }
 
-                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-sm btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
 
                 @Html.ValidationSummary("Առկա են խնդիրներ")
             </div>

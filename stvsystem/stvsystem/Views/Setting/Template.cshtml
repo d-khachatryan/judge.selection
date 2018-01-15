@@ -1,46 +1,54 @@
 ﻿@using  stvsystem.Data
 @model SettingItem
+@{
+    ViewData["Title"] = "Մուտքագրել կարգավորումները";
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
 
 @using (Html.BeginForm("SaveSetting", "Setting", FormMethod.Post, new { id = "frmTemplate" }))
 {
     @Html.HiddenFor(model => model.SettingID)
     @Html.HiddenFor(model => model.SelectionStatus)
 
-    <div class="container-maxwidth500">
-        <div class="card">
+    <div class="container-maxwidth500 full-height">
+        <div class="card height100">
             <div class="card-header">
+                <i class="fa fa-gear"></i>
                 Մուտքագրել կարգավորումները
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SelectionName, new { @class = "control-label" })
-                    @Html.Kendo().TextBoxFor(model => model.SelectionName).HtmlAttributes(new { @class = "form-control", maxlength = "50" })
+                <div class="maxwidth500">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.SelectionName, new { @class = "control-label" })
+                        @Html.Kendo().TextBoxFor(model => model.SelectionName).HtmlAttributes(new { @class = "form-control", maxlength = "50" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label" })
+                        @Html.Kendo().DatePickerFor(model => model.SelectionDate).Format("MM-dd-yyyy").HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.StartTime, new { @class = "control-label" })
+                        @Html.Kendo().TimePickerFor(model => model.StartTime).HtmlAttributes(new { @class = "form-control" }).Format("hh:mm")
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.FinishTime, new { @class = "control-label" })
+                        @Html.Kendo().TimePickerFor(model => model.FinishTime).HtmlAttributes(new { @class = "form-control" }).Format("hh:mm")
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.SelectionCount).HtmlAttributes(new { @class = "form-control" }).Format("#")
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.ParticipantCount).HtmlAttributes(new { @class = "form-control" }).Format("#")
+                    </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SelectionDate, new { @class = "control-label" })
-                    @Html.Kendo().DatePickerFor(model => model.SelectionDate).Format("MM-dd-yyyy").HtmlAttributes(new { @class = "form-control" })
+                <hr />
+                <div class="maxwidth500 align-right">
+                    <button type="submit" id="SubmitButton" class="btn btn-primary"><i class="icons icon-check"></i>&nbsp;Հիշել փոփոխությունները</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Setting")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                    @Html.ValidationSummary("Առկա են խնդիրներ")
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.StartTime, new { @class = "control-label" })
-                    @Html.Kendo().DateTimePickerFor(model => model.StartTime).Format("hh:mm").HtmlAttributes(new { @class = "form-control" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FinishTime, new { @class = "control-label" })
-                    @Html.Kendo().DateTimePickerFor(model => model.FinishTime).Format("hh:mm").HtmlAttributes(new { @class = "form-control" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SelectionCount, new { @class = "control-label" })
-                    @Html.Kendo().NumericTextBoxFor(model => model.SelectionCount).HtmlAttributes(new { @class = "form-control" }).Format("#")
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ParticipantCount, new { @class = "control-label" })
-                    @Html.Kendo().NumericTextBoxFor(model => model.ParticipantCount).HtmlAttributes(new { @class = "form-control" }).Format("#")
-                </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" id="SubmitButton" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Հիշել</button>
-                <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Setting")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
-                @Html.ValidationSummary("Առկա են խնդիրներ")
             </div>
         </div>
     </div>

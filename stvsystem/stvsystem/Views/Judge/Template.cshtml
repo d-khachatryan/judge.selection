@@ -3,15 +3,15 @@
     ViewData["Title"] = "Դատավոր";
     Layout = "~/Views/Shared/_LayoutNull.cshtml";
 }
-
-
 @using (Html.BeginForm("Save", "Judge", FormMethod.Post, new { id = "frmResident" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.JudgeID)
     <div class="container-maxwidth500">
         <div class="card">
-            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-header">
+                <i class="fa fa-mortar-board"></i>
+                @ViewData["Title"]</div>
             <div class="card-body">
                 <div class="form-group">
                     @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
@@ -58,11 +58,12 @@
                         .BindTo(ViewBag.vbSpecializations)
                     )
                 </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" id="btnSave" class="btn btn-sm btn-primary"><i class="icons icon-check"></i>&nbsp;Հիշել</button>
-                <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("Index", "Judge")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
-                @Html.ValidationSummary("Առկա են խնդիրներ")
+                <hr />
+                <div class="align-right">
+                    <button type="submit" id="btnSave" class="btn btn-primary"><i class="icons icon-check"></i>&nbsp;Հիշել</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Judge")'"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                    @Html.ValidationSummary("Առկա են խնդիրներ")
+                </div>
             </div>
         </div>
     </div>

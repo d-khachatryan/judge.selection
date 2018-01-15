@@ -62,5 +62,14 @@ namespace stvsystem.Data
 
         [Display(Name = "Սեռ")]
         public string GenderName { get; set; }
+
+        [Display(Name = "Դատավոր")]
+        public string JudgeName
+        {
+            get
+            {
+                return FirstName + " " + MiddleName + " " + LastName;
+            }
+        }
     }
 }
