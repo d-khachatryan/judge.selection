@@ -72,6 +72,7 @@
     <Build Include="dbo\Tables\Result.sql" />
     <Build Include="dbo\IX_Credential.sql" />
     <Build Include="dbo\FK_Credential_Setting.sql" />
+    <Build Include="dbo\vwResult.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="stvsystem.Database.refactorlog" />
