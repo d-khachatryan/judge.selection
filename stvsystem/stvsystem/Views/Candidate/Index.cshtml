@@ -5,12 +5,13 @@
 
 <div class="for-Toolbar">
     @(Html.Kendo().ToolBar()
-    .Name("ToolBar")
-    .Items(items =>
-    {
-        items.Add().Template("<button type=\"button\" name=\"Insert\" onclick=\"InsertCandidate()\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-plus\"></i>&nbsp; Ավելացնել</button>");
-    })
+            .Name("ToolBar")
+            .Items(items =>
+            {
+                items.Add().Template("<button type=\"button\" name=\"Insert\" onclick=\"InsertCandidate()\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-plus\"></i>&nbsp; Ավելացնել</button>");
+            })
     )
+
     @* Search Panel - Right Slide *@
     <div class="right-slidePanel">
         <div class="slidePanel-Content">
@@ -73,32 +74,33 @@
 </script>
 
 @(Html.Kendo().Grid<stvsystem.Data.CandidateItem>()
-          .Name("grCandidate")
-          .NoRecords(n => n.TemplateId("no-records-template-id"))
-          .Columns(columns =>
-          {
-              columns.Bound(c => c.CandidateName).Width(360);
-              columns.Bound(c => c.BirthDate).Width(120).HtmlAttributes(new { style = "text-align: center"});
-              columns.Bound(c => c.GenderName).Width(100).HtmlAttributes(new { style = "text-align: center" });
-              columns.Bound(c => c.CourtName);
-              columns.Bound(c => c.SpecializationName).Width(250);
-              columns.Command(commands =>
-              {
-                  commands.Custom("cmdUpdateCandidate").Text(" ").Click("UpdateCandidate").HtmlAttributes(new { @class = "Update_Icon" });
-                  commands.Custom("cmdDeleteCandidate").Text(" ").Click("DeleteCandidate").HtmlAttributes(new { @class = "Delete_Icon" });
-              }).Title("Հրամաններ").Width(120);
-          })
-          .Events(e => e.DataBound("showCommandIcons"))
-          .Sortable()
-          .Resizable(resize => resize.Columns(true))
-          .Scrollable()
-          .Reorderable(reorder => reorder.Columns(true))
-          //.Pageable(pager => pager.PageSizes(new[] { 10, 15, 25, 50, 100 }))
-          .DataSource(dataSource => dataSource
-              .Ajax()
-              .Events(events => events.Error("error_handler"))
-              .Read(read => read.Action("FilterCandidate", "Candidate").Data("getParameters"))
-          )
+                  .Name("grCandidate")
+                  .NoRecords(n => n.TemplateId("no-records-template-id"))
+                  .Columns(columns =>
+                  {
+                      columns.Bound(c => c.CandidateName).Width(360);
+                      columns.Bound(c => c.BirthDate).Width(120).HtmlAttributes(new { style = "text-align: center" });
+                      columns.Bound(c => c.GenderName).Width(100).HtmlAttributes(new { style = "text-align: center" });
+                      columns.Bound(c => c.CourtName);
+                      columns.Bound(c => c.SpecializationName).Width(250);
+                      columns.Command(commands =>
+                      {
+                          commands.Custom("cmdUpdateCandidate").Text(" ").Click("UpdateCandidate").HtmlAttributes(new { @class = "Update_Icon" });
+                          commands.Custom("cmdDeleteCandidate").Text(" ").Click("DeleteCandidate").HtmlAttributes(new { @class = "Delete_Icon" });
+                      }).Title("Հրամաններ").Width(120);
+                  }
+                  )
+                  .Events(e => e.DataBound("showCommandIcons"))
+                  .Sortable()
+                  .Resizable(resize => resize.Columns(true))
+                  .Scrollable()
+                  .Reorderable(reorder => reorder.Columns(true))
+                  //.Pageable(pager => pager.PageSizes(new[] { 10, 15, 25, 50, 100 }))
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Events(events => events.Error("error_handler"))
+                      .Read(read => read.Action("FilterCandidate", "Candidate").Data("getParameters"))
+                  )
 )
 <script id="no-records-template-id" type="text/x-kendo-template">
     <div class="k-grid-norecords-template">Գրառումներ առկա չեն</div>
