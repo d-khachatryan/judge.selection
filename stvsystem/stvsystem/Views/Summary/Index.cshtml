@@ -1,7 +1,44 @@
-﻿
+﻿@model stvsystem.Data.SummaryItem
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Տվյալների ամփոփում";
 }
 
-<h2>Index</h2>
+@(Html.Kendo().Grid<stvsystem.Data.SummaryItem>()
+                        .Name("grSummary")
+                .NoRecords(n => n.TemplateId("no-records-template-id"))
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.CandidateName).Width(360);
+                    columns.Bound(c => c.N1).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N2).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N3).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N4).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N5).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N6).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N7).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N8).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N9).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N10).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N11).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N12).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N13).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N14).HtmlAttributes(new { style = "text-align: center" });
+                    columns.Bound(c => c.N15).HtmlAttributes(new { style = "text-align: center" });
+    }
+                )
+                .Events(e => e.DataBound("showCommandIcons"))
+                .Sortable()
+                .Resizable(resize => resize.Columns(true))
+                .Scrollable()
+                .Reorderable(reorder => reorder.Columns(true))
+                //.Pageable(pager => pager.PageSizes(new[] { 10, 15, 25, 50, 100 }))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Read(read => read.Action("GetSummary", "Summary"))
+                )
+)
 
+<script id="no-records-template-id" type="text/x-kendo-template">
+    <div class="k-grid-norecords-template">Գրառումներ առկա չեն</div>
+</script>

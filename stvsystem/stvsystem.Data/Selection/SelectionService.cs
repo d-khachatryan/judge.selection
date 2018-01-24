@@ -105,5 +105,39 @@ namespace stvsystem.Data
                 return false;
             }
         }
+        
+        public IList<SummaryItem> GetResults()
+        {
+            IList<SummaryItem> result = (from summary in db.Summaries
+                                         join t1 in db.Candidates on summary.CandidateID equals t1.CandidateID into r1
+                                         from candidate in r1.DefaultIfEmpty()
+                                         select new
+                                         {
+                                             SummaryTable = summary,
+                                             CandidateTable = candidate
+                                         }).Select(list => new SummaryItem
+                                         {
+                                             CandidateID = list.SummaryTable.CandidateID,
+                                             FirstName = list.CandidateTable.FirstName,
+                                             MiddleName = list.CandidateTable.MiddleName,
+                                             LastName = list.CandidateTable.LastName,
+                                             N1 = list.SummaryTable.N1,
+                                             N2 = list.SummaryTable.N2,
+                                             N3 = list.SummaryTable.N3,
+                                             N4 = list.SummaryTable.N4,
+                                             N5 = list.SummaryTable.N5,
+                                             N6 = list.SummaryTable.N6,
+                                             N7 = list.SummaryTable.N7,
+                                             N8 = list.SummaryTable.N8,
+                                             N9 = list.SummaryTable.N9,
+                                             N10 = list.SummaryTable.N10,
+                                             N11 = list.SummaryTable.N11,
+                                             N12 = list.SummaryTable.N12,
+                                             N13 = list.SummaryTable.N13,
+                                             N14 = list.SummaryTable.N14,
+                                             N15 = list.SummaryTable.N15
+                                         }).ToList();
+            return result;
+        }
     }
 }
