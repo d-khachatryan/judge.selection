@@ -12607,7 +12607,7 @@ h5.title {
     margin-top: 5px;
 }
 
-.k-ff input.k-textbox, .k-dropdown-wrap .k-input, .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+input.k-textbox, .k-ff input.k-textbox, .k-dropdown-wrap .k-input, .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
     height: 35px;
 }
 .k-autocomplete .k-input, .k-numeric-wrap .k-input, .k-picker-wrap .k-input, .k-selectbox .k-input, .k-textbox > input {
@@ -12616,3 +12616,11 @@ h5.title {
 .k-numeric-wrap .k-select {
     padding: 4px;
 }
+
+.k-numeric-wrap .k-select {
+    padding: 0;
+}
+
+    .k-numeric-wrap .k-select .k-link-increase {
+        padding-top: 4px;
+    }
