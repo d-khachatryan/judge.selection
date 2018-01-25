@@ -42,13 +42,13 @@ namespace stvsystem.Data
             return dropDownList;
         }
 
-        public List<SelectListItem> GetFilteredCandidateDropDownItems(int? courtID, string candidateName)
+        public List<SelectListItem> GetFilteredCandidateDropDownItems(int? courtID, string candidateName, int credentialID)
         {
             var candidateList = new List<CandidateItem>();
             var dropDownList = new List<SelectListItem>();
 
             var q = from p in db.Candidates select p;
-            if (courtID!= null)
+            if (courtID != null)
             {
                 q = from p in q where p.CourtID == courtID select p;
             }
@@ -70,7 +70,12 @@ namespace stvsystem.Data
                     GenderID = dbItem.GenderID,
                     BirthDate = dbItem.BirthDate
                 };
-                candidateList.Add(item);
+
+                var excludeItem = from p in db.Results where p.CredentialID == credentialID && p.CandidateID == dbItem.CandidateID select p;
+                if (excludeItem.Count() == 0)
+                {
+                    candidateList.Add(item);
+                }
             }
 
             dropDownList = candidateList.Select(x => new SelectListItem { Text = x.CandidateName, Value = x.CandidateID.ToString() }).ToList();
@@ -81,32 +86,32 @@ namespace stvsystem.Data
         public IList<CandidateItem> SearchCandidates(string firstName, string lastName)
         {
             IList<CandidateItem> result = (from candidate in db.Candidates
-                                       join t1 in db.Specializations on candidate.SpecializationID equals t1.SpecializationID into r1
-                                       from specialization in r1.DefaultIfEmpty()
-                                       join t2 in db.Genders on candidate.GenderID equals t2.GenderID into r2
-                                       from gender in r2.DefaultIfEmpty()
-                                       join t3 in db.Courts on candidate.CourtID equals t3.CourtID into r3
-                                       from court in r3.DefaultIfEmpty()
-                                       select new
-                                       {
-                                           CandidateTable = candidate,
-                                           GenderTable = gender,
-                                           CourtTable = court,
-                                           SpecializationTable = specialization
-                                       }).Select(list => new CandidateItem
-                                       {
-                                           CandidateID = list.CandidateTable.CandidateID,
-                                           FirstName = list.CandidateTable.FirstName,
-                                           LastName = list.CandidateTable.LastName,
-                                           MiddleName = list.CandidateTable.MiddleName,
-                                           BirthDate = list.CandidateTable.BirthDate,
-                                           CourtID = list.CandidateTable.CourtID,
-                                           CourtName = list.CourtTable.CourtName,
-                                           GenderID = list.CandidateTable.GenderID,
-                                           GenderName = list.GenderTable.GenderName,
-                                           SpecializationID = list.CandidateTable.SpecializationID,
-                                           SpecializationName = list.SpecializationTable.SpecializationName
-                                       }).ToList();
+                                           join t1 in db.Specializations on candidate.SpecializationID equals t1.SpecializationID into r1
+                                           from specialization in r1.DefaultIfEmpty()
+                                           join t2 in db.Genders on candidate.GenderID equals t2.GenderID into r2
+                                           from gender in r2.DefaultIfEmpty()
+                                           join t3 in db.Courts on candidate.CourtID equals t3.CourtID into r3
+                                           from court in r3.DefaultIfEmpty()
+                                           select new
+                                           {
+                                               CandidateTable = candidate,
+                                               GenderTable = gender,
+                                               CourtTable = court,
+                                               SpecializationTable = specialization
+                                           }).Select(list => new CandidateItem
+                                           {
+                                               CandidateID = list.CandidateTable.CandidateID,
+                                               FirstName = list.CandidateTable.FirstName,
+                                               LastName = list.CandidateTable.LastName,
+                                               MiddleName = list.CandidateTable.MiddleName,
+                                               BirthDate = list.CandidateTable.BirthDate,
+                                               CourtID = list.CandidateTable.CourtID,
+                                               CourtName = list.CourtTable.CourtName,
+                                               GenderID = list.CandidateTable.GenderID,
+                                               GenderName = list.GenderTable.GenderName,
+                                               SpecializationID = list.CandidateTable.SpecializationID,
+                                               SpecializationName = list.SpecializationTable.SpecializationName
+                                           }).ToList();
 
             if (!string.IsNullOrEmpty(firstName))
             {
@@ -121,7 +126,7 @@ namespace stvsystem.Data
 
         }
 
-       
+
         public CandidateItem GetCandidate(int? candidateID = null)
         {
             if (candidateID != null)

@@ -73,7 +73,8 @@
                         function filterCandidates() {
                             return {
                                 courtID: $("#CourtID").val(),
-                                candidateName: $("#CandidateID").data("kendoComboBox").input.val()
+                                candidateName: $("#CandidateID").data("kendoComboBox").input.val(),
+                                credentialID: @Model.CredentialID,
                             }
                         }
                     </script>
@@ -89,13 +90,13 @@
                     <button type="submit" id="submitButton" name="submitButton" value="Continue" class="btn btn-primary"><i class="icons icon-arrow-right"></i>&nbsp;Շարունակել</button>
                 }
 
-                @if (Model.CandidateIndex > Model.SelectionCount)
+                @if (Model.CandidateIndex > Model.SelectionCount-1)
                 {
                     <hr />
                     <button type="submit" id="submitButton" name="submitButton" value="Confirm" class="btn btn-success"><i class="icons icon-check"></i>&nbsp;Ավարտել</button>
                 }
 
-                <button type="button" onclick="location.href='@Url.Action("Index", "Selection")'" class="btn btn-secondary"><i class="icons icon-close"></i>&nbsp;Չեղարկել</button>
+                    <button type="submit" id="submitButton" name="submitButton" value="Cancel" class="btn btn-success"><i class="icons icon-check"></i>&nbsp;Չեղարկել</button>
 
                 @Html.ValidationSummary("Առկա են խնդիրներ")
             </div>

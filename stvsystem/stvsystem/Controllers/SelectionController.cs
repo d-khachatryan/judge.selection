@@ -33,9 +33,9 @@ namespace stvsystem.Controllers
             return Json(result);
         }
 
-        public JsonResult GetCandidates(int? courtID, string candidateName)
+        public JsonResult GetCandidates(int? courtID, string candidateName, int credentialID)
         {
-            var result = candidateService.GetFilteredCandidateDropDownItems(courtID, candidateName);
+            var result = candidateService.GetFilteredCandidateDropDownItems(courtID, candidateName, credentialID);
             return Json(result);
         }
 
@@ -94,16 +94,24 @@ namespace stvsystem.Controllers
         [HttpPost]
         public IActionResult SaveSelectionItem(SelectionItem selectionItem, string submitButton)
         {
-            var operationResult = selectionService.SaveSelectionItem(selectionItem);
+            bool? operationResult= null;
 
             if (submitButton == "Continue")
             {
+                operationResult = selectionService.SaveSelectionItem(selectionItem);
                 return RedirectToAction("SelectCandidate", "Selection", new { credentialID = selectionItem.CredentialID, candidateIndex = selectionItem.CandidateIndex + 1 });
+            }
+            else if(submitButton == "Confirm")
+            {
+                operationResult = selectionService.SaveSelectionItem(selectionItem);
+                return RedirectToAction("ConfirmSelection", "Selection", new { credentialID = selectionItem.CredentialID });
             }
             else
             {
-                return RedirectToAction("ConfirmSelection", "Selection", new { credentialID = selectionItem.CredentialID });
+                operationResult = selectionService.CancelSelections((int)selectionItem.CredentialID);
+                return RedirectToAction("Index", "Selection");
             }
+
         }
 
         public IActionResult ConfirmSelection(int credentialID)
@@ -117,10 +125,20 @@ namespace stvsystem.Controllers
 
         // this action runs in the Index page as a POST action
         [HttpPost]
-        public IActionResult SaveSelections(int credentialID)
+        public IActionResult SaveSelections(int credentialID, string submitButton)
         {
-            var operationResult = selectionService.SaveSelections(credentialID);
-            return RedirectToAction("Index", "Selection");
+            if (submitButton == "Confirm")
+            {
+                var operationResult = selectionService.SaveSelections(credentialID);
+                return RedirectToAction("Index", "Selection");
+            }
+            else
+            {
+                var operationResult = selectionService.CancelSelections(credentialID);
+                return RedirectToAction("Index", "Selection");
+            }
+
+            
         }
 
         private void InitializeViewBugs()

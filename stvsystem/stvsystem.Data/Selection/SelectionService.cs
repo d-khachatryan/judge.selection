@@ -76,6 +76,29 @@ namespace stvsystem.Data
                 return false;
             }
         }
+
+        public bool CancelSelections(int credentialID)
+        {
+            try
+            {
+                var result = db.Results.Where(p => p.CredentialID == credentialID);
+
+                if (result.Count() > 0)
+                {
+                    foreach (Result item in result)
+                    {
+                        db.Results.Remove(item);
+                    };
+
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool SaveSelections(int credentialID)
         {
             try
