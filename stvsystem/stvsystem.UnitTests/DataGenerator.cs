@@ -17,9 +17,25 @@ namespace stvsystem.UnitTests
             optionsBuilder.UseSqlServer(@"Data Source=.\SQL2014;Database=stvsystemDB;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True", null);
             StvContext db = new StvContext(optionsBuilder.Options);
 
+            db.Database.ExecuteSqlCommand("delete from dbo.setting");
+            db.Database.ExecuteSqlCommand("delete from dbo.credential");
+            db.Database.ExecuteSqlCommand("delete from dbo.result");
+            db.Database.ExecuteSqlCommand("delete from dbo.candidate");
+
+
+            db.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT[dbo].[Candidate] ON
+INSERT[dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], [BirthDate], [GenderID], [CourtID], [SpecializationID]) VALUES(1, N'Թեկնածու 1', N'Ազգանուն', N'Հայրանուն', NULL, 1, 1, 1)
+INSERT[dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], [BirthDate], [GenderID], [CourtID], [SpecializationID]) VALUES(2, N'Թեկնածու 2', N'Ազգանուն', N'Հայրանուն', NULL, 1, 2, 2)
+INSERT[dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], [BirthDate], [GenderID], [CourtID], [SpecializationID]) VALUES(3, N'Թեկնածու 3', N'Ազգանուն', N'Հայրանուն', NULL, 2, 3, 3)
+INSERT[dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], [BirthDate], [GenderID], [CourtID], [SpecializationID]) VALUES(4, N'Թեկնածու 4', N'Ազգանուն', N'Հայրանուն', NULL, 1, 4, 1)
+INSERT[dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], [BirthDate], [GenderID], [CourtID], [SpecializationID]) VALUES(5, N'Թեկնածու 5', N'Ազգանուն', N'Հայրանուն', NULL, 1, 5, 2)
+SET IDENTITY_INSERT[dbo].[Candidate] OFF
+SET IDENTITY_INSERT[dbo].[Setting] ON
+INSERT[dbo].[Setting]([SettingID], [SelectionName], [SelectionDate], [StartTime], [FinishTime], [SelectionCount], [ParticipantCount], [SelectionStatus]) VALUES(1, N'Թեսթային ընտրություն', '2018-01-01', '08:00', '20:00', 3, 10, 1)
+SET IDENTITY_INSERT[dbo].[Setting] OFF");
 
             var setting = db.Settings.Single();
-            int participantCount = 200;
+            int participantCount = 30;
             /////////
             CredentialService credentialService = new CredentialService(db);
             var dictionary = credentialService.GenerateCredentials((int)participantCount);
@@ -43,7 +59,7 @@ namespace stvsystem.UnitTests
 
 
 
-            int[] cycleCount = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+            int[] cycleCount = { 1, 2, 3, 4, 5 };
             Random cycleRandom = new Random();
 
 
@@ -71,7 +87,7 @@ namespace stvsystem.UnitTests
                             isRecordExists = false;
                         }
                     }
-                    
+
 
                     Result result = new Result
                     {
