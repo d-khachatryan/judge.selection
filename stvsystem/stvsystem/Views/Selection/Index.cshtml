@@ -9,6 +9,10 @@
     <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Home")"><i class="icons icon-action-undo"></i></a>
 </div>
 
+@if (ViewBag.SettingStatus == SettingStatus.InProcess)
+{
+
+
 @using (Html.BeginForm("VerifyPassword", "Selection", FormMethod.Post, new { id = "frmIndex" }))
 {
     @Html.HiddenFor(model => model.Status)
@@ -57,3 +61,41 @@
         }
     });
 </script>
+}
+else
+{
+    <div class="container-maxwidth500 margin-15 full-height">
+        <div class="card height100">
+            <div class="card-header">
+                <i class="icon icon-info"></i> Ուշադրություն
+            </div>
+            <div class="card-body">
+                <div class="maxwidth500 row">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h1 text-warning text-left mb-4">
+                                    <i class="icon icon-info"></i>
+                                </div>
+                                <div class="h4 mb-0 text-warning">Քվեարկություն չի կարող իրականացվել</div>
+                                <br />
+                                @if (ViewBag.SettingStatus == SettingStatus.Finished)
+                                {
+                                    <small class="text-muted">Քվեարկությունն ավարտված է</small>
+                                }
+                                else if (ViewBag.SettingStatus == SettingStatus.InPreparation)
+                                {
+                                    <small class="text-muted">Կարգավորումները գտնվում են մշակման փուլում</small>
+                                }
+                                else
+                                {
+                                    <small class="text-muted">Դեռևս ստեղծված չեն կարգավորումներ</small>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

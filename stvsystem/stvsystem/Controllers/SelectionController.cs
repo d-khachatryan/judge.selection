@@ -45,6 +45,13 @@ namespace stvsystem.Controllers
             {
                 Status = PasswordStatus.Initialization
             };
+
+            if (_db.Settings.Count() != 0)
+            {
+                var setting = _db.Settings.First();
+                ViewBag.SettingStatus = setting.SelectionStatus;
+            }
+
             return View("Index", item);
 
         }
