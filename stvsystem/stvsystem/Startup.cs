@@ -56,7 +56,7 @@ namespace stvsystem
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Setting}/{action=Index}/{id?}");
             });
 
             // Configure Kendo UI
