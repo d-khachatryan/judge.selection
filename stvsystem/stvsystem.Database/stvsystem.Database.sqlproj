@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />
-    <None Include="SelectionTest.sql" />
+    <None Include="selectiontest.sql" />
     <None Include="azure.publish.xml" />
     <None Include="electionresult.sql" />
   </ItemGroup>
