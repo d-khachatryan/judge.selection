@@ -1,4 +1,5 @@
-﻿GO
+﻿
+GO
 SET IDENTITY_INSERT [dbo].[Candidate] ON 
 GO
 INSERT [dbo].[Candidate] ([CandidateID], [FirstName], [LastName], [MiddleName], [BirthDate], [GenderID], [CourtID], [SpecializationID]) VALUES (1, N'Թեկնածու 1', N'Ազգանուն', N'Հայրանուն', NULL, 1, 1, 1)
