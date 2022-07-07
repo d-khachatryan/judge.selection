@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.6.362" />
     <PackageReference Include="jQuery" Version="3.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2017.3.1026" />
